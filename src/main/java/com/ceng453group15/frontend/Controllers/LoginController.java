@@ -26,9 +26,11 @@ public class LoginController {
     public Button submitButton;
     @FXML
     public Button registerPageButton;
+    @FXML
+    public Button forgotPageButton;
 
     @FXML
-    public void handleSubmitButtonAction(ActionEvent event) {
+    public void handleLoginButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();
         if(nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
