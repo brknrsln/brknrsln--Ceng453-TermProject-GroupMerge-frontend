@@ -22,4 +22,3 @@
 * Create a login page and handle user authentication via the API
 * Create a forgot password page
 * Create the main menu
-* 
