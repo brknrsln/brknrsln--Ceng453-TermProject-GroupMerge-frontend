@@ -34,6 +34,7 @@ public class LeaderboardController {
     public Button mainMenuButton;
 
     @FXML
+<<<<<<< HEAD
     public void handleAllTimeButtonAction(ActionEvent event) {
         Window owner = monthlyButton.getScene().getWindow();
         try{

@@ -6,5 +6,5 @@ public class fxmlPathConstants {
     public static final String LOGIN_PAGE = "/loginPage.fxml";
     public static final String FORGOT_PAGE = "/forgotPage.fxml";
     public static final String REGISTER_PAGE = "/registerPage.fxml";
-    public static final String LEADERBOARD_PAGE = "/leaderboardPage.fxml";
+    public static final String LEADERBOARD_PAGE = "/leaderboardsPage.fxml";
 }

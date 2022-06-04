@@ -24,7 +24,8 @@ public class MainMenuController {
         SceneController.switchToScene(event, GAME);
     }
     @FXML
-    public void handleSwitchToLeaderboardsAllTimePage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, GAME);
+
+    public void handleSwitchToLeaderboardsPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, LEADERBOARD_PAGE);
     }
 }

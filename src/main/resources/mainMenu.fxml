@@ -24,6 +24,6 @@
       <StackPane prefHeight="25.0" prefWidth="200.0" />
       <Button fx:id="playSingleButton" defaultButton="true" onAction="#handleSwitchToGameSingle" prefHeight="40" prefWidth="200" text="Single player" />
       <Button fx:id="playMultiButton" defaultButton="true" onAction="#handleSwitchToGameMulti" prefHeight="40" prefWidth="200" text="Multiplayer" />
-      <Button fx:id="leaderboardsAllTimeButton" defaultButton="true" onAction="#handleSwitchToLeaderboardsAllTimePage" prefHeight="40" prefWidth="200.0" text="Leaderboards" />
+      <Button fx:id="leaderboardsAllTimeButton" defaultButton="true" onAction="#handleSwitchToLeaderboardsPage" prefHeight="40" prefWidth="200.0" text="Leaderboards" />
    </children>
 </VBox>
