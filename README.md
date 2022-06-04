@@ -2,9 +2,6 @@
 
 **TODO:**
 
-* Create a login page and handle user authentication via the API
-* Create a forgot password page
-* Create the main menu
 * Create the game main page
 * Create game logic
 * When game over, calculate the results and save the results via the API
@@ -21,3 +18,8 @@
   @gmail.com already takes up 10 letters. NOTE: Do not forget to also increment the username field in the Game table.
 
 **DONE:**
+
+* Create a login page and handle user authentication via the API
+* Create a forgot password page
+* Create the main menu
+* 
