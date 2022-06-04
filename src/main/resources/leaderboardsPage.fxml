@@ -13,7 +13,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button defaultButton="true" layoutX="229.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSwitchToMainMenuPage" text="Back to main menu" textAlignment="CENTER" />
+      <Button defaultButton="true" layoutX="229.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSwitchToMainMenu" text="Back to main menu" textAlignment="CENTER" />
       <Button layoutX="200.0" layoutY="91.0" mnemonicParsing="false" text="Weekly" textAlignment="CENTER" />
       <Button alignment="CENTER" layoutX="266.0" layoutY="91.0" mnemonicParsing="false" text="Monthly" textAlignment="CENTER" />
       <Button alignment="CENTER_RIGHT" layoutX="337.0" layoutY="91.0" mnemonicParsing="false" text="All Time" textAlignment="CENTER" />
