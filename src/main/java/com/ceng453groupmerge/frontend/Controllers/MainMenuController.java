@@ -15,14 +15,14 @@ public class MainMenuController {
 
     @FXML
     public void handleSwitchToGameSingle(ActionEvent event) throws IOException {
-        SceneController.switchToGameSingle(event);
+        SceneController.switchToScene(event, "/game.fxml");
     }
     @FXML
     public void handleSwitchToGameMulti(ActionEvent event) throws IOException {
-        SceneController.switchToGameMulti(event);
+        SceneController.switchToScene(event, "/game.fxml");
     }
     @FXML
     public void handleSwitchToLeaderboardsAllTimePage(ActionEvent event) throws IOException {
-        SceneController.switchToLeaderboardsAllTimePage(event);
+        SceneController.switchToScene(event, "/game.fxml");
     }
 }
