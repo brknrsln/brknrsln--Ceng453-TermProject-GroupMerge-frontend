@@ -51,8 +51,8 @@ public class RegisterController {
 
         try{
             AuthRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
-            AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
-                    "Welcome " + nameField.getText());
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Success!",
+                    "Registration successful for " + nameField.getText());
         }catch (Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Registration Failed!");
         }
