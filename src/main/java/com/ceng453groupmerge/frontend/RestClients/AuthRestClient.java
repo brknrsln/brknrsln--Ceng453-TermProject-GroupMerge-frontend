@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.ceng453groupmerge.frontend.Constants.AuthConstants.*;
+import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
 
 public class AuthRestClient {
     private static final WebClient webClient = WebClient.create("https://ceng453-termproject-groupMerge.herokuapp.com");

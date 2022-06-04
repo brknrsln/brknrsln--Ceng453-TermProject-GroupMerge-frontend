@@ -1,7 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
-import com.ceng453groupmerge.frontend.Constants.ErrorMessages;
+import com.ceng453groupmerge.frontend.Constants.ErrorConstants;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,34 +32,8 @@ public class LeaderboardController {
     public Button mainMenuButton;
 
     @FXML
-    public void handleLoginButtonAction(ActionEvent event) {
-        Window owner = submitButton.getScene().getWindow();
-        if(nameField.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_NAME_ERROR);
-            return;
-        }
-        if(passwordField.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_PASSWORD_ERROR);
-            return;
-        }
-
-        try{
-            AuthRestClient.login(nameField.getText(), passwordField.getText());
-            SceneController.switchToScene(event, "/mainMenu.fxml");
-        }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Login Failed!");
-        }
+    public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, "/loginPage.fxml");
     }
 
-    @FXML
-    void handleSwitchToRegisterPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/registerPage.fxml");
-    }
-
-    @FXML
-    void handleSwitchToForgotPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/forgotPage.fxml");
-    }
 }

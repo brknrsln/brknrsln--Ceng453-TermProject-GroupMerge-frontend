@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.Constants;
 
-public class ErrorMessages {
+public class ErrorConstants {
     public static final String REGISTER_NAME_ALREADY_IN_USE_ERROR = "Registration Failed! The usename already in use.";
     public static final String REGISTER_EMAIL_ALREADY_IN_USE_ERROR = "Registration Failed! The email already in use.";
     public static final String EMPTY_NAME_ERROR = "Please enter a username.";

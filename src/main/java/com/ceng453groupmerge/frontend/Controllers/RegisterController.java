@@ -1,7 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
-import com.ceng453groupmerge.frontend.Constants.ErrorMessages;
+import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,17 +35,17 @@ public class RegisterController {
         Window owner = submitButton.getScene().getWindow();
         if(nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_NAME_ERROR);
+                    EMPTY_NAME_ERROR);
             return;
         }
         if(emailField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_EMAIL_ERROR);
+                    EMPTY_EMAIL_ERROR);
             return;
         }
         if(passwordField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_PASSWORD_ERROR);
+                    EMPTY_PASSWORD_ERROR);
             return;
         }
 
