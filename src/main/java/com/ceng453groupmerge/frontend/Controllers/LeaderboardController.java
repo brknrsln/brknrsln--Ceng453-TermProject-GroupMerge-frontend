@@ -32,8 +32,8 @@ public class LeaderboardController {
     public Button mainMenuButton;
 
     @FXML
-    public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/loginPage.fxml");
+    public void handleSwitchToMainMenuPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, "/mainMenu.fxml");
     }
 
 }

@@ -22,7 +22,7 @@ public class MainMenuController {
         SceneController.switchToScene(event, "/game.fxml");
     }
     @FXML
-    public void handleSwitchToLeaderboardsAllTimePage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/game.fxml");
+    public void handleSwitchToLeaderboardsPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, "/leaderboardsPage.fxml");
     }
 }

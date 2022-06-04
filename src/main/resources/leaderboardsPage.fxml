@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.LeaderboardController">
+   <children>
+      <Label layoutX="211.0" layoutY="14.0" text="Leaderboards">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button defaultButton="true" layoutX="229.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleSwitchToMainMenuPage" text="Back to main menu" textAlignment="CENTER" />
+      <Button layoutX="200.0" layoutY="91.0" mnemonicParsing="false" text="Weekly" textAlignment="CENTER" />
+      <Button alignment="CENTER" layoutX="266.0" layoutY="91.0" mnemonicParsing="false" text="Monthly" textAlignment="CENTER" />
+      <Button alignment="CENTER_RIGHT" layoutX="337.0" layoutY="91.0" mnemonicParsing="false" text="All Time" textAlignment="CENTER" />
+      <ScrollPane layoutX="27.0" layoutY="130.0" prefHeight="250.0" prefWidth="550.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
