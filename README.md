@@ -2,12 +2,16 @@
 
 **TODO:**
 
+* Create leaderboards page(s) and fill it with information from the API
 * Create the game main page
 * Create game logic
+* Create the cheat code
 * When game over, calculate the results and save the results via the API
+* Create a "how to play" page
 
 **NOTES (Copied from the backend repo):**
 
+* Change the /game/save function to save only one instance of the game. If we save two instances, who'll do the saving operation in multiplayer? Instead, in singleplayer, when game over, call /game/save twice (don't even need to do that if we don't intend to show AI on leaderboards, since leaderboards only checks "player" and not "opponent")
 * While doing front-end, we need to handle the "you're logged in but your session token wasn't found on the server,
   bring up session timed out message" event.
 * During front-end work, iterate over the Iterable fields via forEach to extract only the (player, player_score) fields.
