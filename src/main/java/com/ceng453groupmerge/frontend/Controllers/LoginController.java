@@ -57,6 +57,6 @@ public class LoginController {
 
     @FXML
     void handleSwitchToForgotPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/registerPage.fxml");
+        SceneController.switchToScene(event, "/forgotPage.fxml");
     }
 }
