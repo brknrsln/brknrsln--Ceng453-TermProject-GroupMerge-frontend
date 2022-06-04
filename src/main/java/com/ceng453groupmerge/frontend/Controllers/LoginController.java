@@ -1,6 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
+import com.ceng453groupmerge.frontend.Constants.ErrorMessages;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,12 +34,12 @@ public class LoginController {
         Window owner = submitButton.getScene().getWindow();
         if(nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your name");
+                    ErrorMessages.EMPTY_NAME_ERROR);
             return;
         }
         if(passwordField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter a password");
+                    ErrorMessages.EMPTY_PASSWORD_ERROR);
             return;
         }
 

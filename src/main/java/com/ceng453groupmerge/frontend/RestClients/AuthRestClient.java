@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import static com.ceng453groupmerge.frontend.Constants.AuthConstants.*;
 
 public class AuthRestClient {
-    private static final WebClient webClient = WebClient.create("https://ceng453-term-project-group15.herokuapp.com");
+    private static final WebClient webClient = WebClient.create("https://ceng453-termproject-groupMerge.herokuapp.com");
 
     //return the access token if success
     public static String login(String username, String password){

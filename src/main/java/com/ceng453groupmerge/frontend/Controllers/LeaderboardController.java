@@ -15,32 +15,28 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class RegisterController {
+public class LeaderboardController {
     @FXML
     public TextField nameField;
-
-    @FXML
-    public TextField emailField;
 
     @FXML
     public PasswordField passwordField;
 
     @FXML
-    public Button submitButton;
+    public Button allTimeButton;
     @FXML
-    public Button loginPageButton;
+    public Button weeklyButton;
+    @FXML
+    public Button monthlyButton;
+    @FXML
+    public Button mainMenuButton;
 
     @FXML
-    public void handleSubmitButtonAction(ActionEvent event) {
+    public void handleLoginButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();
         if(nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     ErrorMessages.EMPTY_NAME_ERROR);
-            return;
-        }
-        if(emailField.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    ErrorMessages.EMPTY_EMAIL_ERROR);
             return;
         }
         if(passwordField.getText().isEmpty()) {
@@ -50,17 +46,20 @@ public class RegisterController {
         }
 
         try{
-            AuthRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
-            AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
-                    "Welcome " + nameField.getText());
+            AuthRestClient.login(nameField.getText(), passwordField.getText());
+            SceneController.switchToScene(event, "/mainMenu.fxml");
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Registration Failed!");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Login Failed!");
         }
-
     }
 
     @FXML
-    public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/loginPage.fxml");
+    void handleSwitchToRegisterPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, "/registerPage.fxml");
+    }
+
+    @FXML
+    void handleSwitchToForgotPage(ActionEvent event) throws IOException {
+        SceneController.switchToScene(event, "/forgotPage.fxml");
     }
 }
