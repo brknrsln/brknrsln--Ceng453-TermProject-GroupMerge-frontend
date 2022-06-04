@@ -55,7 +55,7 @@ public class RegisterController {
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Success!",
                     "Registration successful for " + nameField.getText());
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Registration Failed!");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
 
     }

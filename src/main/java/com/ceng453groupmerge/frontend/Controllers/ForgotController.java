@@ -41,7 +41,7 @@ public class ForgotController {
             AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Success",
                     "Sent password reset link to " + emailField.getText());
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Email not found!");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
 
     }
