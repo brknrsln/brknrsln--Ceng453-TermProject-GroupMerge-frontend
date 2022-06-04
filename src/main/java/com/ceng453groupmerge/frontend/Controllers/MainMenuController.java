@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.springframework.stereotype.Component;
+import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
+
 
 import java.io.IOException;
 
@@ -15,14 +17,14 @@ public class MainMenuController {
 
     @FXML
     public void handleSwitchToGameSingle(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/game.fxml");
+        SceneController.switchToScene(event, GAME);
     }
     @FXML
     public void handleSwitchToGameMulti(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/game.fxml");
+        SceneController.switchToScene(event, GAME);
     }
     @FXML
     public void handleSwitchToLeaderboardsAllTimePage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/game.fxml");
+        SceneController.switchToScene(event, GAME);
     }
 }

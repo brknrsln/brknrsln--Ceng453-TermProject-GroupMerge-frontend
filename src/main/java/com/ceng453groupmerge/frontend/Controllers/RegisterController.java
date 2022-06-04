@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import org.springframework.stereotype.Component;
@@ -61,6 +62,6 @@ public class RegisterController {
 
     @FXML
     public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/loginPage.fxml");
+        SceneController.switchToScene(event, LOGIN_PAGE);
     }
 }

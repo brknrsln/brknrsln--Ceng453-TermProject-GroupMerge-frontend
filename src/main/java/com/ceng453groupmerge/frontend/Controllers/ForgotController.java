@@ -9,6 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import org.springframework.stereotype.Component;
+import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
+import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
+
+
 
 import java.io.IOException;
 
@@ -28,7 +32,7 @@ public class ForgotController {
         Window owner = submitButton.getScene().getWindow();
         if(emailField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your email address");
+                    EMPTY_EMAIL_ERROR);
             return;
         }
 
@@ -44,6 +48,6 @@ public class ForgotController {
 
     @FXML
     public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/loginPage.fxml");
+        SceneController.switchToScene(event, LOGIN_PAGE);
     }
 }

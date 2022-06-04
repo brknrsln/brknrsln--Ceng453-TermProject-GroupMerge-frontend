@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
 import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
+import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,19 +46,19 @@ public class LoginController {
 
         try{
             AuthRestClient.login(nameField.getText(), passwordField.getText());
-            SceneController.switchToScene(event, "/mainMenu.fxml");
+            SceneController.switchToScene(event, MAIN_MENU);
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Login Failed!");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
     }
 
     @FXML
     void handleSwitchToRegisterPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/registerPage.fxml");
+        SceneController.switchToScene(event, REGISTER_PAGE);
     }
 
     @FXML
     void handleSwitchToForgotPage(ActionEvent event) throws IOException {
-        SceneController.switchToScene(event, "/forgotPage.fxml");
+        SceneController.switchToScene(event, FORGOT_PAGE);
     }
 }
