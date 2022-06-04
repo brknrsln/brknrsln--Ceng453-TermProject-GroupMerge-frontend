@@ -1,4 +1,4 @@
-# Ceng453_TermProject_Group15_frontend
+# Ceng453_TermProject_GroupMerge_frontend
 
 **TODO:**
 
