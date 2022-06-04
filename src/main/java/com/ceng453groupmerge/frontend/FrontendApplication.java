@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend;
+package com.ceng453groupmerge.frontend;
 
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

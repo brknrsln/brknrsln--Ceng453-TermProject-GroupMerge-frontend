@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend;
+package com.ceng453groupmerge.frontend;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Window;

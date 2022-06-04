@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453group15.frontend.Controllers.RegisterController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.RegisterController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="REGISTER" textAlignment="CENTER" textFill="#1415fa" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>

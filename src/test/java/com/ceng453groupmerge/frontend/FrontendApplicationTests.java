@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend;
+package com.ceng453groupmerge.frontend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

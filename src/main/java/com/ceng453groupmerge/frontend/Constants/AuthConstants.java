@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend.Constants;
+package com.ceng453groupmerge.frontend.Constants;
 
 public class AuthConstants {
     public static final String LOGIN_AUTH = "/auth/login";

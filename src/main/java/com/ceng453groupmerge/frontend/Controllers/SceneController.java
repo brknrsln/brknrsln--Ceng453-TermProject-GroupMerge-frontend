@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend.Controllers;
+package com.ceng453groupmerge.frontend.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

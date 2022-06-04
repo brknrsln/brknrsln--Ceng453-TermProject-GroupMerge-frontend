@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453group15.frontend.Controllers.LoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.LoginController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="LOGIN" textAlignment="CENTER" textFill="#1415fa" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
@@ -33,12 +32,12 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </TextField>
-      <PasswordField fx:id="passwordField" maxHeight="40.0" maxWidth="200.0" prefHeight="40" prefWidth="200.0" promptText="Password">
+      <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40" prefWidth="200.0" promptText="Password">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </PasswordField>
-      <Button fx:id="submitButton" defaultButton="true" onAction="#handleLoginButtonAction" prefHeight="40" prefWidth="100" style="-fx-background-color: #1415FA;" text="Login" textAlignment="CENTER" textFill="#fffefe">
+      <Button fx:id="submitButton" defaultButton="true" onAction="#handleLoginButtonAction" prefHeight="40" prefWidth="100" style="-fx-background-color: #1415FA;" text="Login" textAlignment="CENTER" textFill="WHITE">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>

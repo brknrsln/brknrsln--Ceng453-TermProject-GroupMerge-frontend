@@ -1,9 +1,10 @@
-package com.ceng453group15.frontend;
+package com.ceng453groupmerge.frontend;
 
-import com.ceng453group15.frontend.LoginPage.StageReadyEvent;
+import com.ceng453groupmerge.frontend.LoginPage.StageReadyEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -31,8 +32,9 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             FXMLLoader fxmlLoader = new FXMLLoader(mainMenuResource.getURL());
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent parent = fxmlLoader.load();
-
+            Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
             Stage stage = event.getStage();
+            stage.getIcons().add(icon);
             stage.setScene(new Scene(parent));
             stage.setTitle(applicationTitle);
             stage.show();

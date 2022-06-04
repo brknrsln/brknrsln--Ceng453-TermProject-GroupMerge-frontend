@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend.Controllers;
+package com.ceng453groupmerge.frontend.Controllers;
 
 //A simple class to store username and access token
 public class CredentialController {

@@ -1,14 +1,8 @@
-package com.ceng453group15.frontend.Controllers;
+package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453group15.frontend.AlertHelper;
-import com.ceng453group15.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Window;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

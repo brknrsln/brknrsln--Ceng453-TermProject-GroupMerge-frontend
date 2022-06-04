@@ -1,7 +1,7 @@
-package com.ceng453group15.frontend.Controllers;
+package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453group15.frontend.AlertHelper;
-import com.ceng453group15.frontend.RestClients.AuthRestClient;
+import com.ceng453groupmerge.frontend.AlertHelper;
+import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,12 +14,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class RegisterController {
+public class LoginController {
     @FXML
     public TextField nameField;
-
-    @FXML
-    public TextField emailField;
 
     @FXML
     public PasswordField passwordField;
@@ -27,19 +24,16 @@ public class RegisterController {
     @FXML
     public Button submitButton;
     @FXML
-    public Button loginPageButton;
+    public Button registerPageButton;
+    @FXML
+    public Button forgotPageButton;
 
     @FXML
-    public void handleSubmitButtonAction(ActionEvent event) {
+    public void handleLoginButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();
         if(nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter your name");
-            return;
-        }
-        if(emailField.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your email id");
             return;
         }
         if(passwordField.getText().isEmpty()) {
@@ -49,17 +43,20 @@ public class RegisterController {
         }
 
         try{
-            AuthRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
-            AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
-                    "Welcome " + nameField.getText());
+            AuthRestClient.login(nameField.getText(), passwordField.getText());
+            SceneController.switchToMainMenu(event);
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Registration Failed!");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Login Failed!");
         }
-
     }
 
     @FXML
-    public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToLoginPage(event);
+    void handleSwitchToRegisterPage(ActionEvent event) throws IOException {
+        SceneController.switchToRegisterPage(event);
+    }
+
+    @FXML
+    void handleSwitchToForgotPage(ActionEvent event) throws IOException {
+        SceneController.switchToForgotPage(event);
     }
 }

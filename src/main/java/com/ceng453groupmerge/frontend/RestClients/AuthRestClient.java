@@ -1,4 +1,4 @@
-package com.ceng453group15.frontend.RestClients;
+package com.ceng453groupmerge.frontend.RestClients;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.ceng453group15.frontend.Constants.AuthConstants.*;
+import static com.ceng453groupmerge.frontend.Constants.AuthConstants.*;
 
 public class AuthRestClient {
     private static final WebClient webClient = WebClient.create("https://ceng453-term-project-group15.herokuapp.com");

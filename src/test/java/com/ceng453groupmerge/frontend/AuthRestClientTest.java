@@ -1,6 +1,6 @@
-package com.ceng453group15.frontend;
+package com.ceng453groupmerge.frontend;
 
-import com.ceng453group15.frontend.RestClients.AuthRestClient;
+import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
