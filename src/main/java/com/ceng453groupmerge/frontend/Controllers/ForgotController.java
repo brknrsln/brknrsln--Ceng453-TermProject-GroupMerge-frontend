@@ -44,6 +44,6 @@ public class ForgotController {
 
     @FXML
     public void handleSwitchToLoginPage(ActionEvent event) throws IOException {
-        SceneController.switchToLoginPage(event);
+        SceneController.switchToScene(event, "/loginPage.fxml");
     }
 }

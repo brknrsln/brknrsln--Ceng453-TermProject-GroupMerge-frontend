@@ -44,7 +44,7 @@ public class LoginController {
 
         try{
             AuthRestClient.login(nameField.getText(), passwordField.getText());
-            SceneController.switchToMainMenu(event);
+            SceneController.switchToScene(event, "/mainMenu.fxml");
         }catch (Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", "Login Failed!");
         }
@@ -52,11 +52,11 @@ public class LoginController {
 
     @FXML
     void handleSwitchToRegisterPage(ActionEvent event) throws IOException {
-        SceneController.switchToRegisterPage(event);
+        SceneController.switchToScene(event, "/registerPage.fxml");
     }
 
     @FXML
     void handleSwitchToForgotPage(ActionEvent event) throws IOException {
-        SceneController.switchToForgotPage(event);
+        SceneController.switchToScene(event, "/registerPage.fxml");
     }
 }
