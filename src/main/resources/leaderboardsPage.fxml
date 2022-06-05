@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -16,62 +17,65 @@
    <children>
       <VBox alignment="CENTER" prefHeight="413.0" prefWidth="300.0">
          <children>
-            <Label text="Leaderboards">
+            <StackPane layoutX="10.0" layoutY="56.0" prefHeight="40.0" prefWidth="200.0" />
+            <Label text="LEADERBOARDS" textFill="#1415fa">
                <font>
-                  <Font size="26.0" />
+                  <Font name="Calibri" size="40.0" />
                </font>
             </Label>
-            <Button fx:id="mainMenuButton" defaultButton="true" mnemonicParsing="false" onAction="#handleSwitchToMainMenu" text="Back to main menu" textAlignment="CENTER" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <StackPane prefHeight="80.0" prefWidth="200.0" />
+            <Button fx:id="mainMenuButton" defaultButton="true" mnemonicParsing="false" onAction="#handleSwitchToMainMenu" text="Back to menu" textAlignment="CENTER" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <Button fx:id="weeklyButton" mnemonicParsing="false" onAction="#handleWeeklyButtonAction" text="Weekly" textAlignment="CENTER" />
                   <Button fx:id="monthlyButton" mnemonicParsing="false" onAction="#handleMonthlyButtonAction" text="Monthly" textAlignment="CENTER" />
                   <Button fx:id="allTimeButton" mnemonicParsing="false" onAction="#handleAllTimeButtonAction" text="All Time" textAlignment="CENTER" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
-               </children>
-            </HBox>
-            <GridPane alignment="CENTER" prefHeight="83.0" prefWidth="297.0">
+            <GridPane alignment="CENTER" prefHeight="30.0" prefWidth="297.0">
                <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="60.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="213.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="84.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="80.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <StackPane prefWidth="30.0" />
-                        <Label alignment="CENTER" text="Username" textAlignment="CENTER" />
+                        <Label alignment="CENTER" text="Username" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
                      </children>
-                  </HBox>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  </VBox>
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                      <children>
-                        <StackPane prefWidth="10.0" />
-                        <Label text="Score" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
+                        <Label text="Score" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                     </children></VBox>
                </children>
             </GridPane>
-            <ScrollPane prefHeight="250.0" prefWidth="200.0" vbarPolicy="NEVER">
+            <ScrollPane prefHeight="250.0" prefWidth="200.0" style="-fx-background-color: GRAY;" vbarPolicy="NEVER">
                <content>
-                  <GridPane prefHeight="83.0" prefWidth="297.0">
+                  <GridPane fx:id="gridPane" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="297.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="213.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="84.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="56.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="228.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="80.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
                </content>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
             </ScrollPane>
          </children>
       </VBox>
