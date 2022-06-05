@@ -19,6 +19,8 @@ import java.io.IOException;
 @Component
 public class ForgotController {
 
+    private AuthRestClient authRestClient = AuthRestClient.getInstance();
+
     @FXML
     public TextField emailField;
 
@@ -26,6 +28,9 @@ public class ForgotController {
     public Button submitButton;
     @FXML
     public Button loginPageButton;
+
+    public ForgotController() throws IOException {
+    }
 
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) {
@@ -37,7 +42,7 @@ public class ForgotController {
         }
 
         try{
-            AuthRestClient.forgot(emailField.getText());
+            authRestClient.forgot(emailField.getText());
             AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Success",
                     "Sent password reset link to " + emailField.getText());
         }catch (Exception e){
