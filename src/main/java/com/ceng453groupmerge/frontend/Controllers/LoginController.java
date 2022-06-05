@@ -48,7 +48,7 @@ public class LoginController {
             AuthRestClient.login(nameField.getText(), passwordField.getText());
             SceneController.switchToScene(event, MAIN_MENU);
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", LOGIN_FAILED);
         }
     }
 
