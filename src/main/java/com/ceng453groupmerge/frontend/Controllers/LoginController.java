@@ -1,11 +1,10 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
-import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
-import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -14,9 +13,15 @@ import javafx.stage.Window;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
+import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 
 @Component
-public class LoginController {
+public class LoginController implements Initializable {
     @FXML
     public TextField nameField;
 
@@ -37,6 +42,9 @@ public class LoginController {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     EMPTY_NAME_ERROR);
             return;
+        } else {
+            Preferences prefs = Preferences.userRoot().node("Monopoly");
+            prefs.put("name", nameField.getText());
         }
         if(passwordField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
@@ -60,5 +68,10 @@ public class LoginController {
     @FXML
     void handleSwitchToForgotPage(ActionEvent event) throws IOException {
         SceneController.switchToScene(event, FORGOT_PAGE);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        nameField.setText(Preferences.userRoot().node("Monopoly").get("name", ""));
     }
 }
