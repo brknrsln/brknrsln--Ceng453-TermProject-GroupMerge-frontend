@@ -19,12 +19,6 @@ import java.io.IOException;
 @Component
 public class LeaderboardController {
     @FXML
-    public TextField nameField;
-
-    @FXML
-    public PasswordField passwordField;
-
-    @FXML
     public Button allTimeButton;
     @FXML
     public Button monthlyButton;
@@ -35,7 +29,7 @@ public class LeaderboardController {
 
     @FXML
     public void handleAllTimeButtonAction(ActionEvent event) {
-        Window owner = monthlyButton.getScene().getWindow();
+        Window owner = allTimeButton.getScene().getWindow();
         try{
             LeaderboardRestClient.getAllTimeLeaderboard();
         }catch(Exception e){
@@ -47,7 +41,8 @@ public class LeaderboardController {
     public void handleMonthlyButtonAction(ActionEvent event) {
         Window owner = monthlyButton.getScene().getWindow();
         try{
-            LeaderboardRestClient.getMonthlyLeaderboard();
+            Object obj = LeaderboardRestClient.getMonthlyLeaderboard();
+            // System.out.println(obj.toString());
         }catch(Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
@@ -56,7 +51,7 @@ public class LeaderboardController {
 
     @FXML
     public void handleWeeklyButtonAction(ActionEvent event) {
-        Window owner = monthlyButton.getScene().getWindow();
+        Window owner = weeklyButton.getScene().getWindow();
         try{
             LeaderboardRestClient.getWeeklyLeaderboard();
         }catch(Exception e){

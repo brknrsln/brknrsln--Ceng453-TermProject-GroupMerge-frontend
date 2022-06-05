@@ -21,12 +21,12 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleSwitchToMainMenu" text="Back to main menu" textAlignment="CENTER" />
+            <Button fx:id="mainMenuButton" defaultButton="true" mnemonicParsing="false" onAction="#handleSwitchToMainMenu" text="Back to main menu" textAlignment="CENTER" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Weekly" textAlignment="CENTER" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Monthly" textAlignment="CENTER" />
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="All Time" textAlignment="CENTER" />
+                  <Button fx:id="weeklyButton" mnemonicParsing="false" onAction="#handleWeeklyButtonAction" text="Weekly" textAlignment="CENTER" />
+                  <Button fx:id="monthlyButton" mnemonicParsing="false" onAction="#handleMonthlyButtonAction" text="Monthly" textAlignment="CENTER" />
+                  <Button fx:id="allTimeButton" mnemonicParsing="false" onAction="#handleAllTimeButtonAction" text="All Time" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
