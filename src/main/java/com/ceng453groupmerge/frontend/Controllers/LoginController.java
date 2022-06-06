@@ -22,6 +22,8 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 
 @Component
 public class LoginController implements Initializable {
+    private  AuthRestClient authRestClient = AuthRestClient.getInstance();
+
     @FXML
     public TextField nameField;
 
@@ -34,6 +36,9 @@ public class LoginController implements Initializable {
     public Button registerPageButton;
     @FXML
     public Button forgotPageButton;
+
+    public LoginController() throws IOException {
+    }
 
     @FXML
     public void handleLoginButtonAction(ActionEvent event) {
@@ -53,10 +58,10 @@ public class LoginController implements Initializable {
         }
 
         try{
-            AuthRestClient.login(nameField.getText(), passwordField.getText());
+            authRestClient.login(nameField.getText(), passwordField.getText());
             SceneController.switchToScene(event, MAIN_MENU);
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", LOGIN_FAILED);
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, e.getMessage(), LOGIN_FAILED);
         }
     }
 

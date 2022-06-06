@@ -20,7 +20,7 @@
             <StackPane layoutX="10.0" layoutY="56.0" prefHeight="40.0" prefWidth="200.0" />
             <Label text="LEADERBOARDS" textFill="#1415fa">
                <font>
-                  <Font name="Calibri" size="40.0" />
+                  <Font name="Calibri" size="35.0" />
                </font>
             </Label>
             <StackPane prefHeight="80.0" prefWidth="200.0" />

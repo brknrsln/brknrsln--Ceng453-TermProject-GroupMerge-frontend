@@ -17,6 +17,9 @@ import java.io.IOException;
 
 @Component
 public class RegisterController {
+
+    private  AuthRestClient authRestClient = AuthRestClient.getInstance();
+
     @FXML
     public TextField nameField;
 
@@ -30,6 +33,9 @@ public class RegisterController {
     public Button submitButton;
     @FXML
     public Button loginPageButton;
+
+    public RegisterController() throws IOException {
+    }
 
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) {
@@ -51,11 +57,11 @@ public class RegisterController {
         }
 
         try{
-            AuthRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
+            authRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Success!",
                     "Registration successful for " + nameField.getText());
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", REGISTER_FAILED);
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, e.getMessage(), REGISTER_FAILED);
         }
 
     }
