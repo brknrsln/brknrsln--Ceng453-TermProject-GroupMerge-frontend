@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
             authRestClient.login(nameField.getText(), passwordField.getText());
             SceneController.switchToScene(event, MAIN_MENU);
         }catch (Exception e){
-            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, e.getMessage(), LOGIN_FAILED);
+            AlertHelper.showAlert(Alert.AlertType.ERROR, owner, LOGIN_FAILED, e.getMessage());
         }
     }
 
