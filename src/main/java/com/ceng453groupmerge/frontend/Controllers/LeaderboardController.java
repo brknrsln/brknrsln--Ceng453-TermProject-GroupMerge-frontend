@@ -1,6 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.AlertHelper;
+import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import com.ceng453groupmerge.frontend.RestClients.LeaderboardRestClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +25,8 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.MAIN_ME
 
 @Component
 public class LeaderboardController {
+    private LeaderboardRestClient leaderboardRestClient = LeaderboardRestClient.getInstance();
+
     @FXML
     public Button allTimeButton;
     @FXML
@@ -35,11 +38,14 @@ public class LeaderboardController {
     @FXML
     public GridPane gridPane;
 
+    public LeaderboardController() throws IOException {
+    }
+
     @FXML
     public void handleAllTimeButtonAction(ActionEvent event) {
         Window owner = allTimeButton.getScene().getWindow();
         try{
-            ArrayList<Object> arr = (ArrayList<Object>) LeaderboardRestClient.getAllTimeLeaderboard();
+            ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getAllTimeLeaderboard();
             updateLeaderboard(arr);
         }catch(Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
@@ -50,7 +56,7 @@ public class LeaderboardController {
     public void handleMonthlyButtonAction(ActionEvent event) {
         Window owner = monthlyButton.getScene().getWindow();
         try{
-            ArrayList<Object> arr = (ArrayList<Object>) LeaderboardRestClient.getMonthlyLeaderboard();
+            ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getMonthlyLeaderboard();
             updateLeaderboard(arr);
         }catch(Exception e){
             e.printStackTrace();
@@ -63,7 +69,7 @@ public class LeaderboardController {
     public void handleWeeklyButtonAction(ActionEvent event) {
         Window owner = weeklyButton.getScene().getWindow();
         try{
-            ArrayList<Object> arr = (ArrayList<Object>) LeaderboardRestClient.getWeeklyLeaderboard();
+            ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getWeeklyLeaderboard();
             updateLeaderboard(arr);
         }catch(Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
