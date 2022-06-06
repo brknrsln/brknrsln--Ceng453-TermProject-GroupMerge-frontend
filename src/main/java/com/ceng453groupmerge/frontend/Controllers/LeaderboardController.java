@@ -3,6 +3,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 import com.ceng453groupmerge.frontend.AlertHelper;
 import com.ceng453groupmerge.frontend.RestClients.LeaderboardRestClient;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -79,7 +80,7 @@ public class LeaderboardController {
 
     private void updateLeaderboard(ArrayList<Object> arr) {
         gridPane.getChildren().clear();
-        gridPane.getChildren().removeAll( gridPane.getChildren());
+        gridPane.getChildren().removeAll(gridPane.getChildren());
         int count = 0;
         for(Object obj:arr) {
             LinkedHashMap<String,?> hashMap = (LinkedHashMap) obj;
@@ -104,8 +105,14 @@ public class LeaderboardController {
             vBox1.getChildren().add(label1);
             vBox2.getChildren().add(new Label(hashMap.get("player").toString()));
             vBox3.getChildren().add(new Label(hashMap.get("player_score").toString()));
-            System.out.println(hashMap.get("player")+" "+hashMap.get("player_score"));
+//            System.out.println(hashMap.get("player")+" "+hashMap.get("player_score"));
 //            count++;
         }
+    }
+
+    @FXML
+    private void initialize()
+    {
+//        handleAllTimeButtonAction(new ActionEvent()); // TODO: Look into this. When we run this function, we get a nullPointerException because seemingly, allTimeButton is null. However, initialize runs AFTER the FXML injections, so this should not be the case. Why doesn't it run?
     }
 }
