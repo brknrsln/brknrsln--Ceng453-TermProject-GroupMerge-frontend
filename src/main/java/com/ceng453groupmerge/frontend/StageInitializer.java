@@ -32,7 +32,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             FXMLLoader fxmlLoader = new FXMLLoader(mainMenuResource.getURL());
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent parent = fxmlLoader.load();
-            Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+            Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
             Stage stage = event.getStage();
             stage.getIcons().add(icon);
             stage.setScene(new Scene(parent));

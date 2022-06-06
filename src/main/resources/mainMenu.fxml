@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@title.png" />
+            <Image url="@images/title.png" />
          </image>
       </ImageView>
       <Label text="MENU" textAlignment="CENTER">
@@ -21,8 +21,17 @@
          </font>
       </Label>
       <StackPane prefHeight="25.0" prefWidth="200.0" />
-      <Button fx:id="playSingleButton" defaultButton="true" onAction="#handleSwitchToGameSingle" prefHeight="40" prefWidth="200" text="Single player" />
-      <Button fx:id="playMultiButton" defaultButton="true" onAction="#handleSwitchToGameMulti" prefHeight="40" prefWidth="200" text="Multiplayer" />
-      <Button fx:id="leaderboardsAllTimeButton" defaultButton="true" onAction="#handleSwitchToLeaderboardsPage" prefHeight="40" prefWidth="200.0" text="Leaderboards" />
+      <Button fx:id="playSingleButton" defaultButton="true" onAction="#handleSwitchToGameSingle" prefHeight="40" prefWidth="200" style="-fx-background-color: #1415FA;" text="Single player" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="playMultiButton" defaultButton="true" onAction="#handleSwitchToGameMulti" prefHeight="40" prefWidth="200" style="-fx-background-color: #1415FA;" text="Multiplayer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="leaderboardsAllTimeButton" defaultButton="true" onAction="#handleSwitchToLeaderboardsPage" prefHeight="40" prefWidth="200.0" style="-fx-background-color: #1415FA;" text="Leaderboards" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
    </children>
 </VBox>
