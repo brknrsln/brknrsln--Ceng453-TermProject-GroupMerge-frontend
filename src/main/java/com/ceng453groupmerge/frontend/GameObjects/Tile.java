@@ -1,4 +1,11 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-public class Tile {
+public abstract class Tile {
+    protected String tileName;
+
+    public String getTileName() {
+        return tileName;
+    }
+
+    public abstract boolean getPrice();
 }
