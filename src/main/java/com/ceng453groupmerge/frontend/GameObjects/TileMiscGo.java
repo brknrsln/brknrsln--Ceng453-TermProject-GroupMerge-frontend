@@ -8,6 +8,6 @@ public class TileMiscGo extends TileMisc {
 
     @Override
     public void tileAction(Player currentPlayer) {
-        // Does nothing
+        // Do nothing
     }
 }
