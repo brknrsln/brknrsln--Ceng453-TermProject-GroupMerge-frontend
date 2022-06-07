@@ -11,7 +11,7 @@ public class TilePurchasableRailroad extends TilePurchasable {
     @Override
     public void tileAction(Player currentPlayer) throws IOException {
         if(getOwner().equals("")) { // If tile not owned
-            // TODO: Bring up purchase buttons
+            // TODO: Bring up purchase buttons if player, figure out how to handle if AI_OVERLORD
         }
         else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
             String tileOwner = getOwner();
