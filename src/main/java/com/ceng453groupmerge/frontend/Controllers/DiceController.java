@@ -30,6 +30,7 @@ public class DiceController {
         rollButton.setDisable(true);
         dice1.setImage(dice.getDiceRandom());
         dice2.setImage(dice.getDiceRandom());
+        double rotate = 24;
 
         Thread thread = new Thread(() -> {
             try {
@@ -38,6 +39,8 @@ public class DiceController {
                     dice2Value = random.nextInt(6) + 1;
                     dice1.setImage(dice.getDiceImage(dice1Value));
                     dice2.setImage(dice.getDiceImage(dice2Value));
+                    dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
+                    dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
                     Thread.sleep(50);
                 }
                 rollButton.setDisable(false);
