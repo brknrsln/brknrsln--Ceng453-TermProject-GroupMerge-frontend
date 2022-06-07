@@ -37,7 +37,7 @@ public class DiceController {
 
 
     @FXML
-    public void rollDice() throws InterruptedException {
+    public void rollDice()  {
         rollButton.setDisable(true);
         int dice1Value1 = random.nextInt(6) + 1;
         int dice2Value1 = random.nextInt(6) + 1;
@@ -66,6 +66,5 @@ public class DiceController {
             }
         });
         thread.start();
-        thread.join();
     }
 }
