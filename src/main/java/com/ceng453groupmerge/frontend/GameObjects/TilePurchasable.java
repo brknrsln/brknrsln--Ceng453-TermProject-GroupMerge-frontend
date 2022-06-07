@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-public class TilePurchasable extends Tile { // TODO: Split this into TileStreet and TileRailroad (or something similar), we need separate tileActions
+public abstract class TilePurchasable extends Tile { // TODO: Split this into TileStreet and TileRailroad (or something similar), we need separate tileActions
 
     private final int tilePrice;
     private String tileOwner;
@@ -24,11 +24,5 @@ public class TilePurchasable extends Tile { // TODO: Split this into TileStreet 
     @Override
     public void setOwner(String newOwner) {
         tileOwner = newOwner;
-    }
-
-    @Override
-    public void tileAction() {
-        // TODO
-        System.out.println("tileAction called for purchasable "+getTileName()); // TODO: Debug, remove
     }
 }

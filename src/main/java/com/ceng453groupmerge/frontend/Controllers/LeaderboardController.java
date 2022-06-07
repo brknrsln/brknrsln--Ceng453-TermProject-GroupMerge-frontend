@@ -115,11 +115,4 @@ public class LeaderboardController {
 //            count++;
         }
     }
-
-    @FXML
-    private void initialize()
-    {
-//        TODO: Look into this. When we run this function, we get a nullPointerException because seemingly, allTimeButton is null. However, initialize runs AFTER the FXML injections, so this should not be the case. Why doesn't it run?
-//        handleAllTimeButtonAction(new ActionEvent());
-    }
 }
