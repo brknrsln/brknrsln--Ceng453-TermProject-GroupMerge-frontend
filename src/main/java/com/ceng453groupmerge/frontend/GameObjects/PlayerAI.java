@@ -18,21 +18,28 @@ public class PlayerAI extends Player {
         System.out.println("playTurn called for AI "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
-            DiceController.diceRoll(); // TODO: Remove this
-            // TODO: Initialize dice animation
+            DiceController.getInstance().rollDice(); // TODO: Remove this
+            // TODO: Initialize dice button
             // TODO: Wait for dice thread finish
-            // TODO: Check for double, increment a count if so, if count==1 player plays again, if count==2 player goes to jail, else count=0
             int diceValue = Dice.getInstance().sumDice();
-            int oldPosition = getCurrentPosition();
-            movePlayer(diceValue);
-            if(getCurrentPosition()<oldPosition) {
-                addMoney(100); // Moved over starting point
+            if(Dice.getInstance().isDouble()) consecutiveDoubles++;
+            else consecutiveDoubles = 0;
+            if(consecutiveDoubles == 2) { // If 2 consecutive doubles, go to jail and end function
+                sendToJail();
             }
-            // TODO: Print new player position and money
+            else {
+                int oldPosition = getCurrentPosition();
+                movePlayer(diceValue);
+                if(getCurrentPosition()<oldPosition) {
+                    addMoney(100); // Moved over starting point
+                }
+                // TODO: Print new player position and money
 
-            gameLogic.getTiles().get(getCurrentPosition()).tileAction(this);
-            // TODO: Above function should either perform an action or bring up the necessary buttons. Handle them.
-            // TODO: Print new player position and money
+                gameLogic.getTiles().get(getCurrentPosition()).tileAction(this);
+                // TODO: Above function should either perform an action or bring up the necessary buttons. Handle them.
+                // TODO: Print new player position and money
+            }
+            if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
         }
         try {
             Thread.sleep(50);

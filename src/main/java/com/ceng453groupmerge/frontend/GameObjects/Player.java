@@ -10,6 +10,7 @@ public abstract class Player {
     private int currentPosition = 0;
     private ArrayList<Tile> ownedProperties = new ArrayList<>();
     private int jailTime = 0;
+    public int consecutiveDoubles = 0;
 
     public String getPlayerName() {
         return playerName;
