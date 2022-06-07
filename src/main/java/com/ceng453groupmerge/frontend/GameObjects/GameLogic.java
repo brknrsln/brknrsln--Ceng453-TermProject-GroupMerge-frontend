@@ -49,7 +49,7 @@ public class GameLogic {
         return tiles;
     }
 
-    public void startGame() throws IOException {
+    public void startGame() throws IOException, InterruptedException {
         initializePlayers();
         initializeTiles();
 
