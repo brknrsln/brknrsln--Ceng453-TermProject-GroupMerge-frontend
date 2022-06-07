@@ -18,10 +18,10 @@ public class PlayerReal extends Player {
         System.out.println("playTurn called for real "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime()>0) { // If player is not jailed
+            DiceController.diceRoll(); // TODO: Remove this
             // TODO: Initialize dice button
             // TODO: Wait for dice thread finish
             // TODO: Check for double, increment a count if so, if count==1 player plays again, if count==2 player goes to jail, else count=0
-            DiceController.diceRoll();
             int diceValue = Dice.getInstance().sumDice();
             int oldPosition = getCurrentPosition();
             movePlayer(diceValue);
