@@ -17,7 +17,7 @@ public class PlayerReal extends Player {
     public void playTurn() throws IOException {
         System.out.println("playTurn called for real "+getPlayerName()); // TODO: Debug, remove
 
-        if(spendJailTime()>0) { // If player is not jailed
+        if(spendJailTime() == 0) { // If player is not jailed
             DiceController.diceRoll(); // TODO: Remove this
             // TODO: Initialize dice button
             // TODO: Wait for dice thread finish

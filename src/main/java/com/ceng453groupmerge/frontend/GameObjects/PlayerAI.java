@@ -17,7 +17,7 @@ public class PlayerAI extends Player {
     public void playTurn() throws IOException {
         System.out.println("playTurn called for AI "+getPlayerName()); // TODO: Debug, remove
 
-        if(spendJailTime()>0) { // If player is not jailed
+        if(spendJailTime() == 0) { // If player is not jailed
             DiceController.diceRoll(); // TODO: Remove this
             // TODO: Initialize dice animation
             // TODO: Wait for dice thread finish
