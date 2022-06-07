@@ -39,6 +39,10 @@ public class DiceController {
     @FXML
     public void rollDice() throws InterruptedException {
         rollButton.setDisable(true);
+        int dice1Value1 = random.nextInt(6) + 1;
+        int dice2Value1 = random.nextInt(6) + 1;
+        dice.setValue1(dice1Value1);
+        dice.setValue2(dice2Value1);
         double rotate = 24;
         Thread thread = new Thread(() -> {
             try {
@@ -52,8 +56,8 @@ public class DiceController {
                     Thread.sleep(50);
                 }
                 rollButton.setDisable(false);
-                dice.setValue1(dice1Value);
-                dice.setValue2(dice2Value);
+                dice1.setImage(dice.getDiceImage(dice1Value1));
+                dice2.setImage(dice.getDiceImage(dice2Value1));
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
