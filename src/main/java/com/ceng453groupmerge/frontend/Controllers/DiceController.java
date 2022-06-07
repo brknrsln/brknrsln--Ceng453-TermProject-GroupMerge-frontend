@@ -21,17 +21,25 @@ public class DiceController {
     private static int dice1Value;
     private static int dice2Value;
 
-    private static Dice dice = Dice.getInstance();
+    private Dice dice;
+    private static DiceController diceController;
 
-    private static Random random = new Random();
+    Random random = new Random();
+
+    public DiceController() {
+        dice = Dice.getInstance();
+        diceController = this;
+    }
+
+    public static DiceController getInstance() {
+        return diceController;
+    }
+
 
     @FXML
-    private void rollDice() {
+    public void rollDice() {
         rollButton.setDisable(true);
-        dice1.setImage(dice.getDiceRandom());
-        dice2.setImage(dice.getDiceRandom());
-        double rotate = 48;
-
+        double rotate = 24;
         Thread thread = new Thread(() -> {
             try {
                 for (int i = 0; i < 15; i++) {
@@ -41,7 +49,7 @@ public class DiceController {
                     dice2.setImage(dice.getDiceImage(dice2Value));
                     dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
                     dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 }
                 rollButton.setDisable(false);
                 dice.setValue1(dice1Value);
@@ -52,12 +60,5 @@ public class DiceController {
             }
         });
         thread.start();
-    }
-
-    public static synchronized void diceRoll() {
-        dice1Value = random.nextInt(6) + 1;
-        dice2Value = random.nextInt(6) + 1;
-        dice.setValue1(dice1Value);
-        dice.setValue2(dice2Value);
     }
 }
