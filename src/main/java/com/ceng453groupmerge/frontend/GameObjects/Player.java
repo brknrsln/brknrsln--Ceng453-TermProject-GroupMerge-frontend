@@ -75,5 +75,5 @@ public abstract class Player {
         }
     }
 
-    public abstract void playTurn() throws IOException;
+    public abstract void playTurn() throws IOException, InterruptedException;
 }

@@ -14,7 +14,7 @@ public class PlayerReal extends Player {
     }
 
     @Override
-    public void playTurn() throws IOException {
+    public void playTurn() throws IOException, InterruptedException {
         System.out.println("playTurn called for real "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed

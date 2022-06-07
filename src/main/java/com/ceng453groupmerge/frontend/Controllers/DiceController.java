@@ -37,7 +37,7 @@ public class DiceController {
 
 
     @FXML
-    public void rollDice() {
+    public void rollDice() throws InterruptedException {
         rollButton.setDisable(true);
         double rotate = 24;
         Thread thread = new Thread(() -> {
@@ -60,5 +60,6 @@ public class DiceController {
             }
         });
         thread.start();
+        thread.join();
     }
 }

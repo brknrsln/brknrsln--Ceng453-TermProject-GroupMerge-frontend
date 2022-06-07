@@ -14,7 +14,7 @@ public class PlayerAI extends Player {
     }
 
     @Override
-    public void playTurn() throws IOException {
+    public void playTurn() throws IOException, InterruptedException {
         System.out.println("playTurn called for AI "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
