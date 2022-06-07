@@ -1,0 +1,17 @@
+- When you boot up the game, you will see the login screen, which also has the ability to remember your last login username.
+- If you do not have an account, you can press the corresponding button to proceed to the register page.
+- If you do not remember your password, tough luck, because Gmail broke our password reset feature.
+
+- Once you log in, you will see 3 options: Play Singleplayer, Play Multiplayer, and Leaderboards.
+- If you press the Leaderboards button, you will be taken to the leaderboards page, where you can select one of 3 options: Weekly, Monthly, or All Time Leaderboards.
+- Currently, the Play Multiplayer button does the same thing as the Play Singleplayer button: Take you to the game page.
+
+- Each player starts with $1500 to their account. Landing on or moving over the starting line will pay $100, landing on the "Income Tax" space will deduce $50, landing on the "Go to Jail" space will make you unable to move for 2 turns, landing on an opponent-owned property space will have a rent fee of 10% of that property's price, and landing on an opponent-owned railroad space will have a rent fee of $25*however many railroads your opponent owns.
+- To start the game, you need to roll the dice. You will be moved to your new position, and where you land will have different outcomes.
+- Land on a purchasable property, and two buttons will appear: "Purchase property" and "Skip". You have the option to purchase said property by paying its price. You may also skip the purchase, which ends your turn.
+- The AI will have a 60% chance to purchase a property, given they land on a purchasable property space.
+- Landing on an opponent-owned property, or miscellaneous space, will act immediately, without giving you any button prompts.
+- Roll a double, and you may play another turn. Roll two doubles, and you go to jail, you cheater!
+- To lose the game, a player must go bankrupt (money<0). Endgame scores are calculated for each player by taking the sum of their owned property prices, and their remaining balance.
+
+- We hope you enjoy!
