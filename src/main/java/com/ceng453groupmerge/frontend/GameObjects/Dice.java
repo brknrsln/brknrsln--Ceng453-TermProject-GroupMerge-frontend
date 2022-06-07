@@ -9,10 +9,11 @@ public class Dice {
     private int value2;
     private static Dice dice;
 
-    public Dice() {
+    public static Dice getInstance() {
         if(dice == null) {
-            dice = this;
+            dice = new Dice();
         }
+        return dice;
     }
 
     public Image getDiceRandom() {
