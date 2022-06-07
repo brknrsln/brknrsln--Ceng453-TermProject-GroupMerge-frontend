@@ -58,6 +58,8 @@ public class DiceController {
                 rollButton.setDisable(false);
                 dice1.setImage(dice.getDiceImage(dice1Value1));
                 dice2.setImage(dice.getDiceImage(dice2Value1));
+                dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
+                dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
