@@ -7,5 +7,6 @@ public class URIConstants {
     public static final String ALL_TIME = "/game/leaderboardsAllTime";
     public static final String MONTHLY = "/game/leaderboards30Days";
     public static final String WEEKLY = "/game/leaderboards7Days";
-
+    public static final String SAVE_GAME = "/game/save";
+    public static final String GET_ALL_GAMES = "/game/all";
 }

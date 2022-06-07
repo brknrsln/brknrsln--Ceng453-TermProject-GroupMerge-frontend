@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
@@ -31,7 +30,8 @@ public class AuthRestClient {
             authRestClient = new AuthRestClient();
         return authRestClient;
     }
-    //return the access token if success
+
+    //return the access token if success, error message otherwise
     public String login(String username, String password){
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("username", username);
@@ -44,6 +44,7 @@ public class AuthRestClient {
             .block();
     }
 
+    //return "saved" or throw error message
     public String register(String username, String email, String password){
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("username", username);
@@ -58,6 +59,7 @@ public class AuthRestClient {
                 .block();
     }
 
+    //return ok or throw error message
     public String forgot(String email){
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("email", email);
