@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-public abstract class TilePurchasable extends Tile { // TODO: Split this into TileStreet and TileRailroad (or something similar), we need separate tileActions
+public abstract class TilePurchasable extends Tile {
 
     private final int tilePrice;
     private String tileOwner;

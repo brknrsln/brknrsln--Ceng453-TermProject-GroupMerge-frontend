@@ -32,6 +32,7 @@ public class PlayerReal extends Player {
 
             gameLogic.getTiles().get(getCurrentPosition()).tileAction(this);
             // TODO: Above function should either perform an action or bring up the necessary buttons. Handle them.
+            // TODO: Print new player position and money
         }
         try {
             Thread.sleep(50);
