@@ -25,12 +25,12 @@ public abstract class Player {
 
     public void addMoney(int x) {
         currentBalance += x;
-        //System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance); // TODO: Debug, remove
+        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance); // TODO: Debug, remove
     }
 
     public void subtractMoney(int x) {
         currentBalance -= x;
-        //System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance); // TODO: Debug, remove
+        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance); // TODO: Debug, remove
     }
 
     public int getCurrentPosition() {
