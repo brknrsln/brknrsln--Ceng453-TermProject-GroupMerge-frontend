@@ -5,11 +5,20 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class GameController {
     @FXML
     private void initialize() throws IOException {
-//        TODO: Same initialize() error as LeaderboardController. Find a way to run this function AFTER the scene has been displayed.
-//        GameLogic gameLogic = GameLogic.getInstance();
-//        gameLogic.startGame();
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(50);
+                GameLogic gameLogic = GameLogic.getInstance();
+                gameLogic.startGame();
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
     }
 }

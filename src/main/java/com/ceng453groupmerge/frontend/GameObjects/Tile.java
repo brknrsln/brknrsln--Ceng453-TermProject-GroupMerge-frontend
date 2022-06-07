@@ -1,5 +1,7 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
+import java.io.IOException;
+
 public abstract class Tile {
     private String tileName;
 
@@ -17,5 +19,7 @@ public abstract class Tile {
 
     public abstract void setOwner(String newOwner);
 
-    public abstract void tileAction();
+    public abstract void tileAction(Player currentPlayer) throws IOException;
+
+    public abstract String getType();
 }

@@ -1,10 +1,6 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-public class TileMisc extends Tile {
-
-    public TileMisc(String name) {
-        setTileName(name);
-    }
+public abstract class TileMisc extends Tile {
 
     @Override
     public int getPrice() {
@@ -21,8 +17,7 @@ public class TileMisc extends Tile {
     }
 
     @Override
-    public void tileAction() {
-        // TODO
-        System.out.println("tileAction called for miscellaneous "+getTileName()); // TODO: Debug, remove
+    public String getType() {
+        return "misc";
     }
 }
