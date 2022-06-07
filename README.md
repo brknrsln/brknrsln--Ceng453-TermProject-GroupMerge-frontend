@@ -2,12 +2,9 @@
 
 **TODO:**
 
-* Create leaderboards page(s) and fill it with information from the API
-* Create the game main page
 * Create game logic
 * Create the cheat code
 * When game over, calculate the results and save the results via the API
-* Create a "how to play" page
 
 **NOTES (Copied from the backend repo):**
 
@@ -26,3 +23,6 @@
 * Create a login page and handle user authentication via the API
 * Create a forgot password page
 * Create the main menu
+* Create a "how to play" page
+* Create leaderboards page(s) and fill it with information from the API
+* Create the game main page
