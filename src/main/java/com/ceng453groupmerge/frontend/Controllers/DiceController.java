@@ -18,12 +18,12 @@ public class DiceController {
     @FXML
     private Button rollButton;
 
-    private int dice1Value;
-    private int dice2Value;
+    private static int dice1Value;
+    private static int dice2Value;
 
-    private Dice dice = Dice.getInstance();
+    private static Dice dice = Dice.getInstance();
 
-    Random random = new Random();
+    private static Random random = new Random();
 
     @FXML
     private void rollDice() {
@@ -54,7 +54,7 @@ public class DiceController {
         thread.start();
     }
 
-    public void diceRoll() {
+    public static synchronized void diceRoll() {
         dice1Value = random.nextInt(6) + 1;
         dice2Value = random.nextInt(6) + 1;
         dice.setValue1(dice1Value);

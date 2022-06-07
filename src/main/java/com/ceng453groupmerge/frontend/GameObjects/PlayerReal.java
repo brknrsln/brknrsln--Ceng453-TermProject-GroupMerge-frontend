@@ -1,5 +1,7 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
+import com.ceng453groupmerge.frontend.Controllers.DiceController;
+
 import java.io.IOException;
 
 public class PlayerReal extends Player {
@@ -19,7 +21,8 @@ public class PlayerReal extends Player {
             // TODO: Initialize dice button
             // TODO: Wait for dice thread finish
             // TODO: Check for double, increment a count if so, if count==1 player plays again, if count==2 player goes to jail, else count=0
-            int diceValue = 6; // TODO: Change
+            DiceController.diceRoll();
+            int diceValue = Dice.getInstance().sumDice();
             int oldPosition = getCurrentPosition();
             movePlayer(diceValue);
             if(getCurrentPosition()<oldPosition) {
