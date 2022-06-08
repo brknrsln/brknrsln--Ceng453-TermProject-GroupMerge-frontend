@@ -3,13 +3,17 @@ package com.ceng453groupmerge.frontend.GameObjects;
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class PlayerReal extends Player {
 
     private GameLogic gameLogic;
 
+    private static Random random = new Random();
+
     public PlayerReal(String name) throws IOException {
         setPlayerName(name);
+        setPlayerID(playerCount++);
         gameLogic = GameLogic.getInstance();
     }
 

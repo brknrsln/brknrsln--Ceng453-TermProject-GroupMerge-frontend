@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Player {
+    protected static int playerCount = 0;
+    private int playerID;
     private String playerName;
     private int currentBalance = 1500;
     private int currentPosition = 0;
@@ -94,5 +96,17 @@ public abstract class Player {
         }
         score += currentBalance;
         return score;
+    }
+
+    public void setCurrentPosition(int newPosition) {
+        currentPosition = newPosition;
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
     }
 }

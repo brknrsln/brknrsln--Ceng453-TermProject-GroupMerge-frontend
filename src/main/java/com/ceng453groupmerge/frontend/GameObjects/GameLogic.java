@@ -3,6 +3,7 @@ package com.ceng453groupmerge.frontend.GameObjects;
 import com.ceng453groupmerge.frontend.Controllers.CredentialController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
+import com.ceng453groupmerge.frontend.Controllers.SceneController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ public class GameLogic {
     private void initializePlayers() throws IOException {
         players = new ArrayList<>();
         players.add(new PlayerReal(CredentialController.username));
+        GameController.getInstance().addPlayerSprite(1);
         players.add(new PlayerAI());
+        GameController.getInstance().addPlayerSprite(2);
     }
 
     private void initializeTiles() {
@@ -74,6 +77,8 @@ public class GameLogic {
 
         while(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
             // TODO: Print "PLAYER X'S TURN" on screen
+            SceneController.clearInfoNode();
+            SceneController.addToInfoNode("PLAYER " + (currentPlayer+1) + "'S TURN");
             players.get(currentPlayer).playTurn();
             if(players.get(currentPlayer).getCurrentBalance()>=0) { // Move game forward if current player still isn't bankrupt
                 currentPlayer = (currentPlayer+1)%2;
@@ -84,5 +89,13 @@ public class GameLogic {
         Player player2 = players.get(1);
         GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.calculateScore()), String.valueOf(player2.calculateScore()));
         // TODO: Print endgame message
+    }
+
+    public int getPlayerPosition(int player) {
+        return players.get(player).getCurrentPosition();
+    }
+
+    public void setPlayerPosition(int player, int newPosition) {
+        players.get(player).setCurrentPosition(newPosition);
     }
 }

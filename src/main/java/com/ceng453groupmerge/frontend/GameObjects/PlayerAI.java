@@ -11,6 +11,7 @@ public class PlayerAI extends Player {
 
     public PlayerAI() throws IOException {
         setPlayerName("AI_OVERLORD");
+        setPlayerID(playerCount++);
         gameLogic = GameLogic.getInstance();
     }
 
