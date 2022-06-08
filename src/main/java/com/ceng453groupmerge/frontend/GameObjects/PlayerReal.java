@@ -20,7 +20,7 @@ public class PlayerReal extends Player {
         if(spendJailTime() == 0) { // If player is not jailed
             gameLogic.waitForDice = true;
             //DiceController.getInstance().rollDice(); // TODO: Remove this
-            // TODO: Initialize dice button
+            // TODO: Enable dice button
             synchronized(gameLogic.waitForDiceLock) {
                 while(gameLogic.waitForDice) {
                     gameLogic.waitForDiceLock.wait();
