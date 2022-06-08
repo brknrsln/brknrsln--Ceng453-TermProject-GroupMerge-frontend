@@ -7,7 +7,7 @@ public class TileMiscJailCell extends TileMisc {
     }
 
     @Override
-    public void tileAction(Player currentPlayer) {
+    public void tileAction(Player currentPlayer, Player otherPlayer) {
         // Do nothing
     }
 }

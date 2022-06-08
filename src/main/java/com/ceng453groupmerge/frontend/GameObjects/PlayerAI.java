@@ -18,9 +18,7 @@ public class PlayerAI extends Player {
         System.out.println("playTurn called for AI "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
-            DiceController.getInstance().rollDice(); // TODO: Remove this
-            // TODO: Initialize dice button
-            // TODO: Wait for dice thread finish
+            DiceController.getInstance().rollDice();
             int diceValue = Dice.getInstance().sumDice();
             if(Dice.getInstance().isDouble()) consecutiveDoubles++;
             else consecutiveDoubles = 0;
@@ -35,8 +33,15 @@ public class PlayerAI extends Player {
                 }
                 // TODO: Print new player position and money
 
-                gameLogic.getTiles().get(getCurrentPosition()).tileAction(this);
-                // TODO: Above function should either perform an action or bring up the necessary buttons. Handle them.
+                Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
+
+                gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+                if(gameLogic.waitForPurchaseOrSkip) {
+                    // TODO: doAIAction;
+                    gameLogic.waitForPurchaseOrSkip = false;
+                }
+                // TODO: Disable buttons
+
                 // TODO: Print new player position and money
             }
             if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again

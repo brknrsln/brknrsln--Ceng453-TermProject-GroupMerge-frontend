@@ -1,12 +1,14 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.Dice;
+import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Random;
 
 @Component
@@ -55,13 +57,16 @@ public class DiceController {
                     dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
                     Thread.sleep(50);
                 }
-                rollButton.setDisable(false);
+                rollButton.setDisable(false); // TODO: Remove
                 dice1.setImage(dice.getDiceImage(dice1Value1));
                 dice2.setImage(dice.getDiceImage(dice2Value1));
                 dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
                 dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
 
-            } catch (InterruptedException e) {
+                GameLogic.getInstance().waitForDice = false;
+                GameLogic.getInstance().waitForDiceLock.notifyAll();
+
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         });

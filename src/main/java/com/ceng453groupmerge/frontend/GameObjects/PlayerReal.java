@@ -18,9 +18,12 @@ public class PlayerReal extends Player {
         System.out.println("playTurn called for real "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
+            gameLogic.waitForDice = true;
             DiceController.getInstance().rollDice(); // TODO: Remove this
             // TODO: Initialize dice button
-            // TODO: Wait for dice thread finish
+            while(gameLogic.waitForDice) {
+                gameLogic.waitForDiceLock.wait();
+            }
             int diceValue = Dice.getInstance().sumDice();
             if(Dice.getInstance().isDouble()) consecutiveDoubles++;
             else consecutiveDoubles = 0;
@@ -35,8 +38,15 @@ public class PlayerReal extends Player {
                 }
                 // TODO: Print new player position and money
 
-                gameLogic.getTiles().get(getCurrentPosition()).tileAction(this);
-                // TODO: Above function should either perform an action or bring up the necessary buttons. Handle them.
+                Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
+
+                gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+                while(gameLogic.waitForPurchaseOrSkip) {
+                    gameLogic.waitForPurchaseOrSkipLock.wait();
+                    // TODO: waitForPurchaseOrSkip=0; waitForPurchaseOrSkip.notifyAll(); in the button functions
+                }
+                // TODO: Disable buttons
+
                 // TODO: Print new player position and money
             }
             if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again

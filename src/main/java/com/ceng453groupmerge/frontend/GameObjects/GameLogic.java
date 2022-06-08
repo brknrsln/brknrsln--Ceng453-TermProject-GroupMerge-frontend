@@ -1,6 +1,8 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.CredentialController;
+import com.ceng453groupmerge.frontend.Controllers.GameController;
+import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +13,11 @@ public class GameLogic {
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
     private int currentPlayer = 0;
+
+    public boolean waitForDice = false;
+    public Object waitForDiceLock = new Object();
+    public boolean waitForPurchaseOrSkip = false;
+    public Object waitForPurchaseOrSkipLock = new Object();
 
     public static synchronized GameLogic getInstance() throws IOException {
         if(gameLogic == null) {
@@ -49,6 +56,18 @@ public class GameLogic {
         return tiles;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public int getOtherPlayer() {
+        return (currentPlayer+1)%2;
+    }
+
     public void startGame() throws IOException, InterruptedException {
         initializePlayers();
         initializeTiles();
@@ -61,7 +80,9 @@ public class GameLogic {
             }
         }
 
-        // TODO: Calculate endgame score, and save via the API.
+        Player player1 = players.get(0);
+        Player player2 = players.get(1);
+        GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.calculateScore()), String.valueOf(player2.calculateScore()));
         // TODO: Print endgame message
     }
 }

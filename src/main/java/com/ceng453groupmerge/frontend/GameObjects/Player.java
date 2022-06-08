@@ -38,6 +38,16 @@ public abstract class Player {
         return currentPosition;
     }
 
+    public int countRailroads() {
+        int count = 0;
+        for(Tile property:ownedProperties) {
+            if(property.getType().equals("railroad")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void sendToJail() {
         jailTime = 2;
         currentPosition = 4;
@@ -76,4 +86,13 @@ public abstract class Player {
     }
 
     public abstract void playTurn() throws IOException, InterruptedException;
+
+    public int calculateScore() {
+        int score = 0;
+        for(Tile property:ownedProperties) {
+            score += property.getPrice();
+        }
+        score += currentBalance;
+        return score;
+    }
 }
