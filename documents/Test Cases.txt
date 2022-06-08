@@ -1,0 +1,20 @@
+# Test Cases
+
+
+ 1. TC - Verify that forgot, leaderboard, main menu, login and register pages aligned properly.
+ 2. TC - Verify that text fields of these pages are work properly.
+ 3. TC - Verify that buttons still works properly after navigate pages.
+ 4. TC - Verify that game start properly.
+ 5. TC - Verify that game ends properly if Player wins.
+ 6. TC - Verify that game ends properly if Player lose.
+ 7. TC - Verify that leaderboard tabs work properly.
+ 8. TC - Verify that appropriate error windows exist on login, register, and forgot pages.
+ 9. TC - Verify actions on not purchased tiles.
+ 10. TC - Verify actions on purchased tiles.
+ 11. TC - Verify purchase tile.
+ 12. TC - Verify pay rent (also in multiplied case).
+ 13. TC - Verify go to jail.
+ 14. TC - Verify skip player in jail.
+ 15. TC - Verify actions on misc tails.
+ 16. TC - Verify actions on double dice.
+
