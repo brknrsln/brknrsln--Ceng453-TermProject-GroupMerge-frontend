@@ -52,7 +52,6 @@ public class PlayerReal extends Player {
                 synchronized (gameLogic.waitForPurchaseOrSkipLock) {
                     while(gameLogic.waitForPurchaseOrSkip) {
                         gameLogic.waitForPurchaseOrSkipLock.wait();
-                        // TODO: waitForPurchaseOrSkip=0; waitForPurchaseOrSkip.notifyAll(); in the button functions
                     }
                 }
                 // TODO: Disable buttons
