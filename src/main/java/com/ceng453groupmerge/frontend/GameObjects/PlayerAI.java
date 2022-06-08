@@ -3,6 +3,7 @@ package com.ceng453groupmerge.frontend.GameObjects;
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class PlayerAI extends Player {
 
@@ -37,7 +38,7 @@ public class PlayerAI extends Player {
 
                 gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
                 if(gameLogic.waitForPurchaseOrSkip) {
-                    // TODO: doAIAction;
+                    AIAction(gameLogic.getTiles().get(getCurrentPosition()));
                     gameLogic.waitForPurchaseOrSkip = false;
                 }
                 // TODO: Disable buttons
@@ -50,6 +51,18 @@ public class PlayerAI extends Player {
             Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void AIAction(Tile tile) {
+        if(getCurrentBalance() >= tile.getPrice()) {
+            int randInt = new Random().nextInt(5);
+            if(randInt > 1) { // 60%
+                purchaseProperty(tile);
+            }
+            else { // 40%
+                // Do nothing
+            }
         }
     }
 }
