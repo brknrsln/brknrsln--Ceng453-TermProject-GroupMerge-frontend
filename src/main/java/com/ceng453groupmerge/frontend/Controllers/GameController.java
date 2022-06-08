@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -93,51 +94,44 @@ public class GameController {
     }
 
     @FXML
-    private void rollDice() {
+    private void rollDice() throws IOException, InterruptedException {
+        System.out.println("Rolled dice"); // TODO: Debug, remove
         rollButton.setDisable(true);
         SceneController.setDiceNodeVisibility(true);
-
-        Thread thread = new Thread(() -> {
-            DiceController.getInstance().rollDice();
-        });
-        thread.start();
-
+        DiceController.getInstance().rollDice();
     }
 
     @FXML
     private void purchaseTile() throws IOException {
-        System.out.println("Bought"); // TODO: Debug, remove
+        System.out.println("Purchased"); // TODO: Debug, remove
         GameLogic gameLogic = GameLogic.getInstance();
         Player currentPlayer = gameLogic.getPlayers().get(gameLogic.getCurrentPlayer());
         currentPlayer.purchaseProperty(gameLogic.getTiles().get(currentPlayer.getCurrentPosition()));
-        synchronized(gameLogic.waitForPurchaseOrSkipLock) {
-            gameLogic.waitForPurchaseOrSkip = false;
-            gameLogic.waitForPurchaseOrSkipLock.notifyAll();
-        }
+        gameLogic.waitForPurchaseOrSkip = false;
+        Platform.exitNestedEventLoop(gameLogic.waitForPurchaseOrSkipLock, new Object());
 
     }
 
     @FXML
     private void skipTile() throws IOException {
         System.out.println("Skipped"); // TODO: Debug, remove
-        synchronized (GameLogic.getInstance().waitForPurchaseOrSkipLock) {
-            GameLogic.getInstance().waitForPurchaseOrSkip = false;
-            GameLogic.getInstance().waitForPurchaseOrSkipLock.notifyAll();
-        }
-
+        GameLogic.getInstance().waitForPurchaseOrSkip = false;
+        Platform.exitNestedEventLoop(GameLogic.getInstance().waitForPurchaseOrSkipLock, new Object());
     }
 
     @FXML
     private void initialize() throws IOException, InterruptedException {
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(50);
-                GameLogic.getInstance().startGame();
-            } catch (InterruptedException | IOException e) {
-                e.printStackTrace();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GameLogic.getInstance().startGame();
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
-        thread.start();
+
     }
 
     public void addPlayerSprite(int player) {

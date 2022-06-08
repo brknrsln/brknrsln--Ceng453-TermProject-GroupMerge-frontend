@@ -3,6 +3,7 @@ package com.ceng453groupmerge.frontend.GameObjects;
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.Random;
@@ -26,10 +27,9 @@ public class PlayerReal extends Player {
         if(spendJailTime() == 0) { // If player is not jailed
             gameLogic.waitForDice = true;
             GameController.getInstance().setRollButtonVisibility(true);
-            synchronized(gameLogic.waitForDiceLock) {
-                while(gameLogic.waitForDice) {
-                    gameLogic.waitForDiceLock.wait();
-                }
+            while(gameLogic.waitForDice) {
+                System.out.println("Entering waitForDice loop"); // TODO: Debug, remove
+                Platform.enterNestedEventLoop(gameLogic.waitForDiceLock);
             }
             int diceValue = Dice.getInstance().sumDice();
             if(Dice.getInstance().isDouble()) consecutiveDoubles++;
@@ -49,10 +49,9 @@ public class PlayerReal extends Player {
                 Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
 
                 gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
-                synchronized (gameLogic.waitForPurchaseOrSkipLock) {
-                    while(gameLogic.waitForPurchaseOrSkip) {
-                        gameLogic.waitForPurchaseOrSkipLock.wait();
-                    }
+                while(gameLogic.waitForPurchaseOrSkip) {
+                    System.out.println("Entering waitForPurchaseOrSkip loop"); // TODO: Debug, remove
+                    Platform.enterNestedEventLoop(gameLogic.waitForPurchaseOrSkipLock);
                 }
                 // TODO: Disable buttons
 

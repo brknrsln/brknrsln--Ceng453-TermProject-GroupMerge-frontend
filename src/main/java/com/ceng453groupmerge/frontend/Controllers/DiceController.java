@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.Dice;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -39,7 +40,7 @@ public class DiceController {
 
 
     @FXML
-    public void rollDice()  {
+    public void rollDice() throws IOException, InterruptedException {
         GameController.getInstance().setRollButtonVisibility(false);
         int dice1Value1 = random.nextInt(6) + 1;
         int dice2Value1 = random.nextInt(6) + 1;
@@ -61,13 +62,18 @@ public class DiceController {
                 dice2.setImage(dice.getDiceImage(dice2Value1));
                 //dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
                 //dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
-
-                synchronized (GameLogic.getInstance().waitForDiceLock) {
-                    GameLogic.getInstance().waitForDice = false;
-                    GameLogic.getInstance().waitForDiceLock.notifyAll();
-                }
-
-            } catch (InterruptedException | IOException e) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            GameLogic.getInstance().waitForDice = false;
+                            Platform.exitNestedEventLoop(GameLogic.getInstance().waitForDiceLock, new Object());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });

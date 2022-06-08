@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.Random;
@@ -21,6 +22,7 @@ public class PlayerAI extends Player {
         System.out.println("playTurn called for AI "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
+            Platform.enterNestedEventLoop(gameLogic.waitForDiceLock); // TODO: Debug, remove
             DiceController.getInstance().rollDice();
             int diceValue = Dice.getInstance().sumDice();
             if(Dice.getInstance().isDouble()) consecutiveDoubles++;

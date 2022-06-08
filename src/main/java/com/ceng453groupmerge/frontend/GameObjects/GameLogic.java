@@ -77,9 +77,8 @@ public class GameLogic {
         GameController.getInstance().drawPlayerSprites();
 
         while(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
-            // TODO: Print "PLAYER X'S TURN" on screen
             SceneController.clearInfoNode();
-            SceneController.addToInfoNode("PLAYER " + (currentPlayer+1) + "'S TURN");
+            SceneController.addToInfoNode(players.get(currentPlayer).getPlayerName() + "'S TURN");
             players.get(currentPlayer).playTurn();
             if(players.get(currentPlayer).getCurrentBalance()>=0) { // Move game forward if current player still isn't bankrupt
                 currentPlayer = (currentPlayer+1)%2;
