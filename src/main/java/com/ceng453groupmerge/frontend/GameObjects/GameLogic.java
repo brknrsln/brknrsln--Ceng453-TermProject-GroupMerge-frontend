@@ -74,6 +74,7 @@ public class GameLogic {
     public void startGame() throws IOException, InterruptedException {
         initializePlayers();
         initializeTiles();
+        GameController.getInstance().drawPlayerSprites();
 
         while(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
             // TODO: Print "PLAYER X'S TURN" on screen

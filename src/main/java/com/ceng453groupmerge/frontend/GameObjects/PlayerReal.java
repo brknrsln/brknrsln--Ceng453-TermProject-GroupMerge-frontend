@@ -1,6 +1,8 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
+import com.ceng453groupmerge.frontend.Controllers.GameController;
+import com.ceng453groupmerge.frontend.Controllers.SceneController;
 
 import java.io.IOException;
 import java.util.Random;
@@ -23,8 +25,7 @@ public class PlayerReal extends Player {
 
         if(spendJailTime() == 0) { // If player is not jailed
             gameLogic.waitForDice = true;
-            //DiceController.getInstance().rollDice(); // TODO: Remove this
-            // TODO: Enable dice button
+            GameController.getInstance().setRollButtonVisibility(true);
             synchronized(gameLogic.waitForDiceLock) {
                 while(gameLogic.waitForDice) {
                     gameLogic.waitForDiceLock.wait();
@@ -42,7 +43,8 @@ public class PlayerReal extends Player {
                 if(getCurrentPosition()<oldPosition) {
                     addMoney(100); // Moved over starting point
                 }
-                // TODO: Print new player position and money
+                // TODO: Print player money
+                GameController.getInstance().drawPlayerSprites();
 
                 Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
 
@@ -55,7 +57,8 @@ public class PlayerReal extends Player {
                 }
                 // TODO: Disable buttons
 
-                // TODO: Print new player position and money
+                // TODO: Print player money
+                GameController.getInstance().drawPlayerSprites();
             }
             if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
         }

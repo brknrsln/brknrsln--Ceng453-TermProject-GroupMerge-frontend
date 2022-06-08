@@ -40,6 +40,7 @@ public class DiceController {
 
     @FXML
     public void rollDice()  {
+        GameController.getInstance().setRollButtonVisibility(false);
         int dice1Value1 = random.nextInt(6) + 1;
         int dice2Value1 = random.nextInt(6) + 1;
         dice.setValue1(dice1Value1);
@@ -56,18 +57,15 @@ public class DiceController {
                     dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
                     Thread.sleep(50);
                 }
-                rollButton.setDisable(false); // TODO: Remove
                 dice1.setImage(dice.getDiceImage(dice1Value1));
                 dice2.setImage(dice.getDiceImage(dice2Value1));
-                dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
-                dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
+                //dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
+                //dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
 
                 synchronized (GameLogic.getInstance().waitForDiceLock) {
                     GameLogic.getInstance().waitForDice = false;
                     GameLogic.getInstance().waitForDiceLock.notifyAll();
                 }
-                // TODO: always showing dice
-                SceneController.setDiceNodeVisibility(false);
 
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();

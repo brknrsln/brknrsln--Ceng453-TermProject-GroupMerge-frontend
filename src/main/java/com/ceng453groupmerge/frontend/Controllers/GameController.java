@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.Player;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -76,8 +77,6 @@ public class GameController {
 
     private static GameController instance;
 
-    private int position;
-
     private ArrayList<ImageView> playerSprites = new ArrayList<>();
 
     public GameController() {
@@ -85,17 +84,55 @@ public class GameController {
     }
 
     public static GameController getInstance() {
+        if(instance == null) instance = new GameController();
         return instance;
     }
 
+    public void setRollButtonVisibility(boolean visible) {
+        rollButton.setDisable(!visible);
+    }
+
     @FXML
-    private void initialize() {
+    private void rollDice() {
+        rollButton.setDisable(true);
+        SceneController.setDiceNodeVisibility(true);
+
+        Thread thread = new Thread(() -> {
+            DiceController.getInstance().rollDice();
+        });
+        thread.start();
+
+    }
+
+    @FXML
+    private void purchaseTile() throws IOException {
+        System.out.println("Bought");
+        GameLogic gameLogic = GameLogic.getInstance();
+        Player currentPlayer = gameLogic.getPlayers().get(gameLogic.getCurrentPlayer());
+        currentPlayer.purchaseProperty(gameLogic.getTiles().get(currentPlayer.getCurrentPosition()));
+        synchronized(gameLogic.waitForPurchaseOrSkipLock) {
+            gameLogic.waitForPurchaseOrSkip = false;
+            gameLogic.waitForPurchaseOrSkipLock.notifyAll();
+        }
+
+    }
+
+    @FXML
+    private void skipTile() throws IOException {
+        System.out.println("Skipped");
+        synchronized (GameLogic.getInstance().waitForPurchaseOrSkipLock) {
+            GameLogic.getInstance().waitForPurchaseOrSkip = false;
+            GameLogic.getInstance().waitForPurchaseOrSkipLock.notifyAll();
+        }
+
+    }
+
+    @FXML
+    private void initialize() throws IOException, InterruptedException {
         Thread thread = new Thread(() -> {
             try {
                 Thread.sleep(50);
-                GameLogic gameLogic = GameLogic.getInstance();
-                gameLogic.startGame();
-
+                GameLogic.getInstance().startGame();
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
@@ -103,104 +140,94 @@ public class GameController {
         thread.start();
     }
 
-    @FXML
-    private void rollDice() {
-        SceneController.setDiceNodeVisibility(true);
-        rollButton.setDisable(true);
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                rollButton.setDisable(false);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
-        DiceController.getInstance().rollDice();
-    }
-
-    @FXML
-    private void purchaseTile(){
-
-    }
-
-    @FXML
-    private void skipTile(){
-
-    }
-
     public void addPlayerSprite(int player) {
         ImageView playerSprite = new ImageView(new Image(getClass().getResourceAsStream("/images/player/player" + player + ".png")));
         playerSprite.setFitHeight(45);
         playerSprite.setFitWidth(45);
         playerSprites.add(playerSprite);
-        go.getChildren().add(playerSprite);
     }
 
-    public void drawPlayerSprite() throws IOException {
-        removeAllPlayerSprites();
-        for(Player player : GameLogic.getInstance().getPlayers()) {
-            position = player.getCurrentPosition();
-            ImageView playerSprite = playerSprites.get(player.getPlayerID());
-            switch (position) {
-                case 0:
-                    playerSprite = (ImageView) go.getChildren().get(0);
-                    break;
-                case 1:
-                    sincan.getChildren().add(playerSprite);
-                    break;
-                case 2:
-                    asti.getChildren().add(playerSprite);
-                    break;
-                case 3:
-                    pursaklar.getChildren().add(playerSprite);
-                    break;
-                case 4:
-                    jail.getChildren().add(playerSprite);
-                    break;
-                case 5:
-                    polatli.getChildren().add(playerSprite);
-                    break;
-                case 6:
-                    tcdd.getChildren().add(playerSprite);
-                    break;
-                case 7:
-                    ayas.getChildren().add(playerSprite);
-                    break;
-                case 8:
-                    incomeTax.getChildren().add(playerSprite);
-                    break;
-                case 9:
-                    golbasi.getChildren().add(playerSprite);
-                    break;
-                case 10:
-                    ankaray.getChildren().add(playerSprite);
-                    break;
-                case 11:
-                    beypazari.getChildren().add(playerSprite);
-                    break;
-                case 12:
-                    goToJail.getChildren().add(playerSprite);
-                    break;
-                case 13:
-                    yenimahalle.getChildren().add(playerSprite);
-                    break;
-                case 14:
-                    esenboga.getChildren().add(playerSprite);
-                    break;
-                case 15:
-                    cankaya.getChildren().add(playerSprite);
-                    break;
+    public void drawPlayerSprites() throws IOException {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                removeAllPlayerSprites();
+                try {
+                    for(Player player : GameLogic.getInstance().getPlayers()) {
+                        int position = player.getCurrentPosition();
+                        System.out.println("Player "+player.getPlayerName()+" is in position "+position);
+                        ImageView playerSprite = playerSprites.get(player.getPlayerID());
+                        switch (position) {
+                            case 0:
+                                go.getChildren().add(playerSprite);
+                                break;
+                            case 1:
+                                sincan.getChildren().add(playerSprite);
+                                break;
+                            case 2:
+                                asti.getChildren().add(playerSprite);
+                                break;
+                            case 3:
+                                pursaklar.getChildren().add(playerSprite);
+                                break;
+                            case 4:
+                                jail.getChildren().add(playerSprite);
+                                break;
+                            case 5:
+                                polatli.getChildren().add(playerSprite);
+                                break;
+                            case 6:
+                                tcdd.getChildren().add(playerSprite);
+                                break;
+                            case 7:
+                                ayas.getChildren().add(playerSprite);
+                                break;
+                            case 8:
+                                incomeTax.getChildren().add(playerSprite);
+                                break;
+                            case 9:
+                                golbasi.getChildren().add(playerSprite);
+                                break;
+                            case 10:
+                                ankaray.getChildren().add(playerSprite);
+                                break;
+                            case 11:
+                                beypazari.getChildren().add(playerSprite);
+                                break;
+                            case 12:
+                                goToJail.getChildren().add(playerSprite);
+                                break;
+                            case 13:
+                                yenimahalle.getChildren().add(playerSprite);
+                                break;
+                            case 14:
+                                esenboga.getChildren().add(playerSprite);
+                                break;
+                            case 15:
+                                cankaya.getChildren().add(playerSprite);
+                                break;
+                        }
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
+        });
+
     }
 
     private void removeAllPlayerSprites() {
-        for (Node node : gameGridPane.getChildren()) {
-            if (node instanceof HBox) {
-                ((HBox) node).getChildren().clear();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                for (Node node : gameGridPane.getChildren()) {
+                    if (node instanceof HBox) {
+                        ((HBox) node).getChildren().clear();
+                    }
+                }
             }
-        }
+        });
+
 //        go.getChildren().clear();
 //        sincan.getChildren().clear();
 //        asti.getChildren().clear();

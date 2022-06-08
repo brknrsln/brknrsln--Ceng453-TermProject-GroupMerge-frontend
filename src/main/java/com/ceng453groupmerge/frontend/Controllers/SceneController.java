@@ -1,5 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
+import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -60,12 +62,23 @@ public class SceneController {
     }
 
     public static void addToInfoNode(String text) {
-        Label label = new Label(text);
-        label.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-font-family: Calibri");
-        infoNode.getChildren().add(label);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Label label = new Label(text);
+                label.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-font-family: Calibri");
+                infoNode.getChildren().add(label);
+            }
+        });
+
     }
 
     public static void clearInfoNode() {
-        infoNode.getChildren().clear();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                infoNode.getChildren().clear();
+            }
+        });
     }
 }
