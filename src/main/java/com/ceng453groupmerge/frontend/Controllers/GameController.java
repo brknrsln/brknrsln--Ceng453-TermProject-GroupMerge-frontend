@@ -106,7 +106,7 @@ public class GameController {
 
     @FXML
     private void purchaseTile() throws IOException {
-        System.out.println("Bought");
+        System.out.println("Bought"); // TODO: Debug, remove
         GameLogic gameLogic = GameLogic.getInstance();
         Player currentPlayer = gameLogic.getPlayers().get(gameLogic.getCurrentPlayer());
         currentPlayer.purchaseProperty(gameLogic.getTiles().get(currentPlayer.getCurrentPosition()));
@@ -119,7 +119,7 @@ public class GameController {
 
     @FXML
     private void skipTile() throws IOException {
-        System.out.println("Skipped");
+        System.out.println("Skipped"); // TODO: Debug, remove
         synchronized (GameLogic.getInstance().waitForPurchaseOrSkipLock) {
             GameLogic.getInstance().waitForPurchaseOrSkip = false;
             GameLogic.getInstance().waitForPurchaseOrSkipLock.notifyAll();
