@@ -40,7 +40,6 @@ public class DiceController {
 
     @FXML
     public void rollDice()  {
-        rollButton.setDisable(true);
         int dice1Value1 = random.nextInt(6) + 1;
         int dice2Value1 = random.nextInt(6) + 1;
         dice.setValue1(dice1Value1);
@@ -67,6 +66,8 @@ public class DiceController {
                     GameLogic.getInstance().waitForDice = false;
                     GameLogic.getInstance().waitForDiceLock.notifyAll();
                 }
+                // TODO: always showing dice
+                SceneController.setDiceNodeVisibility(false);
 
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
