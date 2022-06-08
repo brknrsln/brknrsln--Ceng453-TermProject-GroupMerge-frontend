@@ -6,11 +6,17 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.GameController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.ceng453groupmerge.frontend.Controllers.GameController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
       <ImageView fitHeight="600.0" fitWidth="617.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -54,7 +60,21 @@
             <HBox fx:id="yenimahalle" alignment="CENTER" layoutX="490.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <HBox fx:id="esenboga" alignment="CENTER" layoutX="370.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <HBox fx:id="cankaya" alignment="CENTER" layoutX="250.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="purchase" mnemonicParsing="false" onAction="#purchaseTile" style="-fx-background-color: #1415FA;" text="Purchase" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="skip" mnemonicParsing="false" onAction="#skipTile" style="-fx-background-color: #1415FA;" text="Skip" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </children>
-</Pane>
+</GridPane>

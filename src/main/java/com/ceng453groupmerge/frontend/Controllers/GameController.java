@@ -3,6 +3,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.Player;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,12 @@ public class GameController {
 
     @FXML
     private Button rollButton;
+
+    @FXML
+    private Button purchase;
+
+    @FXML
+    private Button skip;
 
     @FXML
     private HBox go;
@@ -74,17 +81,15 @@ public class GameController {
     private ArrayList<ImageView> playerSprites = new ArrayList<>();
 
     private GameController() {
+        instance = this;
     }
 
     public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
         return instance;
     }
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         Thread thread = new Thread(() -> {
             try {
                 Thread.sleep(50);
@@ -99,7 +104,7 @@ public class GameController {
     }
 
     @FXML
-    private synchronized void rollDice() throws InterruptedException {
+    private void rollDice() {
         SceneController.setDiceNodeVisibility(true);
         rollButton.setDisable(true);
         Thread thread = new Thread(() -> {
@@ -115,6 +120,15 @@ public class GameController {
     }
 
     @FXML
+    private void purchaseTile(){
+
+    }
+
+    @FXML
+    private void skipTile(){
+
+    }
+
     public void addPlayerSprite(int player) {
         ImageView playerSprite = new ImageView(new Image(getClass().getResourceAsStream("/images/player/player" + player + ".png")));
         playerSprite.setFitHeight(45);
