@@ -80,7 +80,7 @@ public class GameController {
 
     private ArrayList<ImageView> playerSprites = new ArrayList<>();
 
-    private GameController() {
+    public GameController() {
         instance = this;
     }
 
@@ -196,21 +196,26 @@ public class GameController {
     }
 
     private void removeAllPlayerSprites() {
-        go.getChildren().clear();
-        sincan.getChildren().clear();
-        asti.getChildren().clear();
-        pursaklar.getChildren().clear();
-        jail.getChildren().clear();
-        polatli.getChildren().clear();
-        tcdd.getChildren().clear();
-        ayas.getChildren().clear();
-        incomeTax.getChildren().clear();
-        golbasi.getChildren().clear();
-        ankaray.getChildren().clear();
-        beypazari.getChildren().clear();
-        goToJail.getChildren().clear();
-        yenimahalle.getChildren().clear();
-        esenboga.getChildren().clear();
-        cankaya.getChildren().clear();
+        for (Node node : gameGridPane.getChildren()) {
+            if (node instanceof HBox) {
+                ((HBox) node).getChildren().clear();
+            }
+        }
+//        go.getChildren().clear();
+//        sincan.getChildren().clear();
+//        asti.getChildren().clear();
+//        pursaklar.getChildren().clear();
+//        jail.getChildren().clear();
+//        polatli.getChildren().clear();
+//        tcdd.getChildren().clear();
+//        ayas.getChildren().clear();
+//        incomeTax.getChildren().clear();
+//        golbasi.getChildren().clear();
+//        ankaray.getChildren().clear();
+//        beypazari.getChildren().clear();
+//        goToJail.getChildren().clear();
+//        yenimahalle.getChildren().clear();
+//        esenboga.getChildren().clear();
+//        cankaya.getChildren().clear();
     }
 }
