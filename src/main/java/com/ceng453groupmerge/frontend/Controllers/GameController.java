@@ -155,7 +155,7 @@ public class GameController {
                 try {
                     for(Player player : GameLogic.getInstance().getPlayers()) {
                         int position = player.getCurrentPosition();
-                        System.out.println("Player "+player.getPlayerName()+" is in position "+position);
+                        System.out.println("Player "+player.getPlayerName()+" is drawn in position "+position); // TODO: Debug, remove
                         ImageView playerSprite = playerSprites.get(player.getPlayerID());
                         switch (position) {
                             case 0:
