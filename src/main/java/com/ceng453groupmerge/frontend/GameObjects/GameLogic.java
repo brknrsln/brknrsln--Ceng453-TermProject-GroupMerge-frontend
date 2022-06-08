@@ -15,9 +15,9 @@ public class GameLogic {
     private int currentPlayer = 0;
 
     public boolean waitForDice = false;
-    public Object waitForDiceLock = new Object();
+    public final Object waitForDiceLock = new Object();
     public boolean waitForPurchaseOrSkip = false;
-    public Object waitForPurchaseOrSkipLock = new Object();
+    public final Object waitForPurchaseOrSkipLock = new Object();
 
     public static synchronized GameLogic getInstance() throws IOException {
         if(gameLogic == null) {

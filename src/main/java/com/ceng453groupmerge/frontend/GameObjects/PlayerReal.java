@@ -19,10 +19,12 @@ public class PlayerReal extends Player {
 
         if(spendJailTime() == 0) { // If player is not jailed
             gameLogic.waitForDice = true;
-            DiceController.getInstance().rollDice(); // TODO: Remove this
+            //DiceController.getInstance().rollDice(); // TODO: Remove this
             // TODO: Initialize dice button
-            while(gameLogic.waitForDice) {
-                gameLogic.waitForDiceLock.wait();
+            synchronized(gameLogic.waitForDiceLock) {
+                while(gameLogic.waitForDice) {
+                    gameLogic.waitForDiceLock.wait();
+                }
             }
             int diceValue = Dice.getInstance().sumDice();
             if(Dice.getInstance().isDouble()) consecutiveDoubles++;
@@ -41,9 +43,11 @@ public class PlayerReal extends Player {
                 Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
 
                 gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
-                while(gameLogic.waitForPurchaseOrSkip) {
-                    gameLogic.waitForPurchaseOrSkipLock.wait();
-                    // TODO: waitForPurchaseOrSkip=0; waitForPurchaseOrSkip.notifyAll(); in the button functions
+                synchronized (gameLogic.waitForPurchaseOrSkipLock) {
+                    while(gameLogic.waitForPurchaseOrSkip) {
+                        gameLogic.waitForPurchaseOrSkipLock.wait();
+                        // TODO: waitForPurchaseOrSkip=0; waitForPurchaseOrSkip.notifyAll(); in the button functions
+                    }
                 }
                 // TODO: Disable buttons
 

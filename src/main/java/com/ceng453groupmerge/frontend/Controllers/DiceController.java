@@ -63,8 +63,10 @@ public class DiceController {
                 dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
                 dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
 
-                GameLogic.getInstance().waitForDice = false;
-                GameLogic.getInstance().waitForDiceLock.notifyAll();
+                synchronized (GameLogic.getInstance().waitForDiceLock) {
+                    GameLogic.getInstance().waitForDice = false;
+                    GameLogic.getInstance().waitForDiceLock.notifyAll();
+                }
 
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
