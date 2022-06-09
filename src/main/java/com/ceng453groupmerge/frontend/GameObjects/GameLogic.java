@@ -1,9 +1,11 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.CredentialController;
+import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
+import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,12 +15,9 @@ public class GameLogic {
     private static GameLogic gameLogic;
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
-    private int currentPlayer = 0;
+    private int currentPlayer = 1;
 
-    public boolean waitForDice = false;
-    public final Object waitForDiceLock = new Object();
-    public boolean waitForPurchaseOrSkip = false;
-    public final Object waitForPurchaseOrSkipLock = new Object();
+    public boolean gameHasStarted = false;
 
     public static synchronized GameLogic getInstance() throws IOException {
         if(gameLogic == null) {
@@ -75,16 +74,48 @@ public class GameLogic {
         initializePlayers();
         initializeTiles();
         GameController.getInstance().drawPlayerSprites();
+        SceneController.setDiceNodeVisibility(true);
+        GameController.getInstance().setRollButtonVisibility(false);
+        GameController.getInstance().setTileButtonsVisibility(false);
 
-        while(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
-            SceneController.clearInfoNode();
-            SceneController.addToInfoNode(players.get(currentPlayer).getPlayerName() + "'S TURN");
-            players.get(currentPlayer).playTurn();
+        oneGameTurn();
+    }
+
+    public void oneGameTurn() throws IOException, InterruptedException {
+        if(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
             if(players.get(currentPlayer).getCurrentBalance()>=0) { // Move game forward if current player still isn't bankrupt
                 currentPlayer = (currentPlayer+1)%2;
             }
+            SceneController.clearInfoNode();
+            SceneController.addToInfoNode(players.get(currentPlayer).getPlayerName() + "'s turn");
+            players.get(currentPlayer).playTurn();
         }
+        else {
+            endGame();
+        }
+    }
 
+    public void rollDice() throws IOException, InterruptedException {
+        GameController.getInstance().setRollButtonVisibility(false);
+        DiceController.getInstance().rollDice();
+    }
+
+    @FXML
+    public void purchaseTile() throws IOException, InterruptedException {
+        System.out.println("Purchased"); // TODO: Debug, remove
+        GameController.getInstance().setTileButtonsVisibility(false);
+        Player currentPlayer = getPlayers().get(getCurrentPlayer());
+        currentPlayer.purchaseProperty(getTiles().get(currentPlayer.getCurrentPosition()));
+        skipTurn();
+    }
+
+    @FXML
+    public void skipTurn() throws IOException, InterruptedException {
+        System.out.println("Skipped"); // TODO: Debug, remove
+        players.get(currentPlayer).playTurnAfterButton();
+    }
+
+    public void endGame() throws IOException {
         Player player1 = players.get(0);
         Player player2 = players.get(1);
         GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.calculateScore()), String.valueOf(player2.calculateScore()));

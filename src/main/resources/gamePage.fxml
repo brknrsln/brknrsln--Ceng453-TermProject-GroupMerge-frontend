@@ -67,7 +67,7 @@
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="skip" mnemonicParsing="false" onAction="#skipTile" style="-fx-background-color: #1415FA;" text="Skip" textFill="WHITE">
+                  <Button fx:id="skip" mnemonicParsing="false" onAction="#skipTurn" style="-fx-background-color: #1415FA;" text="Skip" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>

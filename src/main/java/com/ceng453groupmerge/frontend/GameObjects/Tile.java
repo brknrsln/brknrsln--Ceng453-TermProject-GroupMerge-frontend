@@ -19,7 +19,7 @@ public abstract class Tile {
 
     public abstract void setOwner(String newOwner);
 
-    public abstract void tileAction(Player currentPlayer, Player otherPlayer) throws IOException;
+    public abstract void tileAction(Player currentPlayer, Player otherPlayer) throws IOException, InterruptedException;
 
     public abstract String getType();
 }

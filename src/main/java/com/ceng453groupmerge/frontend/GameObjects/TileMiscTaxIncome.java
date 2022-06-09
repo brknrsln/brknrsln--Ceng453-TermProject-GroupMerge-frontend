@@ -1,5 +1,9 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
+import com.ceng453groupmerge.frontend.Controllers.GameController;
+
+import java.io.IOException;
+
 public class TileMiscTaxIncome extends TileMisc {
 
     public TileMiscTaxIncome() {
@@ -7,7 +11,8 @@ public class TileMiscTaxIncome extends TileMisc {
     }
 
     @Override
-    public void tileAction(Player currentPlayer, Player otherPlayer) {
+    public void tileAction(Player currentPlayer, Player otherPlayer) throws IOException, InterruptedException {
         currentPlayer.subtractMoney(50);
+        GameController.getInstance().skipTurn();
     }
 }

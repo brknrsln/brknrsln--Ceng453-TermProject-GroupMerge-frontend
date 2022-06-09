@@ -41,11 +41,17 @@ public class DiceController {
 
     @FXML
     public void rollDice() throws IOException, InterruptedException {
+        System.out.println("Rolled dice");
+        if(!GameLogic.getInstance().gameHasStarted) {
+            GameLogic.getInstance().startGame();
+            GameLogic.getInstance().gameHasStarted = true;
+        }
         GameController.getInstance().setRollButtonVisibility(false);
-        int dice1Value1 = random.nextInt(6) + 1;
-        int dice2Value1 = random.nextInt(6) + 1;
-        dice.setValue1(dice1Value1);
-        dice.setValue2(dice2Value1);
+        int dice1ValueFinal = random.nextInt(6) + 1;
+        int dice2ValueFinal = random.nextInt(6) + 1;
+        dice.setValue1(dice1ValueFinal);
+        dice.setValue2(dice2ValueFinal);
+        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
         double rotate = 24;
         Thread thread = new Thread(() -> {
             try {
@@ -58,25 +64,13 @@ public class DiceController {
                     dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
                     Thread.sleep(50);
                 }
-                dice1.setImage(dice.getDiceImage(dice1Value1));
-                dice2.setImage(dice.getDiceImage(dice2Value1));
-                //dice1.rotateProperty().set(dice1.rotateProperty().get() + rotate);
-                //dice2.rotateProperty().set(dice2.rotateProperty().get() + rotate);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            GameLogic.getInstance().waitForDice = false;
-                            Platform.exitNestedEventLoop(GameLogic.getInstance().waitForDiceLock, new Object());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+                dice1.setImage(dice.getDiceImage(dice1ValueFinal));
+                dice2.setImage(dice.getDiceImage(dice2ValueFinal));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
         thread.start();
+
     }
 }

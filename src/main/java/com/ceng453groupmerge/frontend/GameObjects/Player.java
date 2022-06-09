@@ -1,5 +1,7 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
+import com.ceng453groupmerge.frontend.Controllers.GameController;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -50,10 +52,12 @@ public abstract class Player {
         return count;
     }
 
-    public void sendToJail() {
+    public void sendToJail() throws IOException, InterruptedException {
         jailTime = 2;
         currentPosition = 4;
         System.out.println("Player "+playerName+" has been jailed"); // TODO: Debug, remove
+        consecutiveDoubles = 0;
+        GameController.getInstance().skipTurn();
     }
 
     public int spendJailTime() {
@@ -66,7 +70,7 @@ public abstract class Player {
 
     public void movePlayer(int x) {
         currentPosition = (currentPosition+x)%16;
-        System.out.println("Player position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition); // TODO: Debug, remove
+        System.out.println(playerName+" position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition); // TODO: Debug, remove
     }
 
     public ArrayList<Tile> getOwnedProperties() {
@@ -88,6 +92,8 @@ public abstract class Player {
     }
 
     public abstract void playTurn() throws IOException, InterruptedException;
+    public abstract void playTurnAfterDice() throws IOException, InterruptedException;
+    public abstract void playTurnAfterButton() throws IOException, InterruptedException;
 
     public int calculateScore() {
         int score = 0;
