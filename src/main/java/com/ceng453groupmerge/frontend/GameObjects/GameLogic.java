@@ -18,6 +18,7 @@ public class GameLogic {
     private int currentPlayer = 1;
 
     public boolean gameHasStarted = false;
+    public boolean waitingOnButtons = false;
 
     public static synchronized GameLogic getInstance() throws IOException {
         if(gameLogic == null) {
@@ -112,6 +113,7 @@ public class GameLogic {
     @FXML
     public void skipTurn() throws IOException, InterruptedException {
         System.out.println("Skipped"); // TODO: Debug, remove
+        waitingOnButtons = false;
         players.get(currentPlayer).playTurnAfterButton();
     }
 

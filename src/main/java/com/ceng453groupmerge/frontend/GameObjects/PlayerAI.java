@@ -62,7 +62,8 @@ public class PlayerAI extends Player {
     }
 
     private void AIAction(Tile tile) throws IOException, InterruptedException {
-        if(!tile.getType().equals("misc") && getCurrentBalance() >= tile.getPrice()) {
+        System.out.println("AIAction called");
+        if(GameLogic.getInstance().waitingOnButtons) {
             int randInt = new Random().nextInt(5);
             if(randInt > 1) { // 60%
                 GameController.getInstance().purchaseTile();

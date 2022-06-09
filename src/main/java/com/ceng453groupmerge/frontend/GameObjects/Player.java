@@ -57,7 +57,6 @@ public abstract class Player {
         currentPosition = 4;
         System.out.println("Player "+playerName+" has been jailed"); // TODO: Debug, remove
         consecutiveDoubles = 0;
-        GameController.getInstance().skipTurn();
     }
 
     public int spendJailTime() {
