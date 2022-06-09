@@ -14,19 +14,13 @@ public class TilePurchasableRailroad extends TilePurchasable {
     public void tileAction(Player currentPlayer, Player otherPlayer) throws IOException, InterruptedException {
         System.out.println("Tile action called for "+getTileName()); // TODO: Debug, remove
         if(getOwner().equals("")) { // If tile not owned
-            System.out.println("No owner for "+getTileName()); // TODO: Debug, remove
             GameController.getInstance().setTileButtonsVisibility(true);
+            GameLogic.getInstance().waitingOnButtons = true;
         }
         else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
-            System.out.println("Opponent-owned for "+getTileName()); // TODO: Debug, remove
             int railroadsCount = otherPlayer.countRailroads();
             currentPlayer.subtractMoney(25*railroadsCount);
             otherPlayer.addMoney(25*railroadsCount);
-            GameLogic.getInstance().skipTurn();
-        }
-        else {
-            System.out.println("Player-owned for "+getTileName()); // TODO: Debug, remove
-            GameLogic.getInstance().skipTurn();
         }
     }
 

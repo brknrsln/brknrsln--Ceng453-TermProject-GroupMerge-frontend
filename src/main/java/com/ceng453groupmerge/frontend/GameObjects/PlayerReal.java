@@ -52,6 +52,7 @@ public class PlayerReal extends Player {
 
             gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
             System.out.println("Waiting for buttons for "+getPlayerName());
+            if(!gameLogic.waitingOnButtons) gameLogic.skipTurn();
         }
     }
 

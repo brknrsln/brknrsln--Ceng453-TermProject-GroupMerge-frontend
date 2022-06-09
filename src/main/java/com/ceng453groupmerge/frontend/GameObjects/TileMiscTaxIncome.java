@@ -13,6 +13,5 @@ public class TileMiscTaxIncome extends TileMisc {
     @Override
     public void tileAction(Player currentPlayer, Player otherPlayer) throws IOException, InterruptedException {
         currentPlayer.subtractMoney(50);
-        GameController.getInstance().skipTurn();
     }
 }
