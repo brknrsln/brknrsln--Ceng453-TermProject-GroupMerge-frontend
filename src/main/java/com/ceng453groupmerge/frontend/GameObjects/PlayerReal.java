@@ -1,6 +1,8 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import javafx.animation.RotateTransition;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -21,17 +23,20 @@ public class PlayerReal extends Player {
             GameController.getInstance().setRollButtonDisable(false);
             System.out.println("Waiting for dice"); // TODO: Debug, remove
         }
+        else {
+            GameController.getInstance().skipTurn();
+        }
     }
 
     @Override
     public void playTurnAfterDice() {
-        while (GameLogic.rollDice);
         System.out.println("playTurnAfterDice called for "+getPlayerName()); // TODO: Debug, remove
         int diceValue = Dice.getInstance().sumDice();
         if(Dice.getInstance().isDouble()) consecutiveDoubles++;
         else consecutiveDoubles = 0;
         if(consecutiveDoubles == 2) { // If 2 consecutive doubles, go to jail and end function
             sendToJail();
+            GameController.getInstance().skipTurn();
         }
         else {
             int oldPosition = getCurrentPosition();
@@ -45,19 +50,9 @@ public class PlayerReal extends Player {
             Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
 
             GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
-            System.out.println("Waiting for buttons for "+getPlayerName());
+
             if(!GameLogic.getInstance().waitingOnButtons) GameLogic.getInstance().skipTurn();
+            else System.out.println("Waiting for buttons for "+getPlayerName());
         }
-    }
-
-    @Override
-    public void playTurnAfterButton() {
-        System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
-
-        // TODO: Print player money
-        GameController.getInstance().drawPlayerSprites(getPlayerID());
-
-        if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
-        else GameLogic.getInstance().oneGameTurn();
     }
 }

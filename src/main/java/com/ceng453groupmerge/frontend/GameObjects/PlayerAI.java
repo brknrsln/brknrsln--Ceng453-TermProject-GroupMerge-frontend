@@ -2,7 +2,9 @@ package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
@@ -22,6 +24,9 @@ public class PlayerAI extends Player {
         if(spendJailTime() == 0) { // If player is not jailed
             GameController.getInstance().rollDice();
         }
+        else {
+            GameController.getInstance().skipTurn();
+        }
     }
 
     @Override
@@ -32,6 +37,7 @@ public class PlayerAI extends Player {
         else consecutiveDoubles = 0;
         if(consecutiveDoubles == 2) { // If 2 consecutive doubles, go to jail and end function
             sendToJail();
+            GameController.getInstance().skipTurn();
         }
         else {
             int oldPosition = getCurrentPosition();
@@ -47,17 +53,6 @@ public class PlayerAI extends Player {
             GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
             AIAction(GameLogic.getInstance().getTiles().get(getCurrentPosition()));
         }
-    }
-
-    @Override
-    public void playTurnAfterButton() {
-        while (GameLogic.rollDice);
-        System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
-
-        // TODO: Print player money
-        GameController.getInstance().drawPlayerSprites(getPlayerID());
-        if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
-        else GameLogic.getInstance().oneGameTurn();
     }
 
     private void AIAction(Tile tile) {

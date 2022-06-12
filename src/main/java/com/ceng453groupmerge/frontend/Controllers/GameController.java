@@ -17,7 +17,7 @@ public class GameController {
     private GridPane gameGridPane;
 
     @FXML
-    Button start;
+    private Button start;
 
     @FXML
     private Button rollButton;
@@ -94,12 +94,12 @@ public class GameController {
         return instance;
     }
 
-    public void setRollButtonDisable(boolean visible) {
-        rollButton.setDisable(visible);
+    public void setRollButtonDisable(boolean disable) {
+        rollButton.setDisable(disable);
     }
-    public void setTileButtonsDisable(boolean visible) {
-        purchase.setDisable(visible);
-        skip.setDisable(visible);
+    public void setTileButtonsDisable(boolean disable) {
+        purchase.setDisable(disable);
+        skip.setDisable(disable);
     }
 
     @FXML

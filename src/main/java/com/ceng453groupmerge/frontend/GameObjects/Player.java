@@ -1,8 +1,10 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import javafx.animation.RotateTransition;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -92,7 +94,19 @@ public abstract class Player {
 
     public abstract void playTurn();
     public abstract void playTurnAfterDice();
-    public abstract void playTurnAfterButton();
+    public void playTurnAfterButton() {
+        System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
+
+        // TODO: Print player money
+        GameController.getInstance().drawPlayerSprites(getPlayerID());
+
+        RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
+        rt.setOnFinished(e -> {
+            if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
+            else GameLogic.getInstance().oneGameTurn();
+        });
+        rt.play();
+    }
 
     public int calculateScore() {
         int score = 0;

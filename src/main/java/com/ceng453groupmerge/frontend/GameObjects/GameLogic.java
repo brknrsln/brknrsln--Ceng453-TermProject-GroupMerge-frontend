@@ -14,11 +14,7 @@ public class GameLogic {
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
     private int currentPlayer = 1;
-
-    public boolean gameHasStarted = false;
     public boolean waitingOnButtons = false;
-
-    public static boolean rollDice = false;
 
     private GameLogic() {
         players = new ArrayList<>();
@@ -106,7 +102,6 @@ public class GameLogic {
 
     public void purchaseTile() {
         System.out.println("Purchased"); // TODO: Debug, remove
-        GameController.getInstance().setTileButtonsDisable(true);
         Player currentPlayer = getPlayers().get(getCurrentPlayer());
         currentPlayer.purchaseProperty(getTiles().get(currentPlayer.getCurrentPosition()));
         skipTurn();
@@ -115,6 +110,7 @@ public class GameLogic {
 
     public void skipTurn() {
         System.out.println("Skipped"); // TODO: Debug, remove
+        GameController.getInstance().setTileButtonsDisable(true);
         waitingOnButtons = false;
         players.get(currentPlayer).playTurnAfterButton();
     }
