@@ -21,12 +21,17 @@ public class GameRestClient {
 
     private static GameRestClient gameRestClient;
 
-    private GameRestClient() throws IOException {
-        String backendURI = PropertiesLoader.loadProperties("application.properties").getProperty("spring.application.backend.service");
+    private GameRestClient() {
+        String backendURI = null;
+        try {
+            backendURI = PropertiesLoader.loadProperties("application.properties").getProperty("spring.application.backend.service");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.webClient = WebClient.create(backendURI);
     }
 
-    public static synchronized GameRestClient getInstance() throws IOException {
+    public static synchronized GameRestClient getInstance() {
         if (gameRestClient == null)
             gameRestClient = new GameRestClient();
         return gameRestClient;

@@ -1,23 +1,23 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
-import com.ceng453groupmerge.frontend.GameObjects.Player;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import javafx.event.ActionEvent;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameController {
     @FXML
     private GridPane gameGridPane;
+
+    @FXML
+    Button start;
 
     @FXML
     private Button rollButton;
@@ -29,59 +29,64 @@ public class GameController {
     private Button skip;
 
     @FXML
-    private HBox go;
+    private VBox go;
 
     @FXML
-    private HBox sincan;
+    private VBox sincan;
 
     @FXML
-    private HBox asti;
+    private VBox asti;
 
     @FXML
-    private HBox pursaklar;
+    private VBox pursaklar;
 
     @FXML
-    private HBox jail;
+    private VBox jail;
 
     @FXML
-    private HBox polatli;
+    private VBox polatli;
 
     @FXML
-    private HBox tcdd;
+    private VBox tcdd;
 
     @FXML
-    private HBox ayas;
+    private VBox ayas;
 
     @FXML
-    private HBox incomeTax;
+    private VBox incomeTax;
 
     @FXML
-    private HBox golbasi;
+    private VBox golbasi;
 
     @FXML
-    private HBox ankaray;
+    private VBox ankaray;
 
     @FXML
-    private HBox beypazari;
+    private VBox beypazari;
 
     @FXML
-    private HBox goToJail;
+    private VBox goToJail;
 
     @FXML
-    private HBox yenimahalle;
+    private VBox yenimahalle;
 
     @FXML
-    private HBox esenboga;
+    private VBox esenboga;
 
     @FXML
-    private HBox cankaya;
+    private VBox cankaya;
 
     private static GameController instance;
 
     private ArrayList<ImageView> playerSprites = new ArrayList<>();
 
+    private HashMap<Integer, HBox> gameBoard = new HashMap<>();
+
+    private static GameLogic gameLogic;
+
     public GameController() {
         instance = this;
+        gameLogic = GameLogic.getInstance();
     }
 
     public static GameController getInstance() {
@@ -89,103 +94,124 @@ public class GameController {
         return instance;
     }
 
-    public void setRollButtonVisibility(boolean visible) {
-        rollButton.setDisable(!visible);
+    public void setRollButtonDisable(boolean visible) {
+        rollButton.setDisable(visible);
     }
-    public void setTileButtonsVisibility(boolean visible) {
-        purchase.setDisable(!visible);
-        skip.setDisable(!visible);
-    }
-
-    @FXML
-    public void rollDice() throws IOException, InterruptedException {
-        GameLogic.getInstance().rollDice();
+    public void setTileButtonsDisable(boolean visible) {
+        purchase.setDisable(visible);
+        skip.setDisable(visible);
     }
 
     @FXML
-    public void purchaseTile() throws IOException, InterruptedException {
-        GameLogic.getInstance().purchaseTile();
+    public void rollDice() {
+        DiceController.getInstance().rollDice();
     }
 
     @FXML
-    public void skipTurn() throws IOException, InterruptedException {
-        GameLogic.getInstance().skipTurn();
+    public void purchaseTile(){
+        gameLogic.purchaseTile();
+    }
+
+    @FXML
+    public void skipTurn() {
+        gameLogic.skipTurn();
     }
 
     public void addPlayerSprite(int player) {
-        ImageView playerSprite = new ImageView(new Image(getClass().getResourceAsStream("/images/player/player" + player + ".png")));
+        ImageView playerSprite = new ImageView(new Image(getClass().getResourceAsStream("/images/player/player" + (player + 1) + ".png")));
         playerSprite.setFitHeight(45);
         playerSprite.setFitWidth(45);
         playerSprites.add(playerSprite);
+        spawnPlayer(go, player, playerSprite);
     }
 
-    public void drawPlayerSprites() throws IOException {
-        removeAllPlayerSprites();
-        try {
-            for(Player player : GameLogic.getInstance().getPlayers()) {
-                int position = player.getCurrentPosition();
-                ImageView playerSprite = playerSprites.get(player.getPlayerID());
-                switch (position) {
-                    case 0:
-                        go.getChildren().add(playerSprite);
-                        break;
-                    case 1:
-                        sincan.getChildren().add(playerSprite);
-                        break;
-                    case 2:
-                        asti.getChildren().add(playerSprite);
-                        break;
-                    case 3:
-                        pursaklar.getChildren().add(playerSprite);
-                        break;
-                    case 4:
-                        jail.getChildren().add(playerSprite);
-                        break;
-                    case 5:
-                        polatli.getChildren().add(playerSprite);
-                        break;
-                    case 6:
-                        tcdd.getChildren().add(playerSprite);
-                        break;
-                    case 7:
-                        ayas.getChildren().add(playerSprite);
-                        break;
-                    case 8:
-                        incomeTax.getChildren().add(playerSprite);
-                        break;
-                    case 9:
-                        golbasi.getChildren().add(playerSprite);
-                        break;
-                    case 10:
-                        ankaray.getChildren().add(playerSprite);
-                        break;
-                    case 11:
-                        beypazari.getChildren().add(playerSprite);
-                        break;
-                    case 12:
-                        goToJail.getChildren().add(playerSprite);
-                        break;
-                    case 13:
-                        yenimahalle.getChildren().add(playerSprite);
-                        break;
-                    case 14:
-                        esenboga.getChildren().add(playerSprite);
-                        break;
-                    case 15:
-                        cankaya.getChildren().add(playerSprite);
-                        break;
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void drawPlayerSprites(int player) {
+        ImageView playerSprite = playerSprites.get(player);
+        HBox hBox = gameBoard.get(player);
+        hBox.getChildren().remove(playerSprite);
+        if(hBox.getChildren().size() == 0) {
+            VBox parent = (VBox) hBox.getParent();
+            parent.getChildren().remove(hBox);
+        }
+        int position = GameLogic.getInstance().getPlayerPosition(player);
+        switch (position) {
+            case 0:
+                spawnPlayer(go, player, playerSprite);
+                break;
+            case 1:
+                spawnPlayer(sincan, player, playerSprite);
+                break;
+            case 2:
+                spawnPlayer(asti, player, playerSprite);
+                break;
+            case 3:
+                spawnPlayer(pursaklar, player, playerSprite);
+                break;
+            case 4:
+                spawnPlayer(jail, player, playerSprite);
+                break;
+            case 5:
+                spawnPlayer(polatli, player, playerSprite);
+                break;
+            case 6:
+                spawnPlayer(tcdd, player, playerSprite);
+                break;
+            case 7:
+                spawnPlayer(ayas, player, playerSprite);
+                break;
+            case 8:
+                spawnPlayer(incomeTax, player, playerSprite);
+                break;
+            case 9:
+                spawnPlayer(golbasi, player, playerSprite);
+                break;
+            case 10:
+                spawnPlayer(ankaray, player, playerSprite);
+                break;
+            case 11:
+                spawnPlayer(beypazari, player, playerSprite);
+                break;
+            case 12:
+                spawnPlayer(goToJail, player, playerSprite);
+                break;
+            case 13:
+                spawnPlayer(yenimahalle, player, playerSprite);
+                break;
+            case 14:
+                spawnPlayer(esenboga, player, playerSprite);
+                break;
+            case 15:
+                spawnPlayer(cankaya, player, playerSprite);
+                break;
         }
     }
 
-    private void removeAllPlayerSprites() {
-        for (Node node : gameGridPane.getChildren()) {
-            if (node instanceof HBox) {
-                ((HBox) node).getChildren().clear();
+    private void spawnPlayer(VBox vbox, int player, ImageView playerSprite) {
+        int count = vbox.getChildren().size();
+        if(count == 0){
+            HBox hBox = new HBox();
+            hBox.setAlignment(javafx.geometry.Pos.CENTER);
+            hBox.getChildren().add(playerSprite);
+            gameBoard.put(player, hBox);
+            vbox.getChildren().add(hBox);
+        } else {
+            if(((HBox) vbox.getChildren().get(count - 1)).getChildren().size() == 3){
+                HBox hBox = new HBox();
+                hBox.setAlignment(javafx.geometry.Pos.CENTER);
+                hBox.getChildren().add(playerSprite);
+                gameBoard.put(player, hBox);
+                vbox.getChildren().add(hBox);
+            } else {
+                HBox hBox = (HBox) vbox.getChildren().get(count - 1);
+                hBox.getChildren().add(playerSprite);
+                gameBoard.put(player, hBox);
             }
         }
+    }
+
+    @FXML
+    public void startGame() {
+        start.setVisible(false);
+        gameLogic.startGame();
     }
 }

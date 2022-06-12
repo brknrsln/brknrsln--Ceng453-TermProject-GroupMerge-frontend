@@ -52,7 +52,7 @@ public abstract class Player {
         return count;
     }
 
-    public void sendToJail() throws IOException, InterruptedException {
+    public void sendToJail() {
         jailTime = 2;
         currentPosition = 4;
         System.out.println("Player "+playerName+" has been jailed"); // TODO: Debug, remove
@@ -90,9 +90,9 @@ public abstract class Player {
         }
     }
 
-    public abstract void playTurn() throws IOException, InterruptedException;
-    public abstract void playTurnAfterDice() throws IOException, InterruptedException;
-    public abstract void playTurnAfterButton() throws IOException, InterruptedException;
+    public abstract void playTurn();
+    public abstract void playTurnAfterDice();
+    public abstract void playTurnAfterButton();
 
     public int calculateScore() {
         int score = 0;

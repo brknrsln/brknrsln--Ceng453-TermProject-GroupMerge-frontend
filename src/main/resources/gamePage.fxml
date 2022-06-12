@@ -5,12 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.ceng453groupmerge.frontend.Controllers.GameController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.GameController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -39,41 +38,46 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="rollButton" mnemonicParsing="false" onAction="#rollDice" style="-fx-background-color: #1415FA;" text="Roll" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Button fx:id="start" mnemonicParsing="false" onAction="#startGame" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #1415FA #1415FA;" text="START" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#rollDice" style="-fx-background-color: #1415FA;" text="Roll" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font name="Calibri Bold" size="20.0" />
                </font>
             </Button>
-            <HBox fx:id="go" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.rowIndex="4" />
-            <HBox fx:id="sincan" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.rowIndex="3" />
-            <HBox fx:id="asti" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.rowIndex="2" />
-            <HBox fx:id="pursaklar" alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.rowIndex="1" />
-            <HBox fx:id="jail" alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" />
-            <HBox fx:id="polatli" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="1" />
-            <HBox fx:id="tcdd" alignment="CENTER" layoutX="130.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="2" />
-            <HBox fx:id="ayas" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="3" />
-            <HBox fx:id="incomeTax" alignment="CENTER" layoutX="370.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="4" />
-            <HBox fx:id="golbasi" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <HBox fx:id="ankaray" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <HBox fx:id="beypazari" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <HBox fx:id="goToJail" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <HBox fx:id="yenimahalle" alignment="CENTER" layoutX="490.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <HBox fx:id="esenboga" alignment="CENTER" layoutX="370.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <HBox fx:id="cankaya" alignment="CENTER" layoutX="250.0" layoutY="490.0" prefHeight="100.0" prefWidth="200.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button fx:id="purchase" mnemonicParsing="false" onAction="#purchaseTile" style="-fx-background-color: #1415FA;" text="Purchase" textFill="WHITE">
+                  <Button fx:id="purchase" disable="true" mnemonicParsing="false" onAction="#purchaseTile" style="-fx-background-color: #1415FA;" text="Purchase" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="skip" mnemonicParsing="false" onAction="#skipTurn" style="-fx-background-color: #1415FA;" text="Skip" textFill="WHITE">
+                  <Button fx:id="skip" disable="true" mnemonicParsing="false" onAction="#skipTurn" style="-fx-background-color: #1415FA;" text="Skip" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
                   </Button>
                </children>
             </VBox>
+            <VBox fx:id="go" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4" />
+            <VBox fx:id="sincan" alignment="CENTER" layoutX="10.0" layoutY="490.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3" />
+            <VBox fx:id="asti" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
+            <VBox fx:id="pursaklar" alignment="CENTER" layoutX="10.0" layoutY="250.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+            <VBox fx:id="jail" alignment="CENTER" layoutX="10.0" layoutY="130.0" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="polatli" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
+            <VBox fx:id="tcdd" alignment="CENTER" layoutX="130.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" />
+            <VBox fx:id="ayas" alignment="CENTER" layoutX="250.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" />
+            <VBox fx:id="incomeTax" alignment="CENTER" layoutX="10.0" layoutY="370.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" />
+            <VBox fx:id="golbasi" alignment="CENTER" layoutX="490.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <VBox fx:id="ankaray" alignment="CENTER" layoutX="490.0" layoutY="130.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <VBox fx:id="beypazari" alignment="CENTER" layoutX="490.0" layoutY="250.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <VBox fx:id="goToJail" alignment="CENTER" layoutX="490.0" layoutY="370.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <VBox fx:id="yenimahalle" alignment="CENTER" layoutX="490.0" layoutY="490.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <VBox fx:id="esenboga" alignment="CENTER" layoutX="370.0" layoutY="490.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <VBox fx:id="cankaya" alignment="CENTER" layoutX="250.0" layoutY="490.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

@@ -9,16 +9,14 @@ import java.util.Random;
 
 public class PlayerAI extends Player {
 
-    private GameLogic gameLogic;
 
-    public PlayerAI() throws IOException {
+    public PlayerAI() {
         setPlayerName("AI_OVERLORD");
         setPlayerID(playerCount++);
-        gameLogic = GameLogic.getInstance();
     }
 
     @Override
-    public void playTurn() throws IOException, InterruptedException {
+    public void playTurn() {
         System.out.println("playTurn called for "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
@@ -27,7 +25,7 @@ public class PlayerAI extends Player {
     }
 
     @Override
-    public void playTurnAfterDice() throws IOException, InterruptedException {
+    public void playTurnAfterDice() {
         System.out.println("playTurnAfterDice called for "+getPlayerName()); // TODO: Debug, remove
         int diceValue = Dice.getInstance().sumDice();
         if(Dice.getInstance().isDouble()) consecutiveDoubles++;
@@ -42,26 +40,27 @@ public class PlayerAI extends Player {
                 addMoney(100); // Moved over starting point
             }
             // TODO: Print player money
-            GameController.getInstance().drawPlayerSprites();
+            GameController.getInstance().drawPlayerSprites(getPlayerID());
 
-            Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
+            Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
 
-            gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
-            AIAction(gameLogic.getTiles().get(getCurrentPosition()));
+            GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+            AIAction(GameLogic.getInstance().getTiles().get(getCurrentPosition()));
         }
     }
 
     @Override
-    public void playTurnAfterButton() throws IOException, InterruptedException {
+    public void playTurnAfterButton() {
+        while (GameLogic.rollDice);
         System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
 
         // TODO: Print player money
-        GameController.getInstance().drawPlayerSprites();
+        GameController.getInstance().drawPlayerSprites(getPlayerID());
         if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
-        else gameLogic.oneGameTurn();
+        else GameLogic.getInstance().oneGameTurn();
     }
 
-    private void AIAction(Tile tile) throws IOException, InterruptedException {
+    private void AIAction(Tile tile) {
         System.out.println("AIAction called");
         if(GameLogic.getInstance().waitingOnButtons) {
             int randInt = new Random().nextInt(5);

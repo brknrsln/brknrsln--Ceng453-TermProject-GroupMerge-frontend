@@ -2,8 +2,6 @@ package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 
-import java.io.IOException;
-
 public class TilePurchasableStreet extends TilePurchasable {
 
     public TilePurchasableStreet(String name, int price) {
@@ -11,10 +9,10 @@ public class TilePurchasableStreet extends TilePurchasable {
     }
 
     @Override
-    public void tileAction(Player currentPlayer, Player otherPlayer) throws IOException, InterruptedException {
+    public void tileAction(Player currentPlayer, Player otherPlayer) {
         System.out.println("Tile action called for "+getTileName()); // TODO: Debug, remove
         if(getOwner().equals("")) { // If tile not owned
-            GameController.getInstance().setTileButtonsVisibility(true);
+            GameController.getInstance().setTileButtonsDisable(false);
             GameLogic.getInstance().waitingOnButtons = true;
         }
         else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else

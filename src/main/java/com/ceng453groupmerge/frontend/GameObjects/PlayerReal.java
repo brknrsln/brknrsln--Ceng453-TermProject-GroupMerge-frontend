@@ -1,23 +1,16 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
-import com.ceng453groupmerge.frontend.Controllers.SceneController;
-import javafx.application.Platform;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class PlayerReal extends Player {
 
-    private GameLogic gameLogic;
-
     private static Random random = new Random();
 
-    public PlayerReal(String name) throws IOException {
+    public PlayerReal(String name) {
         setPlayerName(name);
         setPlayerID(playerCount++);
-        gameLogic = GameLogic.getInstance();
     }
 
     @Override
@@ -25,13 +18,14 @@ public class PlayerReal extends Player {
         System.out.println("playTurn called for "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
-            GameController.getInstance().setRollButtonVisibility(true);
+            GameController.getInstance().setRollButtonDisable(false);
             System.out.println("Waiting for dice"); // TODO: Debug, remove
         }
     }
 
     @Override
-    public void playTurnAfterDice() throws IOException, InterruptedException {
+    public void playTurnAfterDice() {
+        while (GameLogic.rollDice);
         System.out.println("playTurnAfterDice called for "+getPlayerName()); // TODO: Debug, remove
         int diceValue = Dice.getInstance().sumDice();
         if(Dice.getInstance().isDouble()) consecutiveDoubles++;
@@ -46,24 +40,24 @@ public class PlayerReal extends Player {
                 addMoney(100); // Moved over starting point
             }
             // TODO: Print player money
-            GameController.getInstance().drawPlayerSprites();
+            GameController.getInstance().drawPlayerSprites(getPlayerID());
 
-            Player otherPlayer = gameLogic.getPlayers().get(gameLogic.getOtherPlayer());
+            Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
 
-            gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+            GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
             System.out.println("Waiting for buttons for "+getPlayerName());
-            if(!gameLogic.waitingOnButtons) gameLogic.skipTurn();
+            if(!GameLogic.getInstance().waitingOnButtons) GameLogic.getInstance().skipTurn();
         }
     }
 
     @Override
-    public void playTurnAfterButton() throws IOException, InterruptedException {
+    public void playTurnAfterButton() {
         System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
 
         // TODO: Print player money
-        GameController.getInstance().drawPlayerSprites();
+        GameController.getInstance().drawPlayerSprites(getPlayerID());
 
         if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
-        else gameLogic.oneGameTurn();
+        else GameLogic.getInstance().oneGameTurn();
     }
 }

@@ -2,14 +2,10 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.Dice;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Random;
 
 @Component
@@ -18,8 +14,6 @@ public class DiceController {
     private ImageView dice1;
     @FXML
     private ImageView dice2;
-    @FXML
-    private Button rollButton;
 
     private static int dice1Value;
     private static int dice2Value;
@@ -40,19 +34,19 @@ public class DiceController {
 
 
     @FXML
-    public void rollDice() throws IOException, InterruptedException {
+    public void rollDice() {
         System.out.println("Rolled dice");
         if(!GameLogic.getInstance().gameHasStarted) {
-            GameLogic.getInstance().startGame();
+//            GameLogic.getInstance().startGame();
             GameLogic.getInstance().gameHasStarted = true;
         }
-        GameController.getInstance().setRollButtonVisibility(false);
+        GameController.getInstance().setRollButtonDisable(true);
         int dice1ValueFinal = random.nextInt(6) + 1;
         int dice2ValueFinal = random.nextInt(6) + 1;
         dice.setValue1(dice1ValueFinal);
         dice.setValue2(dice2ValueFinal);
-        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
         double rotate = 24;
+        GameLogic.rollDice = true;
         Thread thread = new Thread(() -> {
             try {
                 for (int i = 0; i < 15; i++) {
@@ -66,11 +60,13 @@ public class DiceController {
                 }
                 dice1.setImage(dice.getDiceImage(dice1ValueFinal));
                 dice2.setImage(dice.getDiceImage(dice2ValueFinal));
+                GameLogic.rollDice = false;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
         thread.start();
+        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
 
     }
 }

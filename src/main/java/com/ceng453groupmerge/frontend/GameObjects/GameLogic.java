@@ -5,9 +5,7 @@ import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
-import javafx.fxml.FXML;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameLogic {
@@ -20,23 +18,28 @@ public class GameLogic {
     public boolean gameHasStarted = false;
     public boolean waitingOnButtons = false;
 
-    public static synchronized GameLogic getInstance() throws IOException {
+    public static boolean rollDice = false;
+
+    private GameLogic() {
+        players = new ArrayList<>();
+        tiles = new ArrayList<>();
+    }
+
+    public static synchronized GameLogic getInstance() {
         if(gameLogic == null) {
             gameLogic = new GameLogic();
         }
         return gameLogic;
     }
 
-    private void initializePlayers() throws IOException {
-        players = new ArrayList<>();
+    private void initializePlayers() {
         players.add(new PlayerReal(CredentialController.username));
-        GameController.getInstance().addPlayerSprite(1);
+        GameController.getInstance().addPlayerSprite(0);
         players.add(new PlayerAI());
-        GameController.getInstance().addPlayerSprite(2);
+        GameController.getInstance().addPlayerSprite(1);
     }
 
     private void initializeTiles() {
-        tiles = new ArrayList<>();
         tiles.add(new TileMiscGo());
         tiles.add(new TilePurchasableStreet("Sincan", 100));
         tiles.add(new TilePurchasableRailroad("Aşti"));
@@ -71,18 +74,18 @@ public class GameLogic {
         return (currentPlayer+1)%2;
     }
 
-    public void startGame() throws IOException, InterruptedException {
+    public void startGame() {
+        SceneController.setDiceNodeVisibility(true);
+        GameController.getInstance().setRollButtonDisable(true);
+        GameController.getInstance().setTileButtonsDisable(true);
+
         initializePlayers();
         initializeTiles();
-        GameController.getInstance().drawPlayerSprites();
-        SceneController.setDiceNodeVisibility(true);
-        GameController.getInstance().setRollButtonVisibility(false);
-        GameController.getInstance().setTileButtonsVisibility(false);
 
         oneGameTurn();
     }
 
-    public void oneGameTurn() throws IOException, InterruptedException {
+    public void oneGameTurn() {
         if(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
             if(players.get(currentPlayer).getCurrentBalance()>=0) { // Move game forward if current player still isn't bankrupt
                 currentPlayer = (currentPlayer+1)%2;
@@ -96,28 +99,27 @@ public class GameLogic {
         }
     }
 
-    public void rollDice() throws IOException, InterruptedException {
-        GameController.getInstance().setRollButtonVisibility(false);
+    public void rollDice() {
+        GameController.getInstance().setRollButtonDisable(true);
         DiceController.getInstance().rollDice();
     }
 
-    @FXML
-    public void purchaseTile() throws IOException, InterruptedException {
+    public void purchaseTile() {
         System.out.println("Purchased"); // TODO: Debug, remove
-        GameController.getInstance().setTileButtonsVisibility(false);
+        GameController.getInstance().setTileButtonsDisable(true);
         Player currentPlayer = getPlayers().get(getCurrentPlayer());
         currentPlayer.purchaseProperty(getTiles().get(currentPlayer.getCurrentPosition()));
         skipTurn();
     }
 
-    @FXML
-    public void skipTurn() throws IOException, InterruptedException {
+
+    public void skipTurn() {
         System.out.println("Skipped"); // TODO: Debug, remove
         waitingOnButtons = false;
         players.get(currentPlayer).playTurnAfterButton();
     }
 
-    public void endGame() throws IOException {
+    public void endGame() {
         Player player1 = players.get(0);
         Player player2 = players.get(1);
         GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.calculateScore()), String.valueOf(player2.calculateScore()));

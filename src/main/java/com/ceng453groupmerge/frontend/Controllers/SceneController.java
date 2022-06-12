@@ -47,8 +47,8 @@ public class SceneController {
         infoNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(infoPath)));
 
         gameRoot.add(infoNode, 0, 0);
-        gameRoot.add(gameBoardNode, 0, 0);
         gameRoot.add(diceNode, 0, 0);
+        gameRoot.add(gameBoardNode, 0, 0);
         diceNode.setVisible(false);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
