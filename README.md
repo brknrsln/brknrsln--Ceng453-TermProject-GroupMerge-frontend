@@ -24,4 +24,4 @@
 * Create a "how to play" page
 * Create leaderboards page(s) and fill it with information from the API
 * Create the game main page
-* * When game over, calculate the results and save the results via the API
+* When game over, calculate the results and save the results via the API
