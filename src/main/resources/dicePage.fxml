@@ -9,12 +9,12 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="dice1" fitHeight="120.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="dice1" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/dice/diceRandom.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="dice2" fitHeight="120.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="dice2" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/dice/diceRandom.png" />
                </image>
