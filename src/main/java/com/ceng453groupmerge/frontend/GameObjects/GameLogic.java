@@ -15,6 +15,7 @@ public class GameLogic {
     private ArrayList<Tile> tiles;
     private int currentPlayer = 1;
     public boolean waitingOnButtons = false;
+    private static int turn = 0;
 
     private GameLogic() {
         players = new ArrayList<>();
@@ -83,11 +84,13 @@ public class GameLogic {
 
     public void oneGameTurn() {
         if(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
-            if(players.get(currentPlayer).getCurrentBalance()>=0) { // Move game forward if current player still isn't bankrupt
-                currentPlayer = (currentPlayer+1)%2;
+            currentPlayer = (currentPlayer+1)%players.size();
+            if(currentPlayer == 0) {
+                turn++;
+                GameController.getInstance().addInfo("Turn: " + turn);
             }
-            SceneController.clearInfoNode();
-            SceneController.addToInfoNode(players.get(currentPlayer).getPlayerName() + "'s turn");
+//            SceneController.clearInfoNode();
+            GameController.getInstance().addInfo(players.get(currentPlayer).getPlayerName() + "'s turn");
             players.get(currentPlayer).playTurn();
         }
         else {
@@ -95,22 +98,22 @@ public class GameLogic {
         }
     }
 
-    public void rollDice() {
-        GameController.getInstance().setRollButtonDisable(true);
-        DiceController.getInstance().rollDice();
-    }
 
     public void purchaseTile() {
-        System.out.println("Purchased"); // TODO: Debug, remove
+//        System.out.println("Purchased");
         Player currentPlayer = getPlayers().get(getCurrentPlayer());
         currentPlayer.purchaseProperty(getTiles().get(currentPlayer.getCurrentPosition()));
+        String text = currentPlayer.getPlayerName() + " purchased " + getTiles().get(currentPlayer.getCurrentPosition()).getTileName();
+        GameController.getInstance().addInfo(text);
         skipTurn();
     }
 
 
     public void skipTurn() {
-        System.out.println("Skipped"); // TODO: Debug, remove
+//        System.out.println("Skipped");
         GameController.getInstance().setTileButtonsDisable(true);
+        String text = getPlayers().get(getCurrentPlayer()).getPlayerName() + " ended their turn";
+        GameController.getInstance().addInfo(text);
         waitingOnButtons = false;
         players.get(currentPlayer).playTurnAfterButton();
     }
@@ -118,8 +121,8 @@ public class GameLogic {
     public void endGame() {
         Player player1 = players.get(0);
         Player player2 = players.get(1);
-        GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.calculateScore()), String.valueOf(player2.calculateScore()));
-        // TODO: Print endgame message
+        GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.getScore()), String.valueOf(player2.getScore()));
+        SceneController.setEndGameNodeVisibility(true);
     }
 
     public int getPlayerPosition(int player) {

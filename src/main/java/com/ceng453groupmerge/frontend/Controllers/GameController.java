@@ -3,11 +3,14 @@ package com.ceng453groupmerge.frontend.Controllers;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +18,12 @@ import java.util.HashMap;
 public class GameController {
     @FXML
     private GridPane gameGridPane;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private VBox infoVbox;
 
     @FXML
     private Button start;
@@ -213,5 +222,71 @@ public class GameController {
     public void startGame() {
         start.setVisible(false);
         gameLogic.startGame();
+        setInfoVbox();
+    }
+
+    public void printTileOwner(int position){
+        String owner = gameLogic.getTiles().get(position).getOwner();
+        Label label = new Label(owner);
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1415FA; -fx-font: Comic Sans MS;");
+        switch (position) {
+            case 1:
+                label.rotateProperty().setValue(90);
+                gameGridPane.add(label, 0, 3);
+                break;
+            case 2:
+                label.rotateProperty().setValue(90);
+                gameGridPane.add(label, 0, 2);
+                break;
+            case 3:
+                label.rotateProperty().setValue(90);
+                gameGridPane.add(label, 0, 1);
+                break;
+            case 5:
+                label.rotateProperty().setValue(180);
+                gameGridPane.add(label, 1, 0);
+                break;
+            case 6:
+                label.rotateProperty().setValue(180);
+                gameGridPane.add(label, 2, 0);
+                break;
+            case 7:
+                label.rotateProperty().setValue(180);
+                gameGridPane.add(label, 3, 0);
+                break;
+            case 9:
+                label.rotateProperty().setValue(270);
+                gameGridPane.add(label, 4, 1);
+                break;
+            case 10:
+                label.rotateProperty().setValue(270);
+                gameGridPane.add(label, 4, 2);
+                break;
+            case 11:
+                label.rotateProperty().setValue(270);
+                gameGridPane.add(label, 4, 3);
+                break;
+            case 13:
+                gameGridPane.add(label, 3, 4);
+                break;
+            case 14:
+                gameGridPane.add(label, 2, 4);
+                break;
+            case 15:
+                gameGridPane.add(label, 1, 4);
+                break;
+        }
+    }
+
+    public void addInfo(String info){
+        Text text1 = new Text(info);
+        text1.setStyle("-fx-font-size: 16px; -fx-font-weight: italic; -fx-font-family: Comic Sans MS;");
+        infoVbox.getChildren().add(text1);
+    }
+
+    private void setInfoVbox() {
+        infoVbox.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue(scrollPane.getVmax());
+        });
     }
 }

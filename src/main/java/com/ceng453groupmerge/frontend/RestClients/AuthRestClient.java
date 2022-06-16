@@ -25,9 +25,14 @@ public class AuthRestClient {
 
     }
 
-    public static synchronized AuthRestClient getInstance() throws IOException {
-        if (authRestClient == null)
-            authRestClient = new AuthRestClient();
+    public static synchronized AuthRestClient getInstance() {
+        if (authRestClient == null) {
+            try {
+                authRestClient = new AuthRestClient();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return authRestClient;
     }
 

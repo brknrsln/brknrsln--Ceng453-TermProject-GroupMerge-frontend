@@ -1,6 +1,7 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import com.ceng453groupmerge.frontend.Controllers.SceneController;
 import javafx.animation.RotateTransition;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -32,12 +33,12 @@ public abstract class Player {
 
     public void addMoney(int x) {
         currentBalance += x;
-        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance); // TODO: Debug, remove
+//        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
     }
 
     public void subtractMoney(int x) {
         currentBalance -= x;
-        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance); // TODO: Debug, remove
+//        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
     }
 
     public int getCurrentPosition() {
@@ -57,7 +58,9 @@ public abstract class Player {
     public void sendToJail() {
         jailTime = 2;
         currentPosition = 4;
-        System.out.println("Player "+playerName+" has been jailed"); // TODO: Debug, remove
+//        String text = "Player " are in jail. You have 2 turns to get out.";
+        String text = "Player "+playerName+" has been jailed for 2 turns.";
+        GameController.getInstance().addInfo(text);
         consecutiveDoubles = 0;
     }
 
@@ -71,7 +74,7 @@ public abstract class Player {
 
     public void movePlayer(int x) {
         currentPosition = (currentPosition+x)%16;
-        System.out.println(playerName+" position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition); // TODO: Debug, remove
+//        System.out.println(playerName+" position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition);
     }
 
     public ArrayList<Tile> getOwnedProperties() {
@@ -85,8 +88,10 @@ public abstract class Player {
                     ownedProperties.add(newProperty);
                     newProperty.setOwner(playerName);
                     subtractMoney(newProperty.getPrice());
-                    // TODO: Print new tile owner
-                    System.out.println("Player "+playerName+" now owns property "+newProperty.getTileName()); // TODO: Debug, remove
+                    GameController.getInstance().printTileOwner(currentPosition);
+//                    System.out.println("Player "+playerName+" now owns property "+newProperty.getTileName());
+                    String text = "Player "+playerName+" now owns property "+newProperty.getTileName();
+                    GameController.getInstance().addInfo(text);
                 }
             }
         }
@@ -95,7 +100,7 @@ public abstract class Player {
     public abstract void playTurn();
     public abstract void playTurnAfterDice();
     public void playTurnAfterButton() {
-        System.out.println("playTurnAfterButton called for "+getPlayerName()); // TODO: Debug, remove
+//        System.out.println("playTurnAfterButton called for "+getPlayerName());
 
         // TODO: Print player money
         GameController.getInstance().drawPlayerSprites(getPlayerID());
@@ -108,7 +113,7 @@ public abstract class Player {
         rt.play();
     }
 
-    public int calculateScore() {
+    public int getScore() {
         int score = 0;
         for(Tile property:ownedProperties) {
             score += property.getPrice();

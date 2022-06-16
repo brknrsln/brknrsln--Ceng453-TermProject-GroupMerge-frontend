@@ -15,7 +15,7 @@
             <Image url="@images/title.png" />
          </image>
       </ImageView>
-      <Label text="MENU" textAlignment="CENTER">
+      <Label text="MENU" textAlignment="CENTER" textFill="#1415fa">
          <font>
             <Font name="Calibri Bold" size="45.0" />
          </font>

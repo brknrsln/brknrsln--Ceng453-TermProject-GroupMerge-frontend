@@ -34,9 +34,6 @@ public class RegisterController {
     @FXML
     public Button loginPageButton;
 
-    public RegisterController() throws IOException {
-    }
-
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();

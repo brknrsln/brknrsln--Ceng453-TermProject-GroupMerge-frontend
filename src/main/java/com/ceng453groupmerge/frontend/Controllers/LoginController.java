@@ -37,9 +37,6 @@ public class LoginController implements Initializable {
     @FXML
     public Button forgotPageButton;
 
-    public LoginController() throws IOException {
-    }
-
     @FXML
     public void handleLoginButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();

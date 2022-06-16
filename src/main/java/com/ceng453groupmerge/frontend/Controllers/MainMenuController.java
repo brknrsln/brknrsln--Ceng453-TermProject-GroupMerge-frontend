@@ -17,11 +17,11 @@ public class MainMenuController {
 
     @FXML
     public void handleSwitchToGameSingle(ActionEvent event) throws IOException {
-        SceneController.switchToGameScene(event, GAME, DICE, INFO);
+        SceneController.switchToGameScene(event);
     }
     @FXML
     public void handleSwitchToGameMulti(ActionEvent event) throws IOException {
-        SceneController.switchToGameScene(event, GAME, DICE, INFO);
+        SceneController.switchToGameScene(event);
     }
     @FXML
 

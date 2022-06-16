@@ -29,8 +29,6 @@ public class ForgotController {
     @FXML
     public Button loginPageButton;
 
-    public ForgotController() throws IOException {
-    }
 
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) {

@@ -8,5 +8,6 @@ public class fxmlPathConstants {
     public static final String REGISTER_PAGE    = "/registerPage.fxml";
     public static final String LEADERBOARD_PAGE = "/leaderboardsPage.fxml";
     public static final String DICE             = "/dicePage.fxml";
-    public static final String INFO             = "/infoPage.fxml";
+    public static final String END_GAME         = "/endGamePage.fxml";
+    public static final String TITLE            = "/titlePage.fxml";
 }
