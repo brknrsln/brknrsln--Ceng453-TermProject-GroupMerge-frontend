@@ -1,5 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
+import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+import com.ceng453groupmerge.frontend.GameObjects.Player;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
@@ -42,7 +45,13 @@ public class SceneController {
 
         ctrlAndNinePressed.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                // TODO: implement ctr+9 functionality
+                GameController.getInstance().addInfo("CHEAT CODE ENABLED");
+                ArrayList<Player> players = GameLogic.getInstance().getPlayers();
+                Player player;
+                if(players.get(0).getPlayerName().equals(CredentialController.username)) player = players.get(0);
+                else player = players.get(1);
+                player.setCurrentPosition(8);
+                player.subtractMoney(10000000);
             }
         });
 
@@ -108,7 +117,7 @@ public class SceneController {
     }
 
     public static void setEndGameNodeVisibility(boolean visible) {
-        GameEndController.getInstance().endGameScoreView();
         endGameNode.setVisible(visible);
+        GameEndController.getInstance().endGameScoreView();
     }
 }

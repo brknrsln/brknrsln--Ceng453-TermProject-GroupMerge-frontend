@@ -134,65 +134,68 @@ public class GameController {
         spawnPlayer(go, player, playerSprite);
     }
 
-    public void drawPlayerSprites(int player) {
-        ImageView playerSprite = playerSprites.get(player);
-        HBox hBox = gameBoard.get(player);
-        hBox.getChildren().remove(playerSprite);
-        if(hBox.getChildren().size() == 0) {
-            VBox parent = (VBox) hBox.getParent();
-            parent.getChildren().remove(hBox);
+    public void drawPlayerSprites() {
+        for(int player=0; player<2; player++) {
+            ImageView playerSprite = playerSprites.get(player);
+            HBox hBox = gameBoard.get(player);
+            hBox.getChildren().remove(playerSprite);
+            if(hBox.getChildren().size() == 0) {
+                VBox parent = (VBox) hBox.getParent();
+                parent.getChildren().remove(hBox);
+            }
+            int position = GameLogic.getInstance().getPlayerPosition(player);
+            switch (position) {
+                case 0:
+                    spawnPlayer(go, player, playerSprite);
+                    break;
+                case 1:
+                    spawnPlayer(sincan, player, playerSprite);
+                    break;
+                case 2:
+                    spawnPlayer(asti, player, playerSprite);
+                    break;
+                case 3:
+                    spawnPlayer(pursaklar, player, playerSprite);
+                    break;
+                case 4:
+                    spawnPlayer(jail, player, playerSprite);
+                    break;
+                case 5:
+                    spawnPlayer(polatli, player, playerSprite);
+                    break;
+                case 6:
+                    spawnPlayer(tcdd, player, playerSprite);
+                    break;
+                case 7:
+                    spawnPlayer(ayas, player, playerSprite);
+                    break;
+                case 8:
+                    spawnPlayer(incomeTax, player, playerSprite);
+                    break;
+                case 9:
+                    spawnPlayer(golbasi, player, playerSprite);
+                    break;
+                case 10:
+                    spawnPlayer(ankaray, player, playerSprite);
+                    break;
+                case 11:
+                    spawnPlayer(beypazari, player, playerSprite);
+                    break;
+                case 12:
+                    spawnPlayer(goToJail, player, playerSprite);
+                    break;
+                case 13:
+                    spawnPlayer(yenimahalle, player, playerSprite);
+                    break;
+                case 14:
+                    spawnPlayer(esenboga, player, playerSprite);
+                    break;
+                case 15:
+                    spawnPlayer(cankaya, player, playerSprite);
+                    break;
+            }
         }
-        int position = GameLogic.getInstance().getPlayerPosition(player);
-        switch (position) {
-            case 0:
-                spawnPlayer(go, player, playerSprite);
-                break;
-            case 1:
-                spawnPlayer(sincan, player, playerSprite);
-                break;
-            case 2:
-                spawnPlayer(asti, player, playerSprite);
-                break;
-            case 3:
-                spawnPlayer(pursaklar, player, playerSprite);
-                break;
-            case 4:
-                spawnPlayer(jail, player, playerSprite);
-                break;
-            case 5:
-                spawnPlayer(polatli, player, playerSprite);
-                break;
-            case 6:
-                spawnPlayer(tcdd, player, playerSprite);
-                break;
-            case 7:
-                spawnPlayer(ayas, player, playerSprite);
-                break;
-            case 8:
-                spawnPlayer(incomeTax, player, playerSprite);
-                break;
-            case 9:
-                spawnPlayer(golbasi, player, playerSprite);
-                break;
-            case 10:
-                spawnPlayer(ankaray, player, playerSprite);
-                break;
-            case 11:
-                spawnPlayer(beypazari, player, playerSprite);
-                break;
-            case 12:
-                spawnPlayer(goToJail, player, playerSprite);
-                break;
-            case 13:
-                spawnPlayer(yenimahalle, player, playerSprite);
-                break;
-            case 14:
-                spawnPlayer(esenboga, player, playerSprite);
-                break;
-            case 15:
-                spawnPlayer(cankaya, player, playerSprite);
-                break;
-        }
+
     }
 
     private void spawnPlayer(VBox vbox, int player, ImageView playerSprite) {

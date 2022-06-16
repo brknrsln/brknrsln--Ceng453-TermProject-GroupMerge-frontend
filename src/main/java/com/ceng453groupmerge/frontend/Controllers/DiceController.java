@@ -18,9 +18,6 @@ public class DiceController {
     @FXML
     private ImageView dice2;
 
-    private static int dice1Value;
-    private static int dice2Value;
-
     private Dice dice;
     private static DiceController diceController;
 

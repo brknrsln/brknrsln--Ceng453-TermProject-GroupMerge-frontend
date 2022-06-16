@@ -45,7 +45,6 @@ public class PlayerReal extends Player {
                 addMoney(100); // Moved over starting point
             }
             // TODO: Print player money
-            GameController.getInstance().drawPlayerSprites(getPlayerID());
 
             Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
 

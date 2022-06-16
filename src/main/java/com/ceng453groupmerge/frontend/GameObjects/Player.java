@@ -34,11 +34,13 @@ public abstract class Player {
     public void addMoney(int x) {
         currentBalance += x;
 //        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
+        GameController.getInstance().addInfo(playerName+"'s balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
     }
 
     public void subtractMoney(int x) {
         currentBalance -= x;
 //        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
+        GameController.getInstance().addInfo(playerName+"'s balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
     }
 
     public int getCurrentPosition() {
@@ -62,6 +64,7 @@ public abstract class Player {
         String text = "Player "+playerName+" has been jailed for 2 turns.";
         GameController.getInstance().addInfo(text);
         consecutiveDoubles = 0;
+        GameController.getInstance().drawPlayerSprites();
     }
 
     public int spendJailTime() {
@@ -75,6 +78,7 @@ public abstract class Player {
     public void movePlayer(int x) {
         currentPosition = (currentPosition+x)%16;
 //        System.out.println(playerName+" position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition);
+        GameController.getInstance().drawPlayerSprites();
     }
 
     public ArrayList<Tile> getOwnedProperties() {
@@ -103,7 +107,6 @@ public abstract class Player {
 //        System.out.println("playTurnAfterButton called for "+getPlayerName());
 
         // TODO: Print player money
-        GameController.getInstance().drawPlayerSprites(getPlayerID());
 
         RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
         rt.setOnFinished(e -> {
@@ -119,11 +122,13 @@ public abstract class Player {
             score += property.getPrice();
         }
         score += currentBalance;
+        if(score < 0) return 0;
         return score;
     }
 
     public void setCurrentPosition(int newPosition) {
         currentPosition = newPosition;
+        GameController.getInstance().drawPlayerSprites();
     }
 
     public int getPlayerID() {
