@@ -45,6 +45,7 @@ public class SceneController {
 
         ctrlAndNinePressed.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
+                // TODO: This listener is not added if we end and then restart the game. Why??
                 GameController.getInstance().addInfo("CHEAT CODE ENABLED");
                 ArrayList<Player> players = GameLogic.getInstance().getPlayers();
                 Player player;

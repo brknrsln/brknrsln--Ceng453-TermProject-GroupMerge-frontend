@@ -36,6 +36,14 @@ public class GameLogic {
         GameController.getInstance().addPlayerSprite(1);
     }
 
+    private void resetGame() {
+        players.clear();
+        tiles.clear();
+        currentPlayer = 1;
+        waitingOnButtons = false;
+        turn = 0;
+    }
+
     private void initializeTiles() {
         tiles.add(new TileMiscGo());
         tiles.add(new TilePurchasableStreet("Sincan", 100));
@@ -75,6 +83,8 @@ public class GameLogic {
         SceneController.setDiceNodeVisibility(true);
         GameController.getInstance().setRollButtonDisable(true);
         GameController.getInstance().setTileButtonsDisable(true);
+
+        resetGame();
 
         initializePlayers();
         initializeTiles();
