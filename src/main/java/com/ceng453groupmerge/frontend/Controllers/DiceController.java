@@ -3,10 +3,8 @@ package com.ceng453groupmerge.frontend.Controllers;
 import com.ceng453groupmerge.frontend.GameObjects.Dice;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import javafx.animation.AnimationTimer;
-import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -19,7 +17,7 @@ public class DiceController {
     private ImageView dice2;
 
     private Dice dice;
-    private static DiceController diceController;
+    private static DiceController instance;
 
     Random random = new Random();
 
@@ -27,14 +25,19 @@ public class DiceController {
 
     public DiceController() {
         dice = Dice.getInstance();
-        diceController = this;
+        instance = this;
         clock = new Roller();
     }
 
     public static DiceController getInstance() {
-        return diceController;
+        return instance;
     }
 
+    public void resetGame() {
+        if(instance != null) {
+            instance = null;
+        }
+    }
 
     @FXML
     public void rollDice() {
@@ -73,13 +76,7 @@ public class DiceController {
                     GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
                     counter = 0;
                 }
-//                rollDice();
             }
         }
-//            if (dice.isDouble()) {
-//                rollDice();
-//                stop();
-//            }
-//        }
     }
 }

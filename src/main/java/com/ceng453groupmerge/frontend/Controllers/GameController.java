@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +19,9 @@ import java.util.HashMap;
 public class GameController {
     @FXML
     private GridPane gameGridPane;
+
+    @FXML
+    private VBox scoreBoardVBox;
 
     @FXML
     private ScrollPane scrollPane;
@@ -91,7 +95,7 @@ public class GameController {
 
     private HashMap<Integer, HBox> gameBoard = new HashMap<>();
 
-    private static GameLogic gameLogic;
+    private GameLogic gameLogic;
 
     public GameController() {
         instance = this;
@@ -101,6 +105,11 @@ public class GameController {
     public static GameController getInstance() {
         if(instance == null) instance = new GameController();
         return instance;
+    }
+    public void resetGame() {
+        if(instance != null) {
+            instance = null;
+        }
     }
 
     public void setRollButtonDisable(boolean disable) {
@@ -283,7 +292,8 @@ public class GameController {
 
     public void addInfo(String info){
         Text text1 = new Text(info);
-        text1.setStyle("-fx-font-size: 16px; -fx-font-weight: italic; -fx-font-family: Comic Sans MS;");
+        text1.setStyle("-fx-font-size: 15px; -fx-font-weight: italic; -fx-font-family: Comic Sans MS;");
+        text1.setWrappingWidth(300);
         infoVbox.getChildren().add(text1);
     }
 
@@ -291,5 +301,24 @@ public class GameController {
         infoVbox.heightProperty().addListener((observable, oldValue, newValue) -> {
             scrollPane.setVvalue(scrollPane.getVmax());
         });
+
+        GameLogic.getInstance().getPlayers().stream()
+                .forEach(player -> {
+                    Label username = new Label(player.getPlayerName() + ": ");
+                    username.setStyle("-fx-font-size: 14px; -fx-font-weight: italic; -fx-text-fill: #1415FA; -fx-font: Comic Sans MS;");
+                    Label score = new Label(player.getCurrentBalance() + "");
+                    score.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1415FA; -fx-font: Comic Sans MS;");
+                    HBox hBox = new HBox();
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                    hBox.getChildren().addAll(username, score);
+                    scoreBoardVBox.getChildren().add(hBox);
+                });
+    }
+
+    public void updateScoreBoard() {
+        for(int i = 0; i < GameLogic.getInstance().getPlayers().size(); i++){
+            Label score = (Label) ((HBox)scoreBoardVBox.getChildren().get(i)).getChildren().get(1);
+            score.setText(GameLogic.getInstance().getPlayers().get(i).getCurrentBalance() + "");
+        }
     }
 }

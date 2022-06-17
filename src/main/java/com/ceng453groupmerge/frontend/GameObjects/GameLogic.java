@@ -1,7 +1,6 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.CredentialController;
-import com.ceng453groupmerge.frontend.Controllers.DiceController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
@@ -10,12 +9,12 @@ import java.util.ArrayList;
 
 public class GameLogic {
 
-    private static GameLogic gameLogic;
+    private static GameLogic instance = null;
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
     private int currentPlayer = 1;
     public boolean waitingOnButtons = false;
-    private static int turn = 0;
+    private int turn = 0;
 
     private GameLogic() {
         players = new ArrayList<>();
@@ -23,10 +22,16 @@ public class GameLogic {
     }
 
     public static synchronized GameLogic getInstance() {
-        if(gameLogic == null) {
-            gameLogic = new GameLogic();
+        if (instance == null) {
+            instance = new GameLogic();
         }
-        return gameLogic;
+        return instance;
+    }
+
+    public void resetGame() {
+        if(instance != null) {
+            instance = null;
+        }
     }
 
     private void initializePlayers() {
@@ -36,13 +41,13 @@ public class GameLogic {
         GameController.getInstance().addPlayerSprite(1);
     }
 
-    private void resetGame() {
-        players.clear();
-        tiles.clear();
-        currentPlayer = 1;
-        waitingOnButtons = false;
-        turn = 0;
-    }
+//    private void resetGame() {
+//        players.clear();
+//        tiles.clear();
+//        currentPlayer = 1;
+//        waitingOnButtons = false;
+//        turn = 0;
+//    }
 
     private void initializeTiles() {
         tiles.add(new TileMiscGo());
@@ -84,7 +89,7 @@ public class GameLogic {
         GameController.getInstance().setRollButtonDisable(true);
         GameController.getInstance().setTileButtonsDisable(true);
 
-        resetGame();
+//        resetGame();
 
         initializePlayers();
         initializeTiles();
@@ -98,6 +103,7 @@ public class GameLogic {
             if(currentPlayer == 0) {
                 turn++;
                 GameController.getInstance().addInfo("Turn: " + turn);
+//                GameController.getInstance().updateScoreBoard();
             }
 //            SceneController.clearInfoNode();
             GameController.getInstance().addInfo(players.get(currentPlayer).getPlayerName() + "'s turn");
@@ -115,6 +121,7 @@ public class GameLogic {
         currentPlayer.purchaseProperty(getTiles().get(currentPlayer.getCurrentPosition()));
         String text = currentPlayer.getPlayerName() + " purchased " + getTiles().get(currentPlayer.getCurrentPosition()).getTileName();
         GameController.getInstance().addInfo(text);
+        GameController.getInstance().updateScoreBoard();
         skipTurn();
     }
 

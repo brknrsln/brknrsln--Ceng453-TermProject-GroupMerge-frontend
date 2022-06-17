@@ -88,6 +88,11 @@
                   <Insets bottom="110.0" />
                </GridPane.margin>
             </ScrollPane>
+            <VBox fx:id="scoreBoardVBox" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets top="110.0" />
+               </GridPane.margin>
+            </VBox>
          </children>
       </GridPane>
    </children>

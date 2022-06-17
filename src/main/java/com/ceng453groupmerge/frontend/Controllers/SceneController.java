@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,20 +31,20 @@ public class SceneController {
     private static Scene scene;
     private static VBox diceNode;
     private static VBox endGameNode;
-
+    static final BooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
+    static final BooleanProperty ninePressed = new SimpleBooleanProperty(false);
+    static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
+        resetGame();
         Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(fxmlPath)));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        setStage();
         stage.show();
     }
 
     public static void switchToGameScene(ActionEvent event) throws IOException {
-        final BooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
-        final BooleanProperty ninePressed = new SimpleBooleanProperty(false);
-        final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
-
         ctrlAndNinePressed.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 // TODO: This listener is not added if we end and then restart the game. Why??
@@ -85,15 +87,13 @@ public class SceneController {
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(gameRoot);
+        stage.setScene(scene);
+
 
         scene.setOnKeyPressed(event1 -> {
             System.out.println(event1.getCode());
             if (event1.getCode().toString().equals("ESCAPE")) {
-                try {
-                    SceneController.switchToScene(event, MAIN_MENU);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                GameEndController.getInstance().backButton.fire();
             } else if (event1.getCode() == javafx.scene.input.KeyCode.CONTROL) {
                 ctrlPressed.set(true);
             } else if ( event1.getCode() == KeyCode.DIGIT9) {
@@ -108,8 +108,7 @@ public class SceneController {
                 ninePressed.set(false);
             }
         });
-
-        stage.setScene(scene);
+        setStage();
         stage.show();
     }
 
@@ -120,5 +119,18 @@ public class SceneController {
     public static void setEndGameNodeVisibility(boolean visible) {
         endGameNode.setVisible(visible);
         GameEndController.getInstance().endGameScoreView();
+    }
+
+    private static void resetGame() {
+        if(GameLogic.getInstance() != null) GameLogic.getInstance().resetGame();
+        if(GameController.getInstance() != null) GameController.getInstance().resetGame();
+        if(GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
+        if(DiceController.getInstance() != null) DiceController.getInstance().resetGame();
+    }
+
+    private static void setStage(){
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primaryScreenBounds.getWidth()  - stage.getWidth()) / 2);
+        stage.setY((primaryScreenBounds.getHeight()  - stage.getHeight()) / 2);
     }
 }

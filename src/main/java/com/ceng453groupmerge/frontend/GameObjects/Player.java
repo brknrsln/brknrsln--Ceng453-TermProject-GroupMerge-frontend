@@ -35,12 +35,14 @@ public abstract class Player {
         currentBalance += x;
 //        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
         GameController.getInstance().addInfo(playerName+"'s balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
+        GameController.getInstance().updateScoreBoard();
     }
 
     public void subtractMoney(int x) {
         currentBalance -= x;
 //        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
         GameController.getInstance().addInfo(playerName+"'s balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
+        GameController.getInstance().updateScoreBoard();
     }
 
     public int getCurrentPosition() {

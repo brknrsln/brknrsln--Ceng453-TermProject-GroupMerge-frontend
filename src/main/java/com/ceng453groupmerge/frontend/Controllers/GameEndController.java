@@ -16,7 +16,7 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.MAIN_ME
 
 public class GameEndController {
     @FXML
-    private Button backButton;
+    public Button backButton;
 
     @FXML
     private TextFlow textFlow;
@@ -29,6 +29,12 @@ public class GameEndController {
 
     public static GameEndController getInstance() {
         return instance;
+    }
+
+    public void resetGame() {
+        if(instance != null) {
+            instance = null;
+        }
     }
 
     @FXML
