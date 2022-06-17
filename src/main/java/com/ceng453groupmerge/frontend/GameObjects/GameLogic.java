@@ -103,9 +103,7 @@ public class GameLogic {
             if(currentPlayer == 0) {
                 turn++;
                 GameController.getInstance().addInfo("Turn: " + turn);
-//                GameController.getInstance().updateScoreBoard();
             }
-//            SceneController.clearInfoNode();
             GameController.getInstance().addInfo(players.get(currentPlayer).getPlayerName() + "'s turn");
             players.get(currentPlayer).playTurn();
         }
@@ -113,6 +111,7 @@ public class GameLogic {
             endGame();
         }
     }
+
 
 
     public void purchaseTile() {

@@ -11,9 +11,17 @@ import java.io.IOException;
 
 @Component
 public class MainMenuController {
+    @FXML
     public Button playSingleButton;
+
+    @FXML
     public Button playMultiButton;
+
+    @FXML
     public Button leaderboardsAllTimeButton;
+
+    @FXML
+    public Button logoutButton;
 
     @FXML
     public void handleSwitchToGameSingle(ActionEvent event) throws IOException {
@@ -27,5 +35,12 @@ public class MainMenuController {
 
     public void handleSwitchToLeaderboardsPage(ActionEvent event) throws IOException {
         SceneController.switchToScene(event, LEADERBOARD_PAGE);
+    }
+
+    @FXML
+    public void handleLogout(ActionEvent event) throws IOException {
+        CredentialController.username = null;
+        CredentialController.access_token = null;
+        SceneController.switchToScene(event, LOGIN_PAGE);
     }
 }

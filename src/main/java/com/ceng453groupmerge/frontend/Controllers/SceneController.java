@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.Player;
+import javafx.animation.RotateTransition;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +57,11 @@ public class SceneController {
                 else player = players.get(1);
                 player.setCurrentPosition(8);
                 player.subtractMoney(10000000);
+                RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
+                rt.setOnFinished(event1 -> {
+                    GameLogic.getInstance().endGame();
+                });
+                rt.play();
             }
         });
 
