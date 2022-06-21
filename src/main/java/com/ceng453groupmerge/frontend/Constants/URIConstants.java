@@ -9,4 +9,7 @@ public class URIConstants {
     public static final String WEEKLY = "/game/leaderboards7Days";
     public static final String SAVE_GAME = "/game/save";
     public static final String GET_ALL_GAMES = "/game/all";
+    public static final String UPDATE_PLAYER = "/multiplayer/player";
+    public static final String UPDATE_TILE = "/multiplayer/tile";
+
 }

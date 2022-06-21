@@ -35,7 +35,7 @@ public class MultiplayerRestClient {
     }
 
     public String updatePlayer(PlayerDTO playerDTO){
-        return webClient.post().uri(SAVE_GAME)
+        return webClient.post().uri(UPDATE_PLAYER)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(playerDTO)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
@@ -44,7 +44,7 @@ public class MultiplayerRestClient {
     }
 
     public String updateTile(PlayerDTO playerDTO){
-        return webClient.post().uri(SAVE_GAME)
+        return webClient.post().uri(UPDATE_TILE)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(playerDTO)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
