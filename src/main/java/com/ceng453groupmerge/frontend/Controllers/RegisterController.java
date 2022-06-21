@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453groupmerge.frontend.AlertHelper;
+import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import static com.ceng453groupmerge.frontend.Constants.ErrorConstants.*;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
 import javafx.event.ActionEvent;

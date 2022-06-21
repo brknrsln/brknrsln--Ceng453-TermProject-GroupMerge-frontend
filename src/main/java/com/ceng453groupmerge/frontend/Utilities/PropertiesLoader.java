@@ -1,4 +1,4 @@
-package com.ceng453groupmerge.frontend;
+package com.ceng453groupmerge.frontend.Utilities;
 
 import java.io.IOException;
 import java.io.InputStream;

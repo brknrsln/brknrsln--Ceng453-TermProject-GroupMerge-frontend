@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.RestClients;
 
-import com.ceng453groupmerge.frontend.PropertiesLoader;
+import com.ceng453groupmerge.frontend.Utilities.PropertiesLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;

@@ -1,10 +1,8 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453groupmerge.frontend.AlertHelper;
-import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
+import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import com.ceng453groupmerge.frontend.RestClients.LeaderboardRestClient;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

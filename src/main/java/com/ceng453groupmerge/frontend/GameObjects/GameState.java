@@ -1,6 +1,22 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
+import com.ceng453groupmerge.frontend.DTO.PlayerDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.ArrayList;
+
+import static com.ceng453groupmerge.frontend.Constants.URIConstants.SAVE_GAME;
+
 public class GameState {
-    // This is the class in which we hold the game state. In case of a disconnect, the player will be able to reconnect using this class. We may also use this class for multiplayer communication.
-    // Unused for now.
+
+    private ArrayList<Player> players;
+    private ArrayList<Tile> tiles;
+    private Dice dice;
+    private int currentPlayer;
+
+
+
 }
