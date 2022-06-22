@@ -11,6 +11,8 @@ public class URIConstants {
     public static final String GET_ALL_GAMES = "/game/all";
     public static final String UPDATE_PLAYER = "/multiplayer/player";
     public static final String UPDATE_TILE = "/multiplayer/tile";
-    public static final String UPDATE_ROOM = "/multiplayer/room";
-
+    public static final String JOIN_ROOM = "/room/joinRoom";
+    public static final String GET_ROOM_LIST = "/room/getRooms";
+    public static final String WAIT_ROOM = "/room/waitRoom";
+    public static final String LEAVE_ROOM = "/room/leaveRoom";
 }

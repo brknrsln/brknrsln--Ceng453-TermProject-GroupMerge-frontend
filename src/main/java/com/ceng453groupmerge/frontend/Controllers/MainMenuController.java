@@ -1,5 +1,6 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
+import com.ceng453groupmerge.frontend.GameObjects.PlayerReal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,6 +42,7 @@ public class MainMenuController {
     public void handleLogout(ActionEvent event) throws IOException {
         CredentialController.username = null;
         CredentialController.access_token = null;
+        PlayerReal.getInstance().destructPlayer();
         SceneController.switchToScene(event, LOGIN_PAGE);
     }
 }

@@ -10,9 +10,18 @@ public class PlayerReal extends Player {
 
     private static Random random = new Random();
 
+    private static PlayerReal instance = null;
+
+    public static PlayerReal getInstance() {
+        return instance;
+    }
+
     public PlayerReal(String name) {
         setPlayerName(name);
         setPlayerID(playerCount++);
+        if(instance == null) {
+            instance = this;
+        }
     }
 
     @Override
@@ -53,5 +62,9 @@ public class PlayerReal extends Player {
             if(!GameLogic.getInstance().waitingOnButtons) GameLogic.getInstance().skipTurn();
             else System.out.println("Waiting for buttons for "+getPlayerName());
         }
+    }
+
+    public void destructPlayer() {
+        instance = null;
     }
 }

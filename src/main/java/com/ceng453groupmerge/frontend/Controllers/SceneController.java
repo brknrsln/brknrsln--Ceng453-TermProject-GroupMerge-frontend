@@ -31,14 +31,17 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 public class SceneController {
     private static Stage stage;
     private static Scene scene;
-    private static VBox diceNode;
-    private static VBox endGameNode;
+    private static VBox gameRoot, diceNode, endGameNode, multiplayerNode, multiplayerRoomNode;
+    private static GridPane gameGrid;
     static final BooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
     static final BooleanProperty ninePressed = new SimpleBooleanProperty(false);
     static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
 
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
         resetGame();
+        if(gameRoot == null) {
+            setGameRoot();
+        }
         Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(fxmlPath)));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -66,32 +69,22 @@ public class SceneController {
             }
         });
 
-        VBox gameRoot = new VBox();
-        gameRoot.setAlignment(Pos.CENTER);
-        gameRoot.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        gameRoot.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        gameRoot.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        gameRoot.setStyle("-fx-background-color: #dcf4dd");
+        gameGrid = new GridPane();
+        gameGrid.setAlignment(Pos.CENTER);
+        gameGrid.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        gameGrid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        gameGrid.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
-        ImageView titleNode  = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(TITLE)));
         GridPane gameBoardNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(GAME)));
         diceNode        = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(DICE)));
         endGameNode     = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(END_GAME)));
 
-
-        gameRoot.getChildren().add(titleNode);
-        GridPane gameBoard = new GridPane();
-        gameBoard.setAlignment(Pos.CENTER);
-        gameBoard.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        gameBoard.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        gameBoard.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-
-        gameBoard.add(diceNode, 0, 1);
-        gameBoard.add(gameBoardNode, 0, 1);
-        gameBoard.add(endGameNode, 0, 1);
-        gameRoot.getChildren().add(gameBoard);
+        gameGrid.add(diceNode, 0, 1);
+        gameGrid.add(gameBoardNode, 0, 1);
+        gameGrid.add(endGameNode, 0, 1);
         diceNode.setVisible(false);
         endGameNode.setVisible(false);
+        gameRoot.getChildren().add(gameGrid);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(gameRoot);
@@ -116,6 +109,7 @@ public class SceneController {
                 ninePressed.set(false);
             }
         });
+
         setStage();
         stage.show();
     }
@@ -130,10 +124,24 @@ public class SceneController {
     }
 
     private static void resetGame() {
+        if(gameRoot != null) gameRoot.getChildren().remove(gameGrid);
         if(GameLogic.getInstance() != null) GameLogic.getInstance().resetGame();
         if(GameController.getInstance() != null) GameController.getInstance().resetGame();
         if(GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
         if(DiceController.getInstance() != null) DiceController.getInstance().resetGame();
+    }
+
+    private static void setGameRoot() throws IOException {
+        gameRoot = new VBox();
+
+        gameRoot.setAlignment(Pos.CENTER);
+        gameRoot.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        gameRoot.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        gameRoot.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        gameRoot.setStyle("-fx-background-color: #dcf4dd");
+
+        ImageView titleNode  = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(TITLE)));
+        gameRoot.getChildren().add(titleNode);
     }
 
     private static void setStage(){
@@ -142,12 +150,10 @@ public class SceneController {
         stage.setY((primaryScreenBounds.getHeight()  - stage.getHeight()) / 2);
     }
 
-    public static void switchToRoomScene(ActionEvent event)throws IOException {
+    public static void switchToMultiplayerRoomScene(ActionEvent event)throws IOException {
         resetGame();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+
+        multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
         setStage();
         stage.show();
     }
