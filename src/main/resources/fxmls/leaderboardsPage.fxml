@@ -19,7 +19,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/title.png" />
+            <Image url="@../images/title.png" />
          </image>
       </ImageView>
       <StackPane prefHeight="40.0" prefWidth="200.0" />

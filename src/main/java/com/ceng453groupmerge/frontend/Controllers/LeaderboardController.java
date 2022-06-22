@@ -107,8 +107,8 @@ public class LeaderboardController {
             Label label1 = new Label(count+"");
             label1.paddingProperty().setValue(new Insets(0,0,0,5));
             vBox1.getChildren().add(label1);
-            vBox2.getChildren().add(new Label(hashMap.get("player").toString()));
-            vBox3.getChildren().add(new Label(hashMap.get("player_score").toString()));
+            vBox2.getChildren().add(new Label(hashMap.get("username").toString()));
+            vBox3.getChildren().add(new Label(hashMap.get("score").toString()));
 //            System.out.println(hashMap.get("player")+" "+hashMap.get("player_score"));
 //            count++;
         }

@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/title1.png" />
+            <Image url="@../images/title1.png" />
          </image>
       </ImageView>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="LOGIN" textAlignment="CENTER" textFill="#1415fa" textOverrun="CENTER_WORD_ELLIPSIS">

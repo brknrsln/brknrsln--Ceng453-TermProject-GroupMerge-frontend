@@ -36,6 +36,7 @@ public class SceneController {
     static final BooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
     static final BooleanProperty ninePressed = new SimpleBooleanProperty(false);
     static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
+
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
         resetGame();
         Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(fxmlPath)));
@@ -139,5 +140,15 @@ public class SceneController {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primaryScreenBounds.getWidth()  - stage.getWidth()) / 2);
         stage.setY((primaryScreenBounds.getHeight()  - stage.getHeight()) / 2);
+    }
+
+    public static void switchToRoomScene(ActionEvent event)throws IOException {
+        resetGame();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        setStage();
+        stage.show();
     }
 }

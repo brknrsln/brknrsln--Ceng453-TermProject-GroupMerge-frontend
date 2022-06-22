@@ -21,7 +21,7 @@
    <children>
       <ImageView fitHeight="650.0" fitWidth="650.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/monopolyboard.png" />
+            <Image url="@../images/monopolyboard.png" />
          </image>
       </ImageView>
       <GridPane fx:id="gameGridPane" prefHeight="650.0" prefWidth="650.0">
