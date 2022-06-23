@@ -7,11 +7,16 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="590.0" spacing="50.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.RoomController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="590.0" spacing="35.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.RoomController">
    <children>
       <Text fill="#1415fa" strokeType="OUTSIDE" strokeWidth="0.0" text="ROOMS" textAlignment="CENTER">
          <font>
             <Font name="Century Gothic Bold" size="45.0" />
+         </font>
+      </Text>
+      <Text fx:id="waitingInfo" fill="#1415fa" layoutX="222.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other player...&#10;If you want to leave the room, click the room button again." textAlignment="CENTER">
+         <font>
+            <Font name="Century Gothic Bold" size="16.0" />
          </font>
       </Text>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
@@ -47,5 +52,10 @@
             </Button>
          </children>
       </HBox>
+      <Button fx:id="backMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBackMenuAction" style="-fx-background-color: #1415FA;" text="Back Menu" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="22.0" />
+         </font>
+      </Button>
    </children>
 </VBox>

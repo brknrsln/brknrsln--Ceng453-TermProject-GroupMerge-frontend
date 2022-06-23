@@ -57,6 +57,7 @@ public class RegisterController {
             authRestClient.register(nameField.getText(), emailField.getText(),passwordField.getText());
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Success!",
                     "Registration successful for " + nameField.getText());
+            SceneController.switchToScene(event, LOGIN_PAGE);
         }catch (Exception e){
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, REGISTER_FAILED, e.getMessage());
         }

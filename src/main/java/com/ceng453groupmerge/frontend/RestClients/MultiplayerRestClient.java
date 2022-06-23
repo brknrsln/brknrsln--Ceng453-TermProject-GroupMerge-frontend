@@ -62,9 +62,9 @@ public class MultiplayerRestClient {
     }
 
     public Object joinRoom(String player, Integer roomId) {
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("player", player);
-        parameters.add("room", roomId);
+        parameters.add("room", roomId.toString());
 
         return webClient.post().uri(JOIN_ROOM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -74,11 +74,9 @@ public class MultiplayerRestClient {
                 .block();
     }
 
-    public Boolean waitRoom(String player, Integer roomId) {
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
-        parameters.add("player", player);
-        parameters.add("room", roomId);
-
+    public Boolean waitRoom(Integer roomId) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("room", roomId.toString());
         return webClient.post().uri(WAIT_ROOM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(parameters)
@@ -88,9 +86,9 @@ public class MultiplayerRestClient {
     }
 
     public Object leaveRoom(String player, Integer roomId) {
-        MultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("player", player);
-        parameters.add("room", roomId);
+        parameters.add("room", roomId.toString());
 
         return webClient.post().uri(LEAVE_ROOM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)

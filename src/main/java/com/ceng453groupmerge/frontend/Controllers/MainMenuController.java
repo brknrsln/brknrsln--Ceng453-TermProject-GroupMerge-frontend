@@ -30,7 +30,7 @@ public class MainMenuController {
     }
     @FXML
     public void handleSwitchToGameMulti(ActionEvent event) throws IOException {
-        SceneController.switchToGameScene(event);
+        SceneController.switchToMultiplayerRoomScene(event);
     }
     @FXML
 

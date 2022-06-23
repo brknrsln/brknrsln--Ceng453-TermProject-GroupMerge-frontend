@@ -152,8 +152,13 @@ public class SceneController {
 
     public static void switchToMultiplayerRoomScene(ActionEvent event)throws IOException {
         resetGame();
-
         multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
+        gameRoot.getChildren().add(multiplayerRoomNode);
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(gameRoot);
+        stage.setScene(scene);
+
         setStage();
         stage.show();
     }
