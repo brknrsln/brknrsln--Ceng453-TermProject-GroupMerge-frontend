@@ -10,6 +10,5 @@ public class fxmlPathConstants {
     public static final String DICE             = "/fxmls/dicePage.fxml";
     public static final String END_GAME         = "/fxmls/endGamePage.fxml";
     public static final String TITLE            = "/fxmls/titlePage.fxml";
-    public static final String MULTIPLAYER      = "/fxmls/multiplayerPage.fxml";
     public static final String MULTIPLAYER_ROOM = "/fxmls/multiplayerRoomPage.fxml";
 }

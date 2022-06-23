@@ -7,13 +7,13 @@ import java.util.Objects;
 public class Dice {
     private int value1;
     private int value2;
-    private static Dice dice;
+    private static Dice instance;
 
     public static Dice getInstance() {
-        if(dice == null) {
-            dice = new Dice();
+        if(instance == null) {
+            instance = new Dice();
         }
-        return dice;
+        return instance;
     }
 
     public Image getDiceRandom() {
@@ -51,5 +51,13 @@ public class Dice {
 
     public void setValue2(int value2) {
         this.value2 = value2;
+    }
+
+    public int getValue1() {
+        return value1;
+    }
+
+    public int getValue2() {
+        return value2;
     }
 }

@@ -1,24 +1,23 @@
 package com.ceng453groupmerge.frontend.RestClients;
 
-import com.ceng453groupmerge.frontend.DTO.PlayerDTO;
+import com.ceng453groupmerge.frontend.DTO.ScoreDTO;
 import com.ceng453groupmerge.frontend.Utilities.PropertiesLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
 
 import java.io.IOException;
 
 public class MultiplayerRestClient {
 
-
-
-
     private final WebClient webClient;
 
-    private static MultiplayerRestClient multiplayerRestClient;
+    private static MultiplayerRestClient instance;
 
     private MultiplayerRestClient() {
         String backendURI = null;
@@ -31,28 +30,12 @@ public class MultiplayerRestClient {
     }
 
     public static synchronized MultiplayerRestClient getInstance() {
-        if (multiplayerRestClient == null)
-            multiplayerRestClient = new MultiplayerRestClient();
-        return multiplayerRestClient;
+        if (instance == null)
+            instance = new MultiplayerRestClient();
+        return instance;
     }
 
-    public String updatePlayer(PlayerDTO playerDTO){
-        return webClient.post().uri(UPDATE_PLAYER)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .bodyValue(playerDTO)
-                .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
-                .bodyToMono(String.class)
-                .block();
-    }
 
-    public String updateTile(PlayerDTO playerDTO){
-        return webClient.post().uri(UPDATE_TILE)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .bodyValue(playerDTO)
-                .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
-                .bodyToMono(String.class)
-                .block();
-    }
 
     public Object getRoomList() {
         return webClient.get().uri(GET_ROOM_LIST)
@@ -89,6 +72,15 @@ public class MultiplayerRestClient {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(parameters)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
+                .bodyToMono(Object.class)
+                .block();
+    }
+
+    public void sendScore(ScoreDTO scoreDTO) {
+        webClient.post().uri(SEND_SCORE)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .bodyValue(scoreDTO)
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error sending score."))))
                 .bodyToMono(Object.class)
                 .block();
     }

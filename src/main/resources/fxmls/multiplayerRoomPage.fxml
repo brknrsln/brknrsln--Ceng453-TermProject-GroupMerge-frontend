@@ -6,7 +6,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="590.0" spacing="35.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.RoomController">
    <children>
       <Text fill="#1415fa" strokeType="OUTSIDE" strokeWidth="0.0" text="ROOMS" textAlignment="CENTER">
@@ -56,13 +55,11 @@
          <font>
             <Font name="Century Gothic Bold" size="22.0" />
          </font>
-         <graphic>
-            <Button fx:id="startGame" cacheShape="false" centerShape="false" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleStartGameAction" prefHeight="0.0" prefWidth="0.0" scaleShape="false" text=" " visible="false">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </Button>
-         </graphic>
+      </Button>
+      <Button fx:id="startGame" cacheShape="false" centerShape="false" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleStartGameAction" prefHeight="0.0" prefWidth="0.0" scaleShape="false" text=" " visible="false">
+         <font>
+            <Font size="1.0" />
+         </font>
       </Button>
    </children>
 </VBox>

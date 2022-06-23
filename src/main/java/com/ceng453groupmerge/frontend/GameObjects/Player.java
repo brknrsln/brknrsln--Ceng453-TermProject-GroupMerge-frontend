@@ -13,7 +13,6 @@ public abstract class Player {
     protected static int playerCount = 0;
     private int playerID;
     private String playerName;
-    private int roomId;
     private int currentBalance = 1500;
     private int currentPosition = 0;
     private ArrayList<Tile> ownedProperties = new ArrayList<>();
@@ -140,13 +139,5 @@ public abstract class Player {
 
     public void setPlayerID() {
         this.playerID = playerCount++;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
     }
 }

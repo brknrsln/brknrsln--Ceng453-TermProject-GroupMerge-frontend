@@ -1,5 +1,6 @@
 package com.ceng453groupmerge.frontend.RestClients;
 
+import com.ceng453groupmerge.frontend.DTO.GameLogicDTO;
 import com.ceng453groupmerge.frontend.Utilities.PropertiesLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +19,7 @@ public class GameRestClient {
 
     private final WebClient webClient;
 
-    private static GameRestClient gameRestClient;
+    private static GameRestClient instance;
 
     private GameRestClient() {
         String backendURI = null;
@@ -31,9 +32,9 @@ public class GameRestClient {
     }
 
     public static synchronized GameRestClient getInstance() {
-        if (gameRestClient == null)
-            gameRestClient = new GameRestClient();
-        return gameRestClient;
+        if (instance == null)
+            instance = new GameRestClient();
+        return instance;
     }
 
     //return "saved" or throw error message
@@ -60,5 +61,23 @@ public class GameRestClient {
                 .block();
     }
 
+    public Object getGameLogicDTO(Integer gameId) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("gameId", gameId.toString());
+        return webClient.post().uri(GET_GAME_LOGIC)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .bodyValue(parameters)
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting gameLogicDTO."))))
+                .bodyToMono(Object.class)
+                .block();
+    }
 
+    public void setGameLogicDTO(GameLogicDTO gameLogicDTO) {
+        webClient.post().uri(SET_GAME_LOGIC)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(gameLogicDTO)
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting set gameLogic."))))
+                .bodyToMono(Object.class)
+                .block();
+    }
 }

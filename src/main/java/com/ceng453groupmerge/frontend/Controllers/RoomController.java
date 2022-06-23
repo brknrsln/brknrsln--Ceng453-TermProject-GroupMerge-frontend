@@ -55,7 +55,13 @@ public class RoomController {
 
     private TimerTask task;
 
-    private List<Integer> roomMap = new ArrayList<>(5);
+    private List<Integer> roomMap = new ArrayList<>(5){{
+        add(0);
+        add(0);
+        add(0);
+        add(0);
+        add(0);
+    }};
 
     private MultiplayerRestClient multiplayerRestClient = MultiplayerRestClient.getInstance();
 
@@ -78,16 +84,21 @@ public class RoomController {
                             roomNumber = 0;
                             updateButtons();
                             this.cancel();
-                            PlayerReal.getInstance().setRoomId(Integer.parseInt(room.get("id").toString()));
                             GameLogic gameLogic = GameLogic.getInstance();
                             gameLogic.setGameId(Integer.parseInt(room.get("gameId").toString()));
+                            gameLogic.setRoomId(Integer.parseInt(room.get("id").toString()));
                             gameLogic.addPlayer(PlayerReal.getInstance());
 
                             List<String> playerList = (List<String>) room.get("players");
                             for(String player : playerList) {
-                                gameLogic.addPlayer(new PlayerReal(player));
+                                if(!player.equals(playerName)) {
+                                    PlayerReal playerReal = new PlayerReal(player);
+                                    playerReal.setRoomId(Integer.parseInt(room.get("id").toString()));
+                                    gameLogic.addPlayer(playerReal);
+                                }
                             }
                             gameLogic.sortPlayers();
+                            gameLogic.setMultiplayer(true);
                             startGame.fire();
                         }
                     }
@@ -174,9 +185,9 @@ public class RoomController {
 
     @FXML
     public void handleBackMenuAction(ActionEvent event) throws IOException {
-        leaveRoom();
-        task.cancel();
+        if(roomNumber!=0) leaveRoom();
         SceneController.switchToScene(event, MAIN_MENU);
+        task.cancel();
     }
 
     private void leaveRoom(){

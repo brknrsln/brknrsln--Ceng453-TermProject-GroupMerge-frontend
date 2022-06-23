@@ -2,11 +2,15 @@ package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.CredentialController;
 import com.ceng453groupmerge.frontend.Controllers.GameController;
+import com.ceng453groupmerge.frontend.DTO.GameLogicDTO;
+import com.ceng453groupmerge.frontend.DTO.ScoreDTO;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
+import com.ceng453groupmerge.frontend.RestClients.MultiplayerRestClient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.TimerTask;
 
 public class GameLogic {
 
@@ -14,9 +18,13 @@ public class GameLogic {
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
     private int gameId;
+    private int roomId;
     private int currentPlayer = 1;
     public boolean waitingOnButtons = false;
     private int turn = 0;
+    private Boolean multiplayer = false;
+    private GameLogicDTO gameLogicDTO;
+    private TimerTask timerTask;
 
     private GameLogic() {
         players = new ArrayList<>();
@@ -32,17 +40,21 @@ public class GameLogic {
 
     public void resetGame() {
         if(instance != null) {
+            timerTask.cancel();
             instance = null;
         }
     }
 
     private void initializePlayers() {
-        for(int i = 0; i < players.size(); i++) {
-            players.get(i).setPlayerID();
-            GameController.getInstance().addPlayerSprite(i);
-        }
-        if(players.size() == 1) {
+        if(multiplayer) {
+            for (int i = 0; i < players.size(); i++) {
+                players.get(i).setPlayerID();
+                GameController.getInstance().addPlayerSprite(i);
+            }
+        } else{
+            players.add(PlayerReal.getInstance());
             players.add(new PlayerAI());
+            GameController.getInstance().addPlayerSprite(0);
             GameController.getInstance().addPlayerSprite(1);
         }
     }
@@ -91,8 +103,20 @@ public class GameLogic {
 
         initializePlayers();
         initializeTiles();
-
-        oneGameTurn();
+        if(multiplayer) {
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    gameLogicDTO = (GameLogicDTO) GameRestClient.getInstance().getGameLogicDTO(gameId);
+                    if(gameLogicDTO != null) {
+                        loadGameLogicDTO();
+                    }
+                }
+            };
+            new java.util.Timer().schedule(timerTask, 0, 2000);
+        } else {
+            oneGameTurn();
+        }
     }
 
     public void oneGameTurn() {
@@ -135,10 +159,20 @@ public class GameLogic {
     }
 
     public void endGame() {
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-        GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.getScore()), String.valueOf(player2.getScore()));
-        SceneController.setEndGameNodeVisibility(true);
+        if(multiplayer) {
+            ScoreDTO scoreDTO = new ScoreDTO();
+            scoreDTO.setGameId(gameId);
+            scoreDTO.setRoomId(roomId);
+            players.forEach(player -> {
+                scoreDTO.addPlayer(player.getPlayerName(), player.getCurrentBalance());
+            });
+            MultiplayerRestClient.getInstance().sendScore(scoreDTO);
+        } else {
+            Player player1 = players.get(0);
+            Player player2 = players.get(1);
+            GameRestClient.getInstance().save(player1.getPlayerName(), player2.getPlayerName(), String.valueOf(player1.getScore()), String.valueOf(player2.getScore()));
+            SceneController.setEndGameNodeVisibility(true);
+        }
     }
 
     public int getPlayerPosition(int player) {
@@ -159,5 +193,36 @@ public class GameLogic {
 
     public void sortPlayers() {
         players.sort(Comparator.comparing(Player::getPlayerName));
+    }
+
+    private void setGameLogicDTO() {
+        this.gameLogicDTO = new GameLogicDTO(players, tiles, gameId, currentPlayer, turn, Dice.getInstance().getValue1(), Dice.getInstance().getValue2());
+        GameRestClient.getInstance().setGameLogicDTO(gameLogicDTO);
+    }
+
+    protected void loadGameLogicDTO() {
+        players = gameLogicDTO.getPlayers();
+        tiles = gameLogicDTO.getTiles();
+        currentPlayer = gameLogicDTO.getCurrentPlayer();
+        turn = gameLogicDTO.getTurn();
+        Dice.getInstance().setValue1(gameLogicDTO.getValue1());
+        Dice.getInstance().setValue2(gameLogicDTO.getValue2());
+        oneGameTurn();
+    }
+
+    public Boolean getMultiplayer() {
+        return multiplayer;
+    }
+
+    public void setMultiplayer(boolean b) {
+        multiplayer = b;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 }

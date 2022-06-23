@@ -30,7 +30,6 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 
 public class SceneController {
     private static Stage stage;
-    private static Scene scene;
     private static VBox gameRoot;
     private static VBox diceNode;
     private static VBox endGameNode;
@@ -40,19 +39,21 @@ public class SceneController {
     static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
 
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
-        resetGame();
+//        resetGame();
         if(gameRoot == null) {
             setGameRoot();
         }
         Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(fxmlPath)));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         setStage();
         stage.show();
     }
 
     public static void switchToGameScene(ActionEvent event) throws IOException {
+        resetGame();
+        setGameRoot();
         ctrlAndNinePressed.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 // TODO: This listener is not added if we end and then restart the game. Why??
@@ -89,7 +90,7 @@ public class SceneController {
         gameRoot.getChildren().add(gameGrid);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(gameRoot);
+        Scene scene = new Scene(gameRoot);
         stage.setScene(scene);
 
 
@@ -126,7 +127,9 @@ public class SceneController {
     }
 
     private static void resetGame() {
-        if(gameRoot != null) gameRoot.getChildren().remove(gameGrid);
+        if(gameRoot != null) {
+            gameRoot.getChildren().remove(gameGrid);
+        }
         if(GameLogic.getInstance() != null) GameLogic.getInstance().resetGame();
         if(GameController.getInstance() != null) GameController.getInstance().resetGame();
         if(GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
@@ -154,11 +157,12 @@ public class SceneController {
 
     public static void switchToMultiplayerRoomScene(ActionEvent event)throws IOException {
         resetGame();
-        VBox multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
+        setGameRoot();
+        Parent multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
         gameRoot.getChildren().add(multiplayerRoomNode);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(gameRoot);
+        Scene scene = new Scene(gameRoot);
         stage.setScene(scene);
 
         setStage();
