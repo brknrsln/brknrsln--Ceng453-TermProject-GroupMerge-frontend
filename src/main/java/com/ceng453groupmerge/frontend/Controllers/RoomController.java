@@ -82,7 +82,7 @@ public class RoomController {
                 });
             }
         };
-        new java.util.Timer().schedule(task, 0, 5000);
+        new java.util.Timer().schedule(task, 0, 2000);
     }
 
     @FXML
