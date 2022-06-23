@@ -1,5 +1,6 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
+import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.PlayerReal;
 import com.ceng453groupmerge.frontend.RestClients.MultiplayerRestClient;
 import javafx.application.Platform;
@@ -9,10 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TimerTask;
+import java.util.*;
 
 import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.MAIN_MENU;
 
@@ -34,6 +32,9 @@ public class RoomController {
 
     @FXML
     private Button backMenu;
+
+    @FXML
+    private Button startGame;
 
     @FXML
     private Text waitingInfo;
@@ -71,12 +72,23 @@ public class RoomController {
                         updateButtons();
                     } else {
                         System.out.println("RoomController: join room task: " + playerName + " room number: " + roomNumber);
-                        if((Boolean) multiplayerRestClient.waitRoom(roomNumber)) {
+                        LinkedHashMap<String,?> room = (LinkedHashMap<String, ?>) multiplayerRestClient.waitRoom(roomNumber);
+                        if(room != null) {
                             joinedRoom = false;
                             roomNumber = 0;
                             updateButtons();
                             this.cancel();
-                            backMenu.fire();
+                            PlayerReal.getInstance().setRoomId(Integer.parseInt(room.get("id").toString()));
+                            GameLogic gameLogic = GameLogic.getInstance();
+                            gameLogic.setGameId(Integer.parseInt(room.get("gameId").toString()));
+                            gameLogic.addPlayer(PlayerReal.getInstance());
+
+                            List<String> playerList = (List<String>) room.get("players");
+                            for(String player : playerList) {
+                                gameLogic.addPlayer(new PlayerReal(player));
+                            }
+                            gameLogic.sortPlayers();
+                            startGame.fire();
                         }
                     }
                 });
@@ -172,6 +184,10 @@ public class RoomController {
         waitingInfo.setVisible(false);
         joinedRoom = false;
         updateButtons();
+    }
+
+    public void handleStartGameAction(ActionEvent event) throws IOException {
+        SceneController.switchToGameScene(event);
     }
 
     private void updateButtons() {

@@ -31,7 +31,9 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 public class SceneController {
     private static Stage stage;
     private static Scene scene;
-    private static VBox gameRoot, diceNode, endGameNode, multiplayerNode, multiplayerRoomNode;
+    private static VBox gameRoot;
+    private static VBox diceNode;
+    private static VBox endGameNode;
     private static GridPane gameGrid;
     static final BooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
     static final BooleanProperty ninePressed = new SimpleBooleanProperty(false);
@@ -152,7 +154,7 @@ public class SceneController {
 
     public static void switchToMultiplayerRoomScene(ActionEvent event)throws IOException {
         resetGame();
-        multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
+        VBox multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
         gameRoot.getChildren().add(multiplayerRoomNode);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

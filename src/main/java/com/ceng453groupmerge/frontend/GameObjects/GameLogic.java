@@ -6,12 +6,14 @@ import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.Controllers.SceneController;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GameLogic {
 
     private static GameLogic instance = null;
     private ArrayList<Player> players;
     private ArrayList<Tile> tiles;
+    private int gameId;
     private int currentPlayer = 1;
     public boolean waitingOnButtons = false;
     private int turn = 0;
@@ -35,19 +37,15 @@ public class GameLogic {
     }
 
     private void initializePlayers() {
-        players.add(new PlayerReal(CredentialController.username));
-        GameController.getInstance().addPlayerSprite(0);
-        players.add(new PlayerAI());
-        GameController.getInstance().addPlayerSprite(1);
+        for(int i = 0; i < players.size(); i++) {
+            players.get(i).setPlayerID();
+            GameController.getInstance().addPlayerSprite(i);
+        }
+        if(players.size() == 1) {
+            players.add(new PlayerAI());
+            GameController.getInstance().addPlayerSprite(1);
+        }
     }
-
-//    private void resetGame() {
-//        players.clear();
-//        tiles.clear();
-//        currentPlayer = 1;
-//        waitingOnButtons = false;
-//        turn = 0;
-//    }
 
     private void initializeTiles() {
         tiles.add(new TileMiscGo());
@@ -112,7 +110,9 @@ public class GameLogic {
         }
     }
 
-
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
 
     public void purchaseTile() {
 //        System.out.println("Purchased");
@@ -147,5 +147,17 @@ public class GameLogic {
 
     public void setPlayerPosition(int player, int newPosition) {
         players.get(player).setCurrentPosition(newPosition);
+    }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
+    public void sortPlayers() {
+        players.sort(Comparator.comparing(Player::getPlayerName));
     }
 }

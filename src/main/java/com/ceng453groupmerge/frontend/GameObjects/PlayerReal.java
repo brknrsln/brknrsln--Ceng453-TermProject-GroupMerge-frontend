@@ -4,7 +4,7 @@ import com.ceng453groupmerge.frontend.Controllers.GameController;
 import javafx.animation.RotateTransition;
 import javafx.util.Duration;
 
-import java.util.Random;
+import java.util.*;
 
 public class PlayerReal extends Player {
 
@@ -18,7 +18,6 @@ public class PlayerReal extends Player {
 
     public PlayerReal(String name) {
         setPlayerName(name);
-        setPlayerID(playerCount++);
         if(instance == null) {
             instance = this;
         }

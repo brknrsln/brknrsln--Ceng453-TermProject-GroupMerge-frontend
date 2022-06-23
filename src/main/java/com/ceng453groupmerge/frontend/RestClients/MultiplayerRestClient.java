@@ -62,11 +62,13 @@ public class MultiplayerRestClient {
     }
 
     public Object joinRoom(String player, Integer roomId) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("player", player);
-        parameters.add("room", roomId.toString());
+        return getObject(player, roomId, JOIN_ROOM);
+    }
 
-        return webClient.post().uri(JOIN_ROOM)
+    public Object waitRoom(Integer roomId) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("room", roomId.toString());
+        return webClient.post().uri(WAIT_ROOM)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(parameters)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
@@ -74,23 +76,16 @@ public class MultiplayerRestClient {
                 .block();
     }
 
-    public Boolean waitRoom(Integer roomId) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("room", roomId.toString());
-        return webClient.post().uri(WAIT_ROOM)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .bodyValue(parameters)
-                .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
-                .bodyToMono(Boolean.class)
-                .block();
+    public Object leaveRoom(String player, Integer roomId) {
+        return getObject(player, roomId, LEAVE_ROOM);
     }
 
-    public Object leaveRoom(String player, Integer roomId) {
+    private Object getObject(String player, Integer roomId, String leaveRoom) {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("player", player);
         parameters.add("room", roomId.toString());
 
-        return webClient.post().uri(LEAVE_ROOM)
+        return webClient.post().uri(leaveRoom)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(parameters)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))

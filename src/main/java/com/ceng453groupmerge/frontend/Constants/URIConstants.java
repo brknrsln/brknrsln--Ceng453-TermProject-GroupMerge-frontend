@@ -15,4 +15,5 @@ public class URIConstants {
     public static final String GET_ROOM_LIST = "/room/getRooms";
     public static final String WAIT_ROOM = "/room/waitRoom";
     public static final String LEAVE_ROOM = "/room/leaveRoom";
+    public static final String GET_USERNAME = "/user/getUsername";
 }

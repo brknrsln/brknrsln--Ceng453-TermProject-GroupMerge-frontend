@@ -14,7 +14,7 @@ public class PlayerAI extends Player {
 
     public PlayerAI() {
         setPlayerName("AI_OVERLORD");
-        setPlayerID(playerCount++);
+        setPlayerID();
     }
 
     @Override

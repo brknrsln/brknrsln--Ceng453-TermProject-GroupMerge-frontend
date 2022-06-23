@@ -52,10 +52,17 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="backMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBackMenuAction" style="-fx-background-color: #1415FA;" text="Back Menu" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="backMenu" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBackMenuAction" style="-fx-background-color: #1415FA;" text="Back Menu" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="22.0" />
          </font>
+         <graphic>
+            <Button fx:id="startGame" cacheShape="false" centerShape="false" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleStartGameAction" prefHeight="0.0" prefWidth="0.0" scaleShape="false" text=" " visible="false">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Button>
+         </graphic>
       </Button>
    </children>
 </VBox>
