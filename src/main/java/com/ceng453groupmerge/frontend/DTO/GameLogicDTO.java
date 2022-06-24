@@ -6,38 +6,20 @@ import com.ceng453groupmerge.frontend.GameObjects.Tile;
 import java.util.ArrayList;
 
 public class GameLogicDTO {
-    private ArrayList<Player> players;
-    private ArrayList<Tile> tiles;
     private int gameId;
     private int currentPlayer;
     private int turn;
     private int value1;
     private int value2;
+    private boolean purchased;
 
-    public GameLogicDTO(ArrayList<Player> players, ArrayList<Tile> tiles, int gameId, int currentPlayer, int turn, int value1, int value2) {
-        this.players = players;
-        this.tiles = tiles;
+    public GameLogicDTO(int gameId, int currentPlayer, int turn, int value1, int value2, boolean purchased) {
         this.gameId = gameId;
         this.currentPlayer = currentPlayer;
         this.turn = turn;
         this.value1 = value1;
         this.value2 = value2;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
-    public ArrayList<Tile> getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(ArrayList<Tile> tiles) {
-        this.tiles = tiles;
+        this.purchased = purchased;
     }
 
     public int getGameId() {
@@ -78,5 +60,13 @@ public class GameLogicDTO {
 
     public void setValue2(int value2) {
         this.value2 = value2;
+    }
+
+    public boolean isPurchased() {
+        return purchased;
+    }
+
+    public void setPurchased(boolean purchased) {
+        this.purchased = purchased;
     }
 }

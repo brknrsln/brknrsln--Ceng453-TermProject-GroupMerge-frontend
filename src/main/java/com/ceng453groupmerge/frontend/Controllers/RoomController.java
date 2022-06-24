@@ -93,7 +93,6 @@ public class RoomController {
                             for(String player : playerList) {
                                 if(!player.equals(playerName)) {
                                     PlayerReal playerReal = new PlayerReal(player);
-                                    playerReal.setRoomId(Integer.parseInt(room.get("id").toString()));
                                     gameLogic.addPlayer(playerReal);
                                 }
                             }

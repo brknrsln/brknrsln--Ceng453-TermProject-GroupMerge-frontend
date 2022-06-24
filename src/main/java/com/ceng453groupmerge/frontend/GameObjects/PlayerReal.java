@@ -28,8 +28,12 @@ public class PlayerReal extends Player {
         System.out.println("playTurn called for "+getPlayerName()); // TODO: Debug, remove
 
         if(spendJailTime() == 0) { // If player is not jailed
-            GameController.getInstance().setRollButtonDisable(false);
-            System.out.println("Waiting for dice"); // TODO: Debug, remove
+            if(instance != this) {
+                GameController.getInstance().rollDice();
+            } else {
+                GameController.getInstance().setRollButtonDisable(false);
+                System.out.println("Waiting for dice"); // TODO: Debug, remove
+            }
         }
         else {
             GameController.getInstance().skipTurn();

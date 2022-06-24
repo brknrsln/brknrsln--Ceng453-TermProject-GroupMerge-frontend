@@ -17,6 +17,7 @@ public abstract class Player {
     private int currentPosition = 0;
     private ArrayList<Tile> ownedProperties = new ArrayList<>();
     private int jailTime = 0;
+    private boolean selfTerm = false;
     public int consecutiveDoubles = 0;
 
     public String getPlayerName() {
@@ -139,5 +140,13 @@ public abstract class Player {
 
     public void setPlayerID() {
         this.playerID = playerCount++;
+    }
+
+    public boolean isSelfTerm() {
+        return selfTerm;
+    }
+
+    public void setSelfTerm(boolean selfTerm) {
+        this.selfTerm = selfTerm;
     }
 }

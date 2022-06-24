@@ -2,6 +2,7 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.Dice;
 import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+import com.ceng453groupmerge.frontend.GameObjects.PlayerReal;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,7 @@ public class DiceController {
 
     private Dice dice;
     private static DiceController instance;
-
+    private boolean isSelf = false;
     Random random = new Random();
 
     private Roller clock;
@@ -43,6 +44,7 @@ public class DiceController {
     public void rollDice() {
         System.out.println("Rolled dice");
         GameController.getInstance().setRollButtonDisable(true);
+        isSelf = PlayerReal.getInstance().isSelfTerm();
         clock.start();
     }
 
@@ -69,12 +71,24 @@ public class DiceController {
 
                 lastUpdate = now;
                 counter++;
-                if (counter >= MAX_ROLLS) {
-                    dice.setValue1(dice1Value);
-                    dice.setValue2(dice2Value);
-                    this.stop();
-                    GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
-                    counter = 0;
+                if (isSelf || !GameLogic.getInstance().getMultiplayer()) {
+                    if (counter >= MAX_ROLLS) {
+                        dice.setValue1(dice1Value);
+                        dice.setValue2(dice2Value);
+                        this.stop();
+                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
+                        counter = 0;
+                    }
+                } else {
+                    if (counter + 1 >= MAX_ROLLS) {
+                        dice1.setImage(dice.getDiceImage(dice.getValue1()));
+                        dice2.setImage(dice.getDiceImage(dice.getValue2()));
+                        dice1.rotateProperty().set(dice1.rotateProperty().get() + angle);
+                        dice2.rotateProperty().set(dice2.rotateProperty().get() + angle);
+                        this.stop();
+                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
+                        counter = 0;
+                    }
                 }
             }
         }
