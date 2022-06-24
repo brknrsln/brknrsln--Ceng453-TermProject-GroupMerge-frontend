@@ -43,6 +43,8 @@ public class RoomController {
 
     private int roomNumber = 0;
 
+    private int roomId = 0;
+
     private HashMap<String, Boolean> roomStatus = new HashMap<>(){
         {
             put("room1", false);
@@ -74,19 +76,23 @@ public class RoomController {
                 Platform.runLater(() -> {
                     if(!joinedRoom) {
                         System.out.println("RoomController: not join room task: " + playerName);
-                        roomMap = (List<Integer>) multiplayerRestClient.getRoomList();
-                        updateButtons();
+                        List<Integer> newroomMap = (List<Integer>) multiplayerRestClient.getRoomList();
+                        if(newroomMap != null) {
+                            roomMap = newroomMap;
+                            updateButtons();
+                        }
                     } else {
-                        System.out.println("RoomController: join room task: " + playerName + " room number: " + roomNumber);
-                        LinkedHashMap<String,?> room = (LinkedHashMap<String, ?>) multiplayerRestClient.waitRoom(roomNumber);
+                        System.out.println("RoomController: join room task: " + playerName + " room number: " + roomId);
+                        LinkedHashMap<String,?> room = (LinkedHashMap<String, ?>) multiplayerRestClient.waitRoom(roomId);
                         if(room != null) {
+                            this.cancel();
                             joinedRoom = false;
                             roomNumber = 0;
                             updateButtons();
-                            this.cancel();
                             GameLogic gameLogic = GameLogic.getInstance();
+                            gameLogic.setMultiplayer(true);
                             gameLogic.setGameId(Integer.parseInt(room.get("gameId").toString()));
-                            gameLogic.setRoomId(Integer.parseInt(room.get("id").toString()));
+                            gameLogic.setRoomId(Integer.parseInt(room.get("roomId").toString()));
                             gameLogic.addPlayer(PlayerReal.getInstance());
 
                             List<String> playerList = (List<String>) room.get("players");
@@ -99,6 +105,9 @@ public class RoomController {
                             gameLogic.sortPlayers();
                             gameLogic.setMultiplayer(true);
                             startGame.fire();
+                        } else {
+                            roomMap = (List<Integer>) multiplayerRestClient.getRoomList();
+                            updateButtons();
                         }
                     }
                 });
@@ -112,10 +121,7 @@ public class RoomController {
         if(!roomStatus.get("room1")) {
             roomStatus.put("room1", true);
             roomNumber = 1;
-            joinedRoom = true;
-            waitingInfo.setVisible(true);
-            roomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
-            updateButtons();
+            setJoinedRoom(0);
         } else {
             roomStatus.put("room1", false);
             leaveRoom();
@@ -127,10 +133,7 @@ public class RoomController {
         if(!roomStatus.get("room2")) {
             roomStatus.put("room2", true);
             roomNumber = 2;
-            roomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
-            joinedRoom = true;
-            waitingInfo.setVisible(true);
-            updateButtons();
+            setJoinedRoom(1);
         } else {
             roomStatus.put("room2", false);
             leaveRoom();
@@ -142,10 +145,7 @@ public class RoomController {
         if (!roomStatus.get("room3")) {
             roomStatus.put("room3", true);
             roomNumber = 3;
-            roomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
-            joinedRoom = true;
-            waitingInfo.setVisible(true);
-            updateButtons();
+            setJoinedRoom(2);
         } else {
             roomStatus.put("room3", false);
             leaveRoom();
@@ -157,10 +157,7 @@ public class RoomController {
         if (!roomStatus.get("room4")) {
             roomStatus.put("room4", true);
             roomNumber = 4;
-            roomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
-            joinedRoom = true;
-            waitingInfo.setVisible(true);
-            updateButtons();
+            setJoinedRoom(3);
         } else {
             roomStatus.put("room4", false);
             leaveRoom();
@@ -172,10 +169,7 @@ public class RoomController {
         if (!roomStatus.get("room5")) {
             roomStatus.put("room5", true);
             roomNumber = 5;
-            roomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
-            joinedRoom = true;
-            waitingInfo.setVisible(true);
-            updateButtons();
+            setJoinedRoom(4);
         } else {
             roomStatus.put("room5", false);
             leaveRoom();
@@ -187,6 +181,18 @@ public class RoomController {
         if(roomNumber!=0) leaveRoom();
         SceneController.switchToScene(event, MAIN_MENU);
         task.cancel();
+    }
+
+    private void setJoinedRoom(int index){
+        List<Integer> newRoomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
+        joinedRoom = true;
+        waitingInfo.setVisible(true);
+        if(newRoomMap != null) {
+            roomId = newRoomMap.get(index);
+            newRoomMap.set(index, roomMap.get(index) + 1);
+            roomMap = newRoomMap;
+            updateButtons();
+        }
     }
 
     private void leaveRoom(){

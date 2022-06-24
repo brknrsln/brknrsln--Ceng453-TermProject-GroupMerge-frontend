@@ -27,12 +27,15 @@ public class GameLogic {
     private GameLogicDTO gameLogicDTO;
     private TimerTask timerTask;
 
-    private GameLogic() {
+    public GameLogic() {
         players = new ArrayList<>();
         tiles = new ArrayList<>();
+        if (instance == null) {
+            instance = this;
+        }
     }
 
-    public static synchronized GameLogic getInstance() {
+    public static GameLogic getInstance() {
         if (instance == null) {
             instance = new GameLogic();
         }
@@ -41,7 +44,9 @@ public class GameLogic {
 
     public void resetGame() {
         if(instance != null) {
-            timerTask.cancel();
+            if(timerTask != null) {
+                timerTask.cancel();
+            }
             instance = null;
         }
     }
