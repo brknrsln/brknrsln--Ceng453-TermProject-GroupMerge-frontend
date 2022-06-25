@@ -62,22 +62,18 @@ public class GameRestClient {
     }
 
     public Object getGameLogicDTO(Integer gameId) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("gameId", gameId.toString());
-        return webClient.post().uri(GET_GAME_LOGIC)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .bodyValue(parameters)
+        return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC+"/{gameId}")
+                        .build(gameId))
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting gameLogicDTO."))))
                 .bodyToMono(Object.class)
                 .block();
     }
 
-    public void setGameLogicDTO(GameLogicDTO gameLogicDTO) {
+    public void setGameLogicDTO(Integer gameId, GameLogicDTO gameLogicDTO) {
         webClient.post().uri(SET_GAME_LOGIC)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(gameLogicDTO)
-                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting set gameLogic."))))
-                .bodyToMono(Object.class)
-                .block();
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting gameLogicDTO."))))
+                .bodyToMono(String.class).block();
     }
 }

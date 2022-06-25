@@ -1,10 +1,5 @@
 package com.ceng453groupmerge.frontend.DTO;
 
-import com.ceng453groupmerge.frontend.GameObjects.Player;
-import com.ceng453groupmerge.frontend.GameObjects.Tile;
-
-import java.util.ArrayList;
-
 public class GameLogicDTO {
     private int gameId;
     private int currentPlayer;

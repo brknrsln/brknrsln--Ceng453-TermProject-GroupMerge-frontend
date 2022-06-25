@@ -95,11 +95,10 @@ public class GameController {
 
     private HashMap<Integer, HBox> gameBoard = new HashMap<>();
 
-    private GameLogic gameLogic;
+    private static final GameLogic gameLogic = GameLogic.getInstance();
 
     public GameController() {
         instance = this;
-        gameLogic = GameLogic.getInstance();
     }
 
     public static GameController getInstance() {

@@ -10,29 +10,27 @@ import com.ceng453groupmerge.frontend.RestClients.MultiplayerRestClient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.TimerTask;
 
 public class GameLogic {
 
     private static GameLogic instance = null;
-    private ArrayList<Player> players;
-    private ArrayList<Tile> tiles;
-    private int gameId;
-    private int roomId;
+    private static ArrayList<Player> players;
+    private static ArrayList<Tile> tiles;
+    private static int gameId;
+    private static int roomId;
     private int currentPlayer;
-    public boolean waitingOnButtons = false;
-    private int turn = 0;
-    private boolean purchased = false;
-    private Boolean multiplayer = false;
-    private GameLogicDTO gameLogicDTO;
+    private static int turn = 0;
+    private static Boolean purchased = false;
+    private static Boolean multiplayer = false;
+    private static GameLogicDTO gameLogicDTO;
     private TimerTask timerTask;
+    public static Boolean waitingOnButtons = false;
 
     public GameLogic() {
         players = new ArrayList<>();
         tiles = new ArrayList<>();
-        if (instance == null) {
-            instance = this;
-        }
     }
 
     public static GameLogic getInstance() {
@@ -57,6 +55,10 @@ public class GameLogic {
                 players.get(i).setPlayerID();
                 GameController.getInstance().addPlayerSprite(i);
             }
+            currentPlayer = players.size()-1;
+            gameLogicDTO = new GameLogicDTO(gameId, currentPlayer, turn, Dice.getInstance().getValue1(), Dice.getInstance().getValue2(), purchased);
+            System.out.println("SetGameLogicDTO" );
+            GameRestClient.getInstance().setGameLogicDTO(gameId, gameLogicDTO);
         } else{
             players.add(PlayerReal.getInstance());
             players.add(new PlayerAI());
@@ -106,18 +108,14 @@ public class GameLogic {
         GameController.getInstance().setRollButtonDisable(true);
         GameController.getInstance().setTileButtonsDisable(true);
 
-//        resetGame();
-
         initializePlayers();
         initializeTiles();
+
         if(multiplayer) {
             timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    gameLogicDTO = (GameLogicDTO) GameRestClient.getInstance().getGameLogicDTO(gameId);
-                    if(gameLogicDTO != null) {
-                        loadGameLogicDTO();
-                    }
+                    loadGameLogicDTO();
                 }
             };
             new java.util.Timer().schedule(timerTask, 0, 2000);
@@ -129,6 +127,7 @@ public class GameLogic {
     public void oneGameTurn() {
         if(players.get(currentPlayer).getCurrentBalance()>=0) { // Main loop runs while both players are not bankrupt
             currentPlayer = (currentPlayer+1)%players.size();
+            System.out.println("currentPlayerId: " + currentPlayer);
             if(currentPlayer == 0) {
                 turn++;
                 GameController.getInstance().addInfo("Turn: " + turn);
@@ -205,18 +204,18 @@ public class GameLogic {
         players.sort(Comparator.comparing(Player::getPlayerName));
     }
 
-    private void setGameLogicDTO() {
-        this.gameLogicDTO = new GameLogicDTO(gameId, currentPlayer, turn, Dice.getInstance().getValue1(), Dice.getInstance().getValue2(), purchased);
-        if(PlayerReal.getInstance().isSelfTerm()) GameRestClient.getInstance().setGameLogicDTO(gameLogicDTO);
+    public void setGameLogicDTO() {
+        gameLogicDTO = new GameLogicDTO(gameId, currentPlayer, turn, Dice.getInstance().getValue1(), Dice.getInstance().getValue2(), purchased);
+        if(PlayerReal.getInstance().isSelfTerm()) GameRestClient.getInstance().setGameLogicDTO(gameId, gameLogicDTO);
     }
 
-    protected void loadGameLogicDTO() {
-        currentPlayer = gameLogicDTO.getCurrentPlayer();
-        turn = gameLogicDTO.getTurn();
-        purchased = gameLogicDTO.isPurchased();
-        Dice.getInstance().setValue1(gameLogicDTO.getValue1());
-        Dice.getInstance().setValue2(gameLogicDTO.getValue2());
-        oneGameTurn();
+    public void loadGameLogicDTO() {
+        System.out.println("loadGameLogicDTO");
+        LinkedHashMap<String, ?> gameLogicDTO1 = (LinkedHashMap<String, ?>) GameRestClient.getInstance().getGameLogicDTO(gameId);
+        System.out.println("gameLogicDTO: " + gameLogicDTO1);
+        if(gameLogicDTO1 != null) {
+            gameLogicLoad(gameLogicDTO1);
+        }
     }
 
     public Boolean getMultiplayer() {
@@ -241,5 +240,14 @@ public class GameLogic {
 
     public void setPurchased(boolean purchased) {
         this.purchased = purchased;
+    }
+
+    private void gameLogicLoad(LinkedHashMap<String, ?> gameLogicDTO1){
+        currentPlayer = (int) gameLogicDTO1.get("currentPlayer");
+        turn = (int) gameLogicDTO1.get("turn");
+        purchased = (boolean) gameLogicDTO1.get("purchased");
+        Dice.getInstance().setValue1((int) gameLogicDTO1.get("value1"));
+        Dice.getInstance().setValue2((int) gameLogicDTO1.get("value2"));
+        oneGameTurn();
     }
 }

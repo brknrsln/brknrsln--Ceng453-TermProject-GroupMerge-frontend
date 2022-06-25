@@ -12,15 +12,21 @@ public class PlayerReal extends Player {
 
     private static PlayerReal instance = null;
 
-    public static PlayerReal getInstance() {
-        return instance;
+    public PlayerReal() {
+        if(instance == null) {
+            instance = this;
+        }
     }
 
     public PlayerReal(String name) {
         setPlayerName(name);
+    }
+
+    public static PlayerReal getInstance() {
         if(instance == null) {
-            instance = this;
+            instance = new PlayerReal();
         }
+        return instance;
     }
 
     @Override

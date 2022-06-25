@@ -95,7 +95,6 @@ public class SceneController {
 
 
         scene.setOnKeyPressed(event1 -> {
-            System.out.println(event1.getCode());
             if (event1.getCode().toString().equals("ESCAPE")) {
                 GameEndController.getInstance().backButton.fire();
             } else if (event1.getCode() == javafx.scene.input.KeyCode.CONTROL) {

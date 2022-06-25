@@ -95,7 +95,10 @@ public class RoomController {
                             gameLogic.setRoomId(Integer.parseInt(room.get("roomId").toString()));
                             gameLogic.addPlayer(PlayerReal.getInstance());
 
+                            System.out.println("RoomController: join room task: " + playerName + " room number: " + roomId + " gameId: " + gameLogic.getGameId() + " roomId: " + gameLogic.getRoomId());
                             List<String> playerList = (List<String>) room.get("players");
+                            System.out.println(playerList);
+
                             for(String player : playerList) {
                                 if(!player.equals(playerName)) {
                                     PlayerReal playerReal = new PlayerReal(player);
@@ -104,6 +107,8 @@ public class RoomController {
                             }
                             gameLogic.sortPlayers();
                             gameLogic.setMultiplayer(true);
+                            gameLogic.setGameLogicDTO();
+//                            gameLogic.loadGameLogicDTO();
                             startGame.fire();
                         } else {
                             roomMap = (List<Integer>) multiplayerRestClient.getRoomList();
