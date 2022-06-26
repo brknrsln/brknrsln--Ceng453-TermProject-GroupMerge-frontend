@@ -112,7 +112,7 @@ public class SceneController {
             }
         });
 
-        setStage();
+//        setStage();
         stage.show();
     }
 
@@ -164,7 +164,7 @@ public class SceneController {
         Scene scene = new Scene(gameRoot);
         stage.setScene(scene);
 
-        setStage();
+//        setStage();
         stage.show();
     }
 }

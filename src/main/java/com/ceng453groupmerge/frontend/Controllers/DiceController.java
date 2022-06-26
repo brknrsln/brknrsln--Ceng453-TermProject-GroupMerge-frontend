@@ -76,7 +76,7 @@ public class DiceController {
                         dice.setValue1(dice1Value);
                         dice.setValue2(dice2Value);
                         this.stop();
-                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
+                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getPlayerIndex()).playTurnAfterDice();
                         counter = 0;
                     }
                 } else {
@@ -86,7 +86,7 @@ public class DiceController {
                         dice1.rotateProperty().set(dice1.rotateProperty().get() + angle);
                         dice2.rotateProperty().set(dice2.rotateProperty().get() + angle);
                         this.stop();
-                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getCurrentPlayer()).playTurnAfterDice();
+                        GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getPlayerIndex()).playTurnAfterDice();
                         counter = 0;
                     }
                 }

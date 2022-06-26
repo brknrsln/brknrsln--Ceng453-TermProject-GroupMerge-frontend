@@ -107,7 +107,7 @@ public class RoomController {
                             }
                             gameLogic.sortPlayers();
                             gameLogic.setMultiplayer(true);
-                            gameLogic.setGameLogicDTO();
+//                            gameLogic.setGameLogicDTO();
 //                            gameLogic.loadGameLogicDTO();
                             startGame.fire();
                         } else {

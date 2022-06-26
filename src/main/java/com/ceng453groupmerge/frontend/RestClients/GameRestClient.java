@@ -62,9 +62,11 @@ public class GameRestClient {
     }
 
     public Object getGameLogicDTO(Integer gameId) {
-        return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC+"/{gameId}")
-                        .build(gameId))
-                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting gameLogicDTO."))))
+//        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+//        parameters.add("gameId", gameId.toString());
+        System.out.println("GetGameLogicDTO with gameId: " + gameId);
+        return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC+"/{gameId}").build(gameId))
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
                 .bodyToMono(Object.class)
                 .block();
     }
