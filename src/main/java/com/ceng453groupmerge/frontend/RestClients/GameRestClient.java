@@ -61,9 +61,10 @@ public class GameRestClient {
                 .block();
     }
 
-    public Object getGameLogicDTO(Integer gameId) {
+    public Object getGameLogic() {
 //        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 //        parameters.add("gameId", gameId.toString());
+        Integer gameId = GameLogicDTO.getInstance().getGameId();
         System.out.println("GetGameLogicDTO with gameId: " + gameId);
         return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC+"/{gameId}").build(gameId))
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
@@ -71,7 +72,8 @@ public class GameRestClient {
                 .block();
     }
 
-    public void setGameLogicDTO(Integer gameId, GameLogicDTO gameLogicDTO) {
+    public void setGameLogicDTO(Integer gameId) {
+        GameLogicDTO gameLogicDTO = GameLogicDTO.getInstance();
         webClient.post().uri(SET_GAME_LOGIC)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(gameLogicDTO)

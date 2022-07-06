@@ -13,7 +13,7 @@ public class TilePurchasableRailroad extends TilePurchasable {
         System.out.println("Tile action called for "+getTileName()); // TODO: Debug, remove
         if(getOwner().equals("")) { // If tile not owned
             GameController.getInstance().setTileButtonsDisable(false);
-            GameLogic.getInstance().waitingOnButtons = true;
+            GameController.getInstance().gameLogic.waitingOnButtons = true;
         }
         else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
             int railroadsCount = otherPlayer.countRailroads();

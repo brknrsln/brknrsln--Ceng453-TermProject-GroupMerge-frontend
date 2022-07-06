@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.GameController">
   <columnConstraints>
@@ -40,14 +41,23 @@
             <RowConstraints maxHeight="-Infinity" minHeight="130.0" prefHeight="130.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <Button fx:id="quitGame" mnemonicParsing="false" onAction="#quitGame" style="-fx-background-color: #1415FA;" text="Qut Game" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Button>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#rollDice" style="-fx-background-color: #1415FA;" text="Roll" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
             <Button fx:id="start" mnemonicParsing="false" onAction="#startGame" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1415FA #1415FA;" text="START" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#rollDice" style="-fx-background-color: #1415FA;" text="Roll" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Calibri Bold" size="20.0" />
                </font>
             </Button>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -82,7 +92,10 @@
             <VBox fx:id="cankaya" alignment="CENTER" layoutX="250.0" layoutY="490.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ScrollPane fx:id="scrollPane" blendMode="DARKEN" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="390.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <content>
-                  <VBox fx:id="infoVbox" spacing="3.0" style="-fx-background-color: transparent;" />
+                  <VBox fx:id="infoVbox" spacing="3.0" style="-fx-background-color: transparent;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children></VBox>
                </content>
                <GridPane.margin>
                   <Insets bottom="110.0" />

@@ -1,6 +1,6 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+//import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +44,7 @@ public class GameEndController {
 
     public void endGameScoreView() {
         AtomicInteger order = new AtomicInteger(1);
-        List<Player> players = GameLogic.getInstance().getPlayers().stream().sorted((p1, p2) -> p2.getScore() - p1.getScore()).collect(java.util.stream.Collectors.toList());
+        List<Player> players = GameController.getInstance().gameLogic.getPlayers().stream().sorted((p1, p2) -> p2.getScore() - p1.getScore()).collect(java.util.stream.Collectors.toList());
         players.stream().forEach(p -> {
             Text text = new Text(order.getAndIncrement() + ") "+ p.getPlayerName() + "\t: " + p.getScore() + "\n");
             text.setStyle("-fx-font-size: 20px");

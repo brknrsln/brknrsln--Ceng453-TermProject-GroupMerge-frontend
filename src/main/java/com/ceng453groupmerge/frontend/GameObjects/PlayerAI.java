@@ -47,16 +47,16 @@ public class PlayerAI extends Player {
             }
             // TODO: Print player money
 
-            Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
+            Player otherPlayer = GameController.getInstance().gameLogic.getPlayers().get(GameController.getInstance().gameLogic.getOtherPlayer());
 
-            GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
-            AIAction(GameLogic.getInstance().getTiles().get(getCurrentPosition()));
+            GameController.getInstance().gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+            AIAction(GameController.getInstance().gameLogic.getTiles().get(getCurrentPosition()));
         }
     }
 
     private void AIAction(Tile tile) {
         System.out.println("AIAction called");
-        if(GameLogic.getInstance().waitingOnButtons) {
+        if(GameController.getInstance().gameLogic.waitingOnButtons) {
             int randInt = new Random().nextInt(5);
             if(randInt > 1) { // 60%
                 GameController.getInstance().purchaseTile();

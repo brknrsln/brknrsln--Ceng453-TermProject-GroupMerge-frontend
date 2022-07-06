@@ -89,24 +89,22 @@ public class RoomController {
                             joinedRoom = false;
                             roomNumber = 0;
                             updateButtons();
-                            GameLogic gameLogic = GameLogic.getInstance();
-                            gameLogic.setMultiplayer(true);
-                            gameLogic.setGameId(Integer.parseInt(room.get("gameId").toString()));
-                            gameLogic.setRoomId(Integer.parseInt(room.get("roomId").toString()));
-                            gameLogic.addPlayer(PlayerReal.getInstance());
+                            GameLogic.getInstance().setGameId(Integer.parseInt(room.get("gameId").toString()));
+                            GameLogic.getInstance().setRoomId(Integer.parseInt(room.get("roomId").toString()));
+                            GameLogic.getInstance().addPlayer(PlayerReal.getInstance());
 
-                            System.out.println("RoomController: join room task: " + playerName + " room number: " + roomId + " gameId: " + gameLogic.getGameId() + " roomId: " + gameLogic.getRoomId());
+                            System.out.println("RoomController: join room task: " + playerName + " room number: " + roomId + " gameId: " + GameLogic.getInstance().getGameId() + " roomId: " + GameLogic.getInstance().getRoomId());
                             List<String> playerList = (List<String>) room.get("players");
                             System.out.println(playerList);
 
                             for(String player : playerList) {
                                 if(!player.equals(playerName)) {
                                     PlayerReal playerReal = new PlayerReal(player);
-                                    gameLogic.addPlayer(playerReal);
+                                    GameLogic.getInstance().addPlayer(playerReal);
                                 }
                             }
-                            gameLogic.sortPlayers();
-                            gameLogic.setMultiplayer(true);
+                            GameLogic.getInstance().sortPlayers();
+                            GameLogic.getInstance().setMultiplayer(true);
 //                            gameLogic.setGameLogicDTO();
 //                            gameLogic.loadGameLogicDTO();
                             startGame.fire();

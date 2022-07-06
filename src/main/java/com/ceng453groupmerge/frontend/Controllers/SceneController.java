@@ -1,6 +1,5 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
 import com.ceng453groupmerge.frontend.GameObjects.Player;
 import javafx.animation.RotateTransition;
 import javafx.beans.binding.BooleanBinding;
@@ -39,7 +38,9 @@ public class SceneController {
     static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
 
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
-//        resetGame();
+        if(fxmlPath.equals(MAIN_MENU)){
+            if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
+        }
         if(gameRoot == null) {
             setGameRoot();
         }
@@ -58,7 +59,7 @@ public class SceneController {
             if (newValue) {
                 // TODO: This listener is not added if we end and then restart the game. Why??
                 GameController.getInstance().addInfo("CHEAT CODE ENABLED");
-                ArrayList<Player> players = GameLogic.getInstance().getPlayers();
+                ArrayList<Player> players = GameController.getInstance().gameLogic.getPlayers();
                 Player player;
                 if(players.get(0).getPlayerName().equals(CredentialController.username)) player = players.get(0);
                 else player = players.get(1);
@@ -66,7 +67,7 @@ public class SceneController {
                 player.subtractMoney(10000000);
                 RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
                 rt.setOnFinished(event1 -> {
-                    GameLogic.getInstance().endGame();
+                    GameController.getInstance().endGame();
                 });
                 rt.play();
             }
@@ -129,8 +130,8 @@ public class SceneController {
         if(gameRoot != null) {
             gameRoot.getChildren().remove(gameGrid);
         }
-        if(GameLogic.getInstance() != null) GameLogic.getInstance().resetGame();
-        if(GameController.getInstance() != null) GameController.getInstance().resetGame();
+//        if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
+//        if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
         if(GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
         if(DiceController.getInstance() != null) DiceController.getInstance().resetGame();
     }

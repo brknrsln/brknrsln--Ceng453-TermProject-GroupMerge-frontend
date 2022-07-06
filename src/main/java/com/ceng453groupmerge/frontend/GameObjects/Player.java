@@ -114,7 +114,7 @@ public abstract class Player {
         RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
         rt.setOnFinished(e -> {
             if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
-            else GameLogic.getInstance().oneGameTurn();
+            else GameController.getInstance().oneGameTurn();
         });
         rt.play();
     }

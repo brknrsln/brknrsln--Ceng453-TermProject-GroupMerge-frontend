@@ -64,11 +64,11 @@ public class PlayerReal extends Player {
             }
             // TODO: Print player money
 
-            Player otherPlayer = GameLogic.getInstance().getPlayers().get(GameLogic.getInstance().getOtherPlayer());
+            Player otherPlayer = GameController.getInstance().gameLogic.getPlayers().get(GameController.getInstance().gameLogic.getOtherPlayer());
 
-            GameLogic.getInstance().getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
+            GameController.getInstance().gameLogic.getTiles().get(getCurrentPosition()).tileAction(this, otherPlayer);
 
-            if(!GameLogic.getInstance().waitingOnButtons) GameLogic.getInstance().skipTurn();
+            if(!GameController.getInstance().gameLogic.waitingOnButtons) GameController.getInstance().skipTurn();
             else System.out.println("Waiting for buttons for "+getPlayerName());
         }
     }
