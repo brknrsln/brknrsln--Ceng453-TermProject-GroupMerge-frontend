@@ -3,7 +3,6 @@
 **TODO:**
 
 * Print the status messages, property owners, player balances on screen
-* Create an endgame screen
 * Maybe implement the "how to play" page into the game UI itself
 
 **NOTES:**
