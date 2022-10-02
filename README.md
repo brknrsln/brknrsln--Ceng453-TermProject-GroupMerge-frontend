@@ -1,7 +1,7 @@
 # Ceng453_TermProject_GroupMerge_frontend
 
 **TODO:**
-
+* Check game logic
 * Print the status messages, property owners, player balances on screen
 * Maybe implement the "how to play" page into the game UI itself
 
