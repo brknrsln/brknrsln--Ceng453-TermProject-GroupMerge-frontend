@@ -12,12 +12,11 @@ public class GameRestClientTest {
     private GameRestClient gameRestClient = GameRestClient.getInstance();
 
 
-
     public GameRestClientTest() throws IOException {
     }
 
     @Test
-    void save_success(){
+    void save_success() {
         String player = "Onaterdem";
         String opponent = "AI_OVERLORD";
         String player_score = "1000";
@@ -30,7 +29,7 @@ public class GameRestClientTest {
 
 
     @Test
-    void get_all_games(){
+    void get_all_games() {
         assertNotNull(gameRestClient.getAllGames());
     }
 

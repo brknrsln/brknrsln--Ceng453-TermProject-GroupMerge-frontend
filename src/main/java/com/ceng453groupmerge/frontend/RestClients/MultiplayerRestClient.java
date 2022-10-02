@@ -9,9 +9,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
-
 import java.io.IOException;
+
+import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
 
 public class MultiplayerRestClient {
 
@@ -34,7 +34,6 @@ public class MultiplayerRestClient {
             instance = new MultiplayerRestClient();
         return instance;
     }
-
 
 
     public Object getRoomList() {

@@ -1,16 +1,10 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-import com.ceng453groupmerge.frontend.Controllers.GameController;
 import com.ceng453groupmerge.frontend.DTO.GameLogicDTO;
-import com.ceng453groupmerge.frontend.DTO.ScoreDTO;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
-import com.ceng453groupmerge.frontend.Controllers.SceneController;
-import com.ceng453groupmerge.frontend.RestClients.MultiplayerRestClient;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.TimerTask;
 
 public class GameLogic {
 
@@ -66,28 +60,28 @@ public class GameLogic {
     }
 
     public void resetGame() {
-        if(instance != null) {
+        if (instance != null) {
             instance = null;
         }
     }
 
     private void initializeTiles() {
-       tiles.add(new TileMiscGo());
-       tiles.add(new TilePurchasableStreet("Sincan", 100));
-       tiles.add(new TilePurchasableRailroad("Aşti"));
-       tiles.add(new TilePurchasableStreet("Pursaklar", 150));
-       tiles.add(new TileMiscJailCell());
-       tiles.add(new TilePurchasableStreet("Polatlı", 200));
-       tiles.add(new TilePurchasableRailroad("TCDD"));
-       tiles.add(new TilePurchasableStreet("Ayaş", 250));
-       tiles.add(new TileMiscTaxIncome());
-       tiles.add(new TilePurchasableStreet("Gölbaşı", 300));
-       tiles.add(new TilePurchasableRailroad("Ankaray"));
-       tiles.add(new TilePurchasableStreet("Beypazarı", 350));
-       tiles.add(new TileMiscGoToJail());
-       tiles.add(new TilePurchasableStreet("Yenimahalle", 420));
-       tiles.add(new TilePurchasableRailroad("Esenboğa"));
-       tiles.add(new TilePurchasableStreet("Çankaya", 500));
+        tiles.add(new TileMiscGo());
+        tiles.add(new TilePurchasableStreet("Sincan", 100));
+        tiles.add(new TilePurchasableRailroad("Aşti"));
+        tiles.add(new TilePurchasableStreet("Pursaklar", 150));
+        tiles.add(new TileMiscJailCell());
+        tiles.add(new TilePurchasableStreet("Polatlı", 200));
+        tiles.add(new TilePurchasableRailroad("TCDD"));
+        tiles.add(new TilePurchasableStreet("Ayaş", 250));
+        tiles.add(new TileMiscTaxIncome());
+        tiles.add(new TilePurchasableStreet("Gölbaşı", 300));
+        tiles.add(new TilePurchasableRailroad("Ankaray"));
+        tiles.add(new TilePurchasableStreet("Beypazarı", 350));
+        tiles.add(new TileMiscGoToJail());
+        tiles.add(new TilePurchasableStreet("Yenimahalle", 420));
+        tiles.add(new TilePurchasableRailroad("Esenboğa"));
+        tiles.add(new TilePurchasableStreet("Çankaya", 500));
     }
 
     public ArrayList<Tile> getTiles() {
@@ -107,7 +101,7 @@ public class GameLogic {
     }
 
     public int getOtherPlayer() {
-        return (this.playerIndex +1)%2;
+        return (this.playerIndex + 1) % 2;
     }
 
     public void addPlayer(Player player) {

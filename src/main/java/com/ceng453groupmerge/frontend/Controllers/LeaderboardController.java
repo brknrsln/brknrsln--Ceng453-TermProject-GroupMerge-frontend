@@ -1,7 +1,7 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
-import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import com.ceng453groupmerge.frontend.RestClients.LeaderboardRestClient;
+import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -42,10 +42,10 @@ public class LeaderboardController {
     @FXML
     public void handleAllTimeButtonAction(ActionEvent event) {
         Window owner = allTimeButton.getScene().getWindow();
-        try{
+        try {
             ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getAllTimeLeaderboard();
             updateLeaderboard(arr);
-        }catch(Exception e){
+        } catch (Exception e) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
     }
@@ -53,10 +53,10 @@ public class LeaderboardController {
     @FXML
     public void handleMonthlyButtonAction(ActionEvent event) {
         Window owner = monthlyButton.getScene().getWindow();
-        try{
+        try {
             ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getMonthlyLeaderboard();
             updateLeaderboard(arr);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
@@ -66,10 +66,10 @@ public class LeaderboardController {
     @FXML
     public void handleWeeklyButtonAction(ActionEvent event) {
         Window owner = weeklyButton.getScene().getWindow();
-        try{
+        try {
             ArrayList<Object> arr = (ArrayList<Object>) leaderboardRestClient.getWeeklyLeaderboard();
             updateLeaderboard(arr);
-        }catch(Exception e){
+        } catch (Exception e) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Error", SERVER_NOT_RESPONDING);
         }
 
@@ -86,12 +86,12 @@ public class LeaderboardController {
         gridPane.getChildren().clear();
         gridPane.getChildren().removeAll(gridPane.getChildren());
         int count = 0;
-        for(Object obj:arr) {
-            LinkedHashMap<String,?> hashMap = (LinkedHashMap) obj;
+        for (Object obj : arr) {
+            LinkedHashMap<String, ?> hashMap = (LinkedHashMap) obj;
             VBox vBox1 = new VBox();
             VBox vBox2 = new VBox();
             VBox vBox3 = new VBox();
-            if(count%2==0) {
+            if (count % 2 == 0) {
                 vBox1.setStyle("-fx-background-color: #94F799");
                 vBox2.setStyle("-fx-background-color: #94F799");
                 vBox3.setStyle("-fx-background-color: #94F799");
@@ -103,9 +103,9 @@ public class LeaderboardController {
             vBox1.alignmentProperty().setValue(Pos.CENTER_LEFT);
             vBox2.alignmentProperty().setValue(Pos.CENTER_LEFT);
             vBox3.alignmentProperty().setValue(Pos.CENTER_LEFT);
-            gridPane.addRow(count++,vBox1, vBox2, vBox3);
-            Label label1 = new Label(count+"");
-            label1.paddingProperty().setValue(new Insets(0,0,0,5));
+            gridPane.addRow(count++, vBox1, vBox2, vBox3);
+            Label label1 = new Label(count + "");
+            label1.paddingProperty().setValue(new Insets(0, 0, 0, 5));
             vBox1.getChildren().add(label1);
             vBox2.getChildren().add(new Label(hashMap.get("username").toString()));
             vBox3.getChildren().add(new Label(hashMap.get("score").toString()));

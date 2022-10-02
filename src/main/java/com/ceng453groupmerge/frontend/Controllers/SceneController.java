@@ -38,14 +38,14 @@ public class SceneController {
     static final BooleanBinding ctrlAndNinePressed = ctrlPressed.and(ninePressed);
 
     public static void switchToScene(ActionEvent event, String fxmlPath) throws IOException {
-        if(fxmlPath.equals(MAIN_MENU)){
-            if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
+        if (fxmlPath.equals(MAIN_MENU)) {
+            if (GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
         }
-        if(gameRoot == null) {
+        if (gameRoot == null) {
             setGameRoot();
         }
         Parent root = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(fxmlPath)));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         setStage();
@@ -61,7 +61,7 @@ public class SceneController {
                 GameController.getInstance().addInfo("CHEAT CODE ENABLED");
                 ArrayList<Player> players = GameController.getInstance().gameLogic.getPlayers();
                 Player player;
-                if(players.get(0).getPlayerName().equals(CredentialController.username)) player = players.get(0);
+                if (players.get(0).getPlayerName().equals(CredentialController.username)) player = players.get(0);
                 else player = players.get(1);
                 player.setCurrentPosition(8);
                 player.subtractMoney(10000000);
@@ -80,8 +80,8 @@ public class SceneController {
         gameGrid.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         GridPane gameBoardNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(GAME)));
-        diceNode        = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(DICE)));
-        endGameNode     = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(END_GAME)));
+        diceNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(DICE)));
+        endGameNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(END_GAME)));
 
         gameGrid.add(diceNode, 0, 1);
         gameGrid.add(gameBoardNode, 0, 1);
@@ -90,7 +90,7 @@ public class SceneController {
         endGameNode.setVisible(false);
         gameRoot.getChildren().add(gameGrid);
 
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(gameRoot);
         stage.setScene(scene);
 
@@ -100,7 +100,7 @@ public class SceneController {
                 GameEndController.getInstance().backButton.fire();
             } else if (event1.getCode() == javafx.scene.input.KeyCode.CONTROL) {
                 ctrlPressed.set(true);
-            } else if ( event1.getCode() == KeyCode.DIGIT9) {
+            } else if (event1.getCode() == KeyCode.DIGIT9) {
                 ninePressed.set(true);
             }
         });
@@ -108,7 +108,7 @@ public class SceneController {
         scene.setOnKeyReleased(event1 -> {
             if (event1.getCode() == javafx.scene.input.KeyCode.CONTROL) {
                 ctrlPressed.set(false);
-            } else if ( event1.getCode() == KeyCode.DIGIT9) {
+            } else if (event1.getCode() == KeyCode.DIGIT9) {
                 ninePressed.set(false);
             }
         });
@@ -127,13 +127,13 @@ public class SceneController {
     }
 
     private static void resetGame() {
-        if(gameRoot != null) {
+        if (gameRoot != null) {
             gameRoot.getChildren().remove(gameGrid);
         }
 //        if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
 //        if(GameController.getInstance().gameLogic != null) GameController.getInstance().gameLogic.resetGame();
-        if(GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
-        if(DiceController.getInstance() != null) DiceController.getInstance().resetGame();
+        if (GameEndController.getInstance() != null) GameEndController.getInstance().resetGame();
+        if (DiceController.getInstance() != null) DiceController.getInstance().resetGame();
     }
 
     private static void setGameRoot() throws IOException {
@@ -145,23 +145,23 @@ public class SceneController {
         gameRoot.setMinSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         gameRoot.setStyle("-fx-background-color: #dcf4dd");
 
-        ImageView titleNode  = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(TITLE)));
+        ImageView titleNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(TITLE)));
         gameRoot.getChildren().add(titleNode);
     }
 
-    private static void setStage(){
+    private static void setStage() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primaryScreenBounds.getWidth()  - stage.getWidth()) / 2);
-        stage.setY((primaryScreenBounds.getHeight()  - stage.getHeight()) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    public static void switchToMultiplayerRoomScene(ActionEvent event)throws IOException {
+    public static void switchToMultiplayerRoomScene(ActionEvent event) throws IOException {
         resetGame();
         setGameRoot();
         Parent multiplayerRoomNode = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(MULTIPLAYER_ROOM)));
         gameRoot.getChildren().add(multiplayerRoomNode);
 
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(gameRoot);
         stage.setScene(scene);
 

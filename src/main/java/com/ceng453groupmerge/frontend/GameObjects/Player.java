@@ -1,7 +1,6 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
 import com.ceng453groupmerge.frontend.Controllers.GameController;
-import com.ceng453groupmerge.frontend.Controllers.SceneController;
 import javafx.animation.RotateTransition;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -35,14 +34,14 @@ public abstract class Player {
     public void addMoney(int x) {
         currentBalance += x;
 //        System.out.println("Player balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
-        GameController.getInstance().addInfo(playerName+"'s balance after addition: "+(currentBalance-x)+"+"+x+"="+currentBalance);
+        GameController.getInstance().addInfo(playerName + "'s balance after addition: " + (currentBalance - x) + "+" + x + "=" + currentBalance);
         GameController.getInstance().updateScoreBoard();
     }
 
     public void subtractMoney(int x) {
         currentBalance -= x;
 //        System.out.println("Player balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
-        GameController.getInstance().addInfo(playerName+"'s balance after subtraction: "+(currentBalance+x)+"-"+x+"="+currentBalance);
+        GameController.getInstance().addInfo(playerName + "'s balance after subtraction: " + (currentBalance + x) + "-" + x + "=" + currentBalance);
         GameController.getInstance().updateScoreBoard();
     }
 
@@ -52,8 +51,8 @@ public abstract class Player {
 
     public int countRailroads() {
         int count = 0;
-        for(Tile property:ownedProperties) {
-            if(property.getType().equals("railroad")) {
+        for (Tile property : ownedProperties) {
+            if (property.getType().equals("railroad")) {
                 count++;
             }
         }
@@ -64,22 +63,22 @@ public abstract class Player {
         jailTime = 2;
         currentPosition = 4;
 //        String text = "Player " are in jail. You have 2 turns to get out.";
-        String text = "Player "+playerName+" has been jailed for 2 turns.";
+        String text = "Player " + playerName + " has been jailed for 2 turns.";
         GameController.getInstance().addInfo(text);
         consecutiveDoubles = 0;
         GameController.getInstance().drawPlayerSprites();
     }
 
     public int spendJailTime() {
-        if(jailTime>0) {
+        if (jailTime > 0) {
             jailTime -= 1;
-            return jailTime+1;
+            return jailTime + 1;
         }
         return jailTime;
     }
 
     public void movePlayer(int x) {
-        currentPosition = (currentPosition+x)%16;
+        currentPosition = (currentPosition + x) % 16;
 //        System.out.println(playerName+" position after move: "+((currentPosition+16-x)%16)+"+"+x+"="+currentPosition);
         GameController.getInstance().drawPlayerSprites();
     }
@@ -89,15 +88,15 @@ public abstract class Player {
     }
 
     public void purchaseProperty(Tile newProperty) {
-        if(newProperty.getPrice() != -1) { // If property purchasable
-            if(currentBalance >= newProperty.getPrice()) { // If player enough money
-                if(Objects.equals(newProperty.getOwner(), "")) { // If property not owned
+        if (newProperty.getPrice() != -1) { // If property purchasable
+            if (currentBalance >= newProperty.getPrice()) { // If player enough money
+                if (Objects.equals(newProperty.getOwner(), "")) { // If property not owned
                     ownedProperties.add(newProperty);
                     newProperty.setOwner(playerName);
                     subtractMoney(newProperty.getPrice());
                     GameController.getInstance().printTileOwner(currentPosition);
 //                    System.out.println("Player "+playerName+" now owns property "+newProperty.getTileName());
-                    String text = "Player "+playerName+" now owns property "+newProperty.getTileName();
+                    String text = "Player " + playerName + " now owns property " + newProperty.getTileName();
                     GameController.getInstance().addInfo(text);
                 }
             }
@@ -105,7 +104,9 @@ public abstract class Player {
     }
 
     public abstract void playTurn();
+
     public abstract void playTurnAfterDice();
+
     public void playTurnAfterButton() {
 //        System.out.println("playTurnAfterButton called for "+getPlayerName());
 
@@ -113,7 +114,7 @@ public abstract class Player {
 
         RotateTransition rt = new RotateTransition(Duration.millis(300), new VBox());
         rt.setOnFinished(e -> {
-            if(consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
+            if (consecutiveDoubles > 0) playTurn(); // If player rolled double, play turn again
             else GameController.getInstance().oneGameTurn();
         });
         rt.play();
@@ -121,11 +122,11 @@ public abstract class Player {
 
     public int getScore() {
         int score = 0;
-        for(Tile property:ownedProperties) {
+        for (Tile property : ownedProperties) {
             score += property.getPrice();
         }
         score += currentBalance;
-        if(score < 0) return 0;
+        if (score < 0) return 0;
         return score;
     }
 

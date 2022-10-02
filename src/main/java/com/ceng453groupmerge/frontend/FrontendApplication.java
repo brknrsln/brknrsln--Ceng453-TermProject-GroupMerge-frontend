@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FrontendApplication {
 
-	public static void main(String[] args) {
-		Application.launch(LoginPage.class, args);
-	}
+    public static void main(String[] args) {
+        Application.launch(LoginPage.class, args);
+    }
 }

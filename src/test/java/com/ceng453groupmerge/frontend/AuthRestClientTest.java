@@ -9,13 +9,13 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AuthRestClientTest {
-    private  AuthRestClient authRestClient = AuthRestClient.getInstance();
+    private AuthRestClient authRestClient = AuthRestClient.getInstance();
 
     public AuthRestClientTest() throws IOException {
     }
 
     @Test
-    void login_success(){
+    void login_success() {
         String username = "AI_OVERLORD";
         String password = "test";
 
@@ -26,15 +26,15 @@ public class AuthRestClientTest {
     }
 
     @Test
-    void login_fail(){
+    void login_fail() {
         String username = "AI_OVERLORD";
         String password = "test1";
 
-        Assertions.assertThrows(Exception.class, ()-> authRestClient.login(username, password));
+        Assertions.assertThrows(Exception.class, () -> authRestClient.login(username, password));
     }
 
     @Test
-    void register_success(){
+    void register_success() {
         String username = "Kelvin_Clave";
         String email = "kelvin@clave.com";
         String password = "kelvinkelvin";
@@ -43,7 +43,7 @@ public class AuthRestClientTest {
     }
 
     @Test
-    void register_fail(){
+    void register_fail() {
         String username = "Kelvin_Clave";
         String email = "kelvin@clave.com";
         String password = "kelvinkelvin";

@@ -45,7 +45,7 @@ public class RoomController {
 
     private int roomId = 0;
 
-    private HashMap<String, Boolean> roomStatus = new HashMap<>(){
+    private HashMap<String, Boolean> roomStatus = new HashMap<>() {
         {
             put("room1", false);
             put("room2", false);
@@ -57,7 +57,7 @@ public class RoomController {
 
     private TimerTask task;
 
-    private List<Integer> roomMap = new ArrayList<>(5){{
+    private List<Integer> roomMap = new ArrayList<>(5) {{
         add(0);
         add(0);
         add(0);
@@ -68,23 +68,24 @@ public class RoomController {
     private MultiplayerRestClient multiplayerRestClient = MultiplayerRestClient.getInstance();
 
     private String playerName = PlayerReal.getInstance().getPlayerName();
+
     public void initialize() {
         waitingInfo.setVisible(false);
         task = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    if(!joinedRoom) {
+                    if (!joinedRoom) {
                         System.out.println("RoomController: not join room task: " + playerName);
                         List<Integer> newroomMap = (List<Integer>) multiplayerRestClient.getRoomList();
-                        if(newroomMap != null) {
+                        if (newroomMap != null) {
                             roomMap = newroomMap;
                             updateButtons();
                         }
                     } else {
                         System.out.println("RoomController: join room task: " + playerName + " room number: " + roomId);
-                        LinkedHashMap<String,?> room = (LinkedHashMap<String, ?>) multiplayerRestClient.waitRoom(roomId);
-                        if(room != null) {
+                        LinkedHashMap<String, ?> room = (LinkedHashMap<String, ?>) multiplayerRestClient.waitRoom(roomId);
+                        if (room != null) {
                             this.cancel();
                             joinedRoom = false;
                             roomNumber = 0;
@@ -97,8 +98,8 @@ public class RoomController {
                             List<String> playerList = (List<String>) room.get("players");
                             System.out.println(playerList);
 
-                            for(String player : playerList) {
-                                if(!player.equals(playerName)) {
+                            for (String player : playerList) {
+                                if (!player.equals(playerName)) {
                                     PlayerReal playerReal = new PlayerReal(player);
                                     GameLogic.getInstance().addPlayer(playerReal);
                                 }
@@ -121,7 +122,7 @@ public class RoomController {
 
     @FXML
     public void handleRoom1Action(ActionEvent event) {
-        if(!roomStatus.get("room1")) {
+        if (!roomStatus.get("room1")) {
             roomStatus.put("room1", true);
             roomNumber = 1;
             setJoinedRoom(0);
@@ -133,7 +134,7 @@ public class RoomController {
 
     @FXML
     public void handleRoom2Action(ActionEvent event) {
-        if(!roomStatus.get("room2")) {
+        if (!roomStatus.get("room2")) {
             roomStatus.put("room2", true);
             roomNumber = 2;
             setJoinedRoom(1);
@@ -181,16 +182,16 @@ public class RoomController {
 
     @FXML
     public void handleBackMenuAction(ActionEvent event) throws IOException {
-        if(roomNumber!=0) leaveRoom();
+        if (roomNumber != 0) leaveRoom();
         SceneController.switchToScene(event, MAIN_MENU);
         task.cancel();
     }
 
-    private void setJoinedRoom(int index){
+    private void setJoinedRoom(int index) {
         List<Integer> newRoomMap = (List<Integer>) multiplayerRestClient.joinRoom(playerName, roomNumber);
         joinedRoom = true;
         waitingInfo.setVisible(true);
-        if(newRoomMap != null) {
+        if (newRoomMap != null) {
             roomId = newRoomMap.get(index);
             newRoomMap.set(index, roomMap.get(index) + 1);
             roomMap = newRoomMap;
@@ -198,7 +199,7 @@ public class RoomController {
         }
     }
 
-    private void leaveRoom(){
+    private void leaveRoom() {
         roomMap = (List<Integer>) multiplayerRestClient.leaveRoom(playerName, roomNumber);
         waitingInfo.setVisible(false);
         joinedRoom = false;
@@ -215,10 +216,10 @@ public class RoomController {
         room3.setText(roomMap.get(2).toString() + "/" + 4);
         room4.setText(roomMap.get(3).toString() + "/" + 5);
         room5.setText(roomMap.get(4).toString() + "/" + 6);
-        room1.setDisable((!roomStatus.get("room1")&&joinedRoom));
-        room2.setDisable((!roomStatus.get("room2")&&joinedRoom));
-        room3.setDisable((!roomStatus.get("room3")&&joinedRoom));
-        room4.setDisable((!roomStatus.get("room4")&&joinedRoom));
-        room5.setDisable((!roomStatus.get("room5")&&joinedRoom));
+        room1.setDisable((!roomStatus.get("room1") && joinedRoom));
+        room2.setDisable((!roomStatus.get("room2") && joinedRoom));
+        room3.setDisable((!roomStatus.get("room3") && joinedRoom));
+        room4.setDisable((!roomStatus.get("room4") && joinedRoom));
+        room5.setDisable((!roomStatus.get("room5") && joinedRoom));
     }
 }

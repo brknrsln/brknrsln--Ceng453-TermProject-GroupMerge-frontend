@@ -2,7 +2,10 @@ package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.DTO.GameLogicDTO;
 import com.ceng453groupmerge.frontend.DTO.ScoreDTO;
-import com.ceng453groupmerge.frontend.GameObjects.*;
+import com.ceng453groupmerge.frontend.GameObjects.GameLogic;
+import com.ceng453groupmerge.frontend.GameObjects.Player;
+import com.ceng453groupmerge.frontend.GameObjects.PlayerAI;
+import com.ceng453groupmerge.frontend.GameObjects.PlayerReal;
 import com.ceng453groupmerge.frontend.RestClients.GameRestClient;
 import com.ceng453groupmerge.frontend.RestClients.MultiplayerRestClient;
 import javafx.application.Platform;
@@ -106,18 +109,19 @@ public class GameController {
 
     public final GameLogic gameLogic = GameLogic.getInstance();
     private TimerTask timerTask;
+
     public GameController() {
         instance = this;
     }
 
     public static GameController getInstance() {
-        if(instance == null) instance = new GameController();
+        if (instance == null) instance = new GameController();
         return instance;
     }
 
     public void resetGame() {
-        if(instance != null) {
-            if(this.timerTask != null) {
+        if (instance != null) {
+            if (this.timerTask != null) {
                 this.timerTask.cancel();
             }
             instance = null;
@@ -130,7 +134,7 @@ public class GameController {
         SceneController.setDiceNodeVisibility(true);
         setRollButtonDisable(true);
         setTileButtonsDisable(true);
-        if(gameLogic.getMultiplayer()){
+        if (gameLogic.getMultiplayer()) {
             timerTask = new TimerTask() {
                 @Override
                 public void run() {
@@ -140,32 +144,32 @@ public class GameController {
                 }
             };
             new java.util.Timer().schedule(timerTask, 0, 1000);
-            gameLogic.setPlayerIndex(gameLogic.getPlayers().size()-1);
+            gameLogic.setPlayerIndex(gameLogic.getPlayers().size() - 1);
             gameLogic.setGameLogicDTO();
 
-        } else{
+        } else {
             gameLogic.addPlayer(PlayerReal.getInstance());
             gameLogic.addPlayer(new PlayerAI());
             gameLogic.getPlayers().forEach(player -> {
                 player.setPlayerID();
             });
-            gameLogic.setPlayerIndex(gameLogic.getPlayers().size()-1);
+            gameLogic.setPlayerIndex(gameLogic.getPlayers().size() - 1);
         }
         setInfoVbox();
         addPlayerSprites();
     }
 
     private void updateGame() {
-        if(PlayerReal.getInstance().isSelfTerm()){
+        if (PlayerReal.getInstance().isSelfTerm()) {
             return;
-        } else{
+        } else {
             LinkedHashMap<String, ?> gameLogicDTO = (LinkedHashMap<String, ?>) GameRestClient.getInstance().getGameLogic();
-            if(gameLogicDTO != null){
+            if (gameLogicDTO != null) {
                 GameLogicDTO.getInstance().setGameLogicDTO(gameLogicDTO);
-                if(gameLogic.getTurn() == gameLogic.getPlayerIndex()){
+                if (gameLogic.getTurn() == gameLogic.getPlayerIndex()) {
                     setRollButtonDisable(false);
                     setTileButtonsDisable(false);
-                } else{
+                } else {
                     setRollButtonDisable(true);
                     setTileButtonsDisable(true);
                 }
@@ -180,9 +184,9 @@ public class GameController {
     }
 
     @FXML
-    public void purchaseTile(){
-        if(gameLogic.getMultiplayer()) {
-            if(PlayerReal.getInstance().isSelfTerm()) GameLogicDTO.getInstance().setPurchased(true);
+    public void purchaseTile() {
+        if (gameLogic.getMultiplayer()) {
+            if (PlayerReal.getInstance().isSelfTerm()) GameLogicDTO.getInstance().setPurchased(true);
         }
         Player currentPlayer = gameLogic.getCurrentPlayer();
         currentPlayer.purchaseProperty(gameLogic.getTiles().get(currentPlayer.getCurrentPosition()));
@@ -202,7 +206,7 @@ public class GameController {
     }
 
     public void addPlayerSprites() {
-        for(int i = 0; i < gameLogic.getPlayers().size(); i++) {
+        for (int i = 0; i < gameLogic.getPlayers().size(); i++) {
             ImageView playerSprite = new ImageView();
             playerSprite.setFitHeight(45);
             playerSprite.setFitWidth(45);
@@ -214,11 +218,11 @@ public class GameController {
     }
 
     public void drawPlayerSprites() {
-        for(int player=0; player<2; player++) {
+        for (int player = 0; player < 2; player++) {
             ImageView playerSprite = playerSprites.get(player);
             HBox hBox = gameBoard.get(player);
             hBox.getChildren().remove(playerSprite);
-            if(hBox.getChildren().size() == 0) {
+            if (hBox.getChildren().size() == 0) {
                 VBox parent = (VBox) hBox.getParent();
                 parent.getChildren().remove(hBox);
             }
@@ -288,14 +292,14 @@ public class GameController {
 
     private void spawnPlayer(VBox vbox, int player, ImageView playerSprite) {
         int count = vbox.getChildren().size();
-        if(count == 0){
+        if (count == 0) {
             HBox hBox = new HBox();
             hBox.setAlignment(javafx.geometry.Pos.CENTER);
             hBox.getChildren().add(playerSprite);
             gameBoard.put(player, hBox);
             vbox.getChildren().add(hBox);
         } else {
-            if(((HBox) vbox.getChildren().get(count - 1)).getChildren().size() == 3){
+            if (((HBox) vbox.getChildren().get(count - 1)).getChildren().size() == 3) {
                 HBox hBox = new HBox();
                 hBox.setAlignment(javafx.geometry.Pos.CENTER);
                 hBox.getChildren().add(playerSprite);
@@ -309,7 +313,7 @@ public class GameController {
         }
     }
 
-    public void printTileOwner(int position){
+    public void printTileOwner(int position) {
         String owner = gameLogic.getTiles().get(position).getOwner();
         Label label = new Label(owner);
         label.setStyle("-fx-font-size: 15; -fx-stroke-width: bold; -fx-text-fill: #1415FA; -fx-font-family: Comic Sans MS;");
@@ -362,7 +366,7 @@ public class GameController {
         }
     }
 
-    public void addInfo(String info){
+    public void addInfo(String info) {
         Text text1 = new Text(info);
         text1.setStyle("-fx-font-size: 15; -fx-stroke-width: italic; -fx-font-family: Comic Sans MS;");
         text1.setWrappingWidth(300);
@@ -388,30 +392,29 @@ public class GameController {
     }
 
     public void updateScoreBoard() {
-        for(int i = 0; i < gameLogic.getPlayers().size(); i++){
-            Label score = (Label) ((HBox)scoreBoardVBox.getChildren().get(i)).getChildren().get(1);
+        for (int i = 0; i < gameLogic.getPlayers().size(); i++) {
+            Label score = (Label) ((HBox) scoreBoardVBox.getChildren().get(i)).getChildren().get(1);
             score.setText(gameLogic.getPlayers().get(i).getCurrentBalance() + "");
         }
     }
 
     public void oneGameTurn() {
-        if(gameLogic.getCurrentBalance()>=0) { // Main loop runs while both this.players are not bankrupt
-            gameLogic.setPlayerIndex((gameLogic.getPlayerIndex() +1)%gameLogic.getPlayers().size());
-            if(gameLogic.getPlayerIndex() == 0) {
+        if (gameLogic.getCurrentBalance() >= 0) { // Main loop runs while both this.players are not bankrupt
+            gameLogic.setPlayerIndex((gameLogic.getPlayerIndex() + 1) % gameLogic.getPlayers().size());
+            if (gameLogic.getPlayerIndex() == 0) {
                 gameLogic.setTurn(gameLogic.getTurn() + 1);
                 addInfo("Turn: " + gameLogic.getTurn());
             }
             addInfo(gameLogic.getCurrentPlayer().getPlayerName() + "'s turn");
-            PlayerReal.getInstance().setSelfTerm(gameLogic.getPlayerIndex() ==PlayerReal.getInstance().getPlayerID());
+            PlayerReal.getInstance().setSelfTerm(gameLogic.getPlayerIndex() == PlayerReal.getInstance().getPlayerID());
             gameLogic.getCurrentPlayer().playTurn();
-        }
-        else {
+        } else {
             endGame();
         }
     }
 
     public void endGame() {
-        if(gameLogic.getMultiplayer()) {
+        if (gameLogic.getMultiplayer()) {
             ScoreDTO scoreDTO = new ScoreDTO();
             scoreDTO.setGameId(gameLogic.getGameId());
             scoreDTO.setRoomId(gameLogic.getRoomId());
@@ -429,7 +432,7 @@ public class GameController {
 
     @FXML
     public void quitGame(ActionEvent event) throws IOException {
-        if(gameLogic.getMultiplayer()) {
+        if (gameLogic.getMultiplayer()) {
             timerTask.cancel();
             gameLogic.resetGame();
             SceneController.switchToMultiplayerRoomScene(event);

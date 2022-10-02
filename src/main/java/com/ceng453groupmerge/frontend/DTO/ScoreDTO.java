@@ -7,7 +7,7 @@ public class ScoreDTO {
     private Integer roomId;
     private HashMap<String, Integer> players;
 
-    public ScoreDTO(){
+    public ScoreDTO() {
         players = new HashMap<>();
     }
 
@@ -33,7 +33,7 @@ public class ScoreDTO {
         this.players = players;
     }
 
-    public void addPlayer(String username, Integer score){
+    public void addPlayer(String username, Integer score) {
         this.players.put(username, score);
     }
 

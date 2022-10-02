@@ -4,22 +4,22 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceng453groupmerge.frontend.Controllers.DiceController">
-   <children>
-      <HBox alignment="CENTER">
-         <children>
-            <ImageView fx:id="dice1" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/dice/diceRandom.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="dice2" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/dice/diceRandom.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-   </children>
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ceng453groupmerge.frontend.Controllers.DiceController">
+    <children>
+        <HBox alignment="CENTER">
+            <children>
+                <ImageView fx:id="dice1" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/dice/diceRandom.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="dice2" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/dice/diceRandom.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+    </children>
 </VBox>

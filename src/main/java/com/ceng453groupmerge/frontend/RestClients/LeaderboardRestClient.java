@@ -27,27 +27,26 @@ public class LeaderboardRestClient {
         return leaderboardRestClient;
     }
 
-    public Object getAllTimeLeaderboard(){
+    public Object getAllTimeLeaderboard() {
         return webClient.get().uri(ALL_TIME)
-        .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
-        .bodyToMono(Object.class)
-        .block();
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
+                .bodyToMono(Object.class)
+                .block();
     }
 
-    public Object getMonthlyLeaderboard(){
+    public Object getMonthlyLeaderboard() {
         return webClient.get().uri(MONTHLY)
-        .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
-        .bodyToMono(Object.class)
-        .block();
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
+                .bodyToMono(Object.class)
+                .block();
     }
 
-    public Object getWeeklyLeaderboard(){
+    public Object getWeeklyLeaderboard() {
         return webClient.get().uri(WEEKLY)
-        .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
-        .bodyToMono(Object.class)
-        .block();
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
+                .bodyToMono(Object.class)
+                .block();
     }
-    
 
 
 }

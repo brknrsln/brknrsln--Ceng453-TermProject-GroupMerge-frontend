@@ -35,7 +35,7 @@ public class DiceController {
     }
 
     public void resetGame() {
-        if(instance != null) {
+        if (instance != null) {
             instance = null;
         }
     }
@@ -52,11 +52,12 @@ public class DiceController {
         private long lastUpdate = 0;
         private long INTERVAL = 1000000000 / 50;
         private int MAX_ROLLS = 20;
-        private double angle = 360/MAX_ROLLS;
+        private double angle = 360 / MAX_ROLLS;
 
         private int counter = 0;
         private int dice1Value;
         private int dice2Value;
+
         @Override
         public void handle(long now) {
             if (now - lastUpdate >= INTERVAL) {

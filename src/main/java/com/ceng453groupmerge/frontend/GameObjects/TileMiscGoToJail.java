@@ -1,7 +1,5 @@
 package com.ceng453groupmerge.frontend.GameObjects;
 
-import java.io.IOException;
-
 public class TileMiscGoToJail extends TileMisc {
 
     public TileMiscGoToJail() {

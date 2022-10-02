@@ -102,7 +102,7 @@ public class GameLogicDTO {
         this.purchased = purchased;
     }
 
-    public void setGameLogicDTO(LinkedHashMap<String, ?> gameLogicDTO1){
+    public void setGameLogicDTO(LinkedHashMap<String, ?> gameLogicDTO1) {
         this.playerIndex = (int) gameLogicDTO1.get("playerIndex");
         this.turn = (int) gameLogicDTO1.get("turn");
         this.purchased = (boolean) gameLogicDTO1.get("purchased");

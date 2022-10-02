@@ -10,5 +10,4 @@ public class GameState {
     private int currentPlayer;
 
 
-
 }

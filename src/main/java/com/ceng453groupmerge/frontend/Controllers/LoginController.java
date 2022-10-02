@@ -1,8 +1,8 @@
 package com.ceng453groupmerge.frontend.Controllers;
 
 import com.ceng453groupmerge.frontend.GameObjects.PlayerReal;
-import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import com.ceng453groupmerge.frontend.RestClients.AuthRestClient;
+import com.ceng453groupmerge.frontend.Utilities.AlertHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +23,7 @@ import static com.ceng453groupmerge.frontend.Constants.fxmlPathConstants.*;
 
 @Component
 public class LoginController implements Initializable {
-    private  AuthRestClient authRestClient = AuthRestClient.getInstance();
+    private AuthRestClient authRestClient = AuthRestClient.getInstance();
 
     @FXML
     public TextField nameField;
@@ -41,7 +41,7 @@ public class LoginController implements Initializable {
     @FXML
     public void handleLoginButtonAction(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();
-        if(nameField.getText().isEmpty()) {
+        if (nameField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     EMPTY_NAME_ERROR);
             return;
@@ -49,18 +49,18 @@ public class LoginController implements Initializable {
             Preferences prefs = Preferences.userRoot().node("Monopoly");
             prefs.put("name", nameField.getText());
         }
-        if(passwordField.getText().isEmpty()) {
+        if (passwordField.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     EMPTY_PASSWORD_ERROR);
             return;
         }
 
-        try{
+        try {
             CredentialController.access_token = authRestClient.login(nameField.getText(), passwordField.getText());
             CredentialController.username = nameField.getText();
             PlayerReal.getInstance().setPlayerName(nameField.getText());
             SceneController.switchToScene(event, MAIN_MENU);
-        }catch (Exception e){
+        } catch (Exception e) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, LOGIN_FAILED, e.getMessage());
         }
     }

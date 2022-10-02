@@ -10,7 +10,7 @@ public class Dice {
     private static Dice instance;
 
     public static Dice getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Dice();
         }
         return instance;
@@ -19,6 +19,7 @@ public class Dice {
     public Image getDiceRandom() {
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/dice/diceRandom.png")));
     }
+
     public Image getDiceImage(int i) {
         switch (i) {
             case 1:

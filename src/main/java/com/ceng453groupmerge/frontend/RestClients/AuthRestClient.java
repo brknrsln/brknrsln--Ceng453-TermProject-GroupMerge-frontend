@@ -14,7 +14,6 @@ import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
 public class AuthRestClient {
 
 
-
     private final WebClient webClient;
 
     private static AuthRestClient authRestClient;
@@ -37,20 +36,20 @@ public class AuthRestClient {
     }
 
     //return the access token if success, error message otherwise
-    public String login(String username, String password){
+    public String login(String username, String password) {
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("username", username);
         credentials.add("password", password);
         return webClient.post().uri(LOGIN_AUTH)
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .bodyValue(credentials)
-            .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
-            .bodyToMono(String.class)
-            .block();
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .bodyValue(credentials)
+                .retrieve().onStatus(HttpStatus::isError, clientResponse -> clientResponse.bodyToMono(String.class).map(body -> new Exception(body)))
+                .bodyToMono(String.class)
+                .block();
     }
 
     //return "saved" or throw error message
-    public String register(String username, String email, String password){
+    public String register(String username, String email, String password) {
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("username", username);
         credentials.add("email", email);
@@ -65,7 +64,7 @@ public class AuthRestClient {
     }
 
     //return ok or throw error message
-    public String forgot(String email){
+    public String forgot(String email) {
         MultiValueMap<String, String> credentials = new LinkedMultiValueMap<>();
         credentials.add("email", email);
 

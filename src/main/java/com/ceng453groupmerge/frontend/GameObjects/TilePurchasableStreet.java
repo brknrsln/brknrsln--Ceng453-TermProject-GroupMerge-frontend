@@ -10,14 +10,13 @@ public class TilePurchasableStreet extends TilePurchasable {
 
     @Override
     public void tileAction(Player currentPlayer, Player otherPlayer) {
-        System.out.println("Tile action called for "+getTileName()); // TODO: Debug, remove
-        if(getOwner().equals("")) { // If tile not owned
+        System.out.println("Tile action called for " + getTileName()); // TODO: Debug, remove
+        if (getOwner().equals("")) { // If tile not owned
             GameController.getInstance().setTileButtonsDisable(false);
             GameController.getInstance().gameLogic.waitingOnButtons = true;
-        }
-        else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
-            currentPlayer.subtractMoney(getPrice()/10);
-            otherPlayer.addMoney(getPrice()/10);
+        } else if (!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
+            currentPlayer.subtractMoney(getPrice() / 10);
+            otherPlayer.addMoney(getPrice() / 10);
         }
     }
 

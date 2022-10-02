@@ -10,15 +10,14 @@ public class TilePurchasableRailroad extends TilePurchasable {
 
     @Override
     public void tileAction(Player currentPlayer, Player otherPlayer) {
-        System.out.println("Tile action called for "+getTileName()); // TODO: Debug, remove
-        if(getOwner().equals("")) { // If tile not owned
+        System.out.println("Tile action called for " + getTileName()); // TODO: Debug, remove
+        if (getOwner().equals("")) { // If tile not owned
             GameController.getInstance().setTileButtonsDisable(false);
             GameController.getInstance().gameLogic.waitingOnButtons = true;
-        }
-        else if(!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
+        } else if (!getOwner().equals(currentPlayer.getPlayerName())) { // If owner is someone else
             int railroadsCount = otherPlayer.countRailroads();
-            currentPlayer.subtractMoney(25*railroadsCount);
-            otherPlayer.addMoney(25*railroadsCount);
+            currentPlayer.subtractMoney(25 * railroadsCount);
+            otherPlayer.addMoney(25 * railroadsCount);
         }
     }
 

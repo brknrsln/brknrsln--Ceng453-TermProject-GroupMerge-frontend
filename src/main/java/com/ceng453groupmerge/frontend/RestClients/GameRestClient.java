@@ -14,7 +14,6 @@ import java.io.IOException;
 import static com.ceng453groupmerge.frontend.Constants.URIConstants.*;
 
 
-
 public class GameRestClient {
 
     private final WebClient webClient;
@@ -38,7 +37,7 @@ public class GameRestClient {
     }
 
     //return "saved" or throw error message
-    public String save(String player, String opponent, String player_score, String opponent_score){
+    public String save(String player, String opponent, String player_score, String opponent_score) {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("player", player);
         parameters.add("opponent", opponent);
@@ -54,7 +53,7 @@ public class GameRestClient {
     }
 
     //return games or throw error message
-    public Object getAllGames(){
+    public Object getAllGames() {
         return webClient.get().uri(GET_ALL_GAMES)
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
                 .bodyToMono(Object.class)
@@ -66,7 +65,7 @@ public class GameRestClient {
 //        parameters.add("gameId", gameId.toString());
         Integer gameId = GameLogicDTO.getInstance().getGameId();
         System.out.println("GetGameLogicDTO with gameId: " + gameId);
-        return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC+"/{gameId}").build(gameId))
+        return webClient.get().uri(uriBuilder -> uriBuilder.path(GET_GAME_LOGIC + "/{gameId}").build(gameId))
                 .retrieve().onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Exception(("Error requesting leaderboard."))))
                 .bodyToMono(Object.class)
                 .block();
