@@ -17,7 +17,7 @@ public class GameRestClientTest {
 
     @Test
     void save_success() {
-        String player = "Onaterdem";
+        String player = "Player1";
         String opponent = "AI_OVERLORD";
         String player_score = "1000";
         String opponent_score = "2000";
