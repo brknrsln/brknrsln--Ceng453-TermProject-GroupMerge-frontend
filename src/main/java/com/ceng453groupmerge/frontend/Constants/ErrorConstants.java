@@ -10,4 +10,5 @@ public class ErrorConstants {
     public static final String LOGIN_FAILED = "Login failed.";
     public static final String REGISTER_FAILED = "Register failed.";
     public static final String EMAIL_FAILED = "Failed to send password reset email.";
+    public static final String UNNAMED_ERROR = "Unnamed error!";
 }
